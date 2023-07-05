@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity3">
+
+    <!-- Intro-->
+    <TextView
+        android:id="@+id/login3_intro"
+        style="@style/TextTitleMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login3_intro"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.18" />
+    <!-- Underline -->
+    <View
+        android:id="@+id/lineView"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/login3_intro"
+        app:layout_constraintStart_toStartOf="@+id/login3_intro"
+        app:layout_constraintTop_toBottomOf="@+id/login3_intro"
+        app:layout_constraintVertical_bias="0.01" />
+
+    <ImageView
+        android:paddingHorizontal="30dp"
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        app:srcCompat="@drawable/push_notification" />
+
+    <!-- Checkbox Panel1 -->
+    <LinearLayout
+        android:id="@+id/checkbox_panel1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/circleView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.1"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Space
+                android:layout_width="85dp"
+                android:layout_height="match_parent"/>
+            <Button
+                android:id="@+id/customButton"
+                style="@style/CheckButton"
+                android:backgroundTint="@color/primary_light"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                />
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="match_parent"/>
+            <TextView
+                style="@style/TextNormalBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login3_once" />
+
+
+        </LinearLayout>
+        <Space
+            android:layout_height="10dp"
+            android:layout_width="match_parent" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="VS"
+            style="@style/TextNormalBlack"/>
+        <Space
+            android:layout_height="10dp"
+            android:layout_width="match_parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <Space
+                android:layout_width="85dp"
+                android:layout_height="match_parent"/>
+            <Button
+                android:id="@+id/customButton2"
+                style="@style/CheckButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp" />
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="match_parent"/>
+            <TextView
+                style="@style/TextNormalBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login3_while" />
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="match_parent" />
+
+            <Space
+                android:layout_width="80dp"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <!-- Divide line-->
+    <View
+        android:id="@+id/lineView2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/login3_intro"
+        app:layout_constraintStart_toStartOf="@+id/login3_intro"
+        app:layout_constraintTop_toBottomOf="@+id/checkbox_panel1"
+        app:layout_constraintVertical_bias="0.05" />
+
+    <!-- Checkbox Panel2 -->
+    <LinearLayout
+        android:id="@+id/checkbox_panel2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/circleView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lineView2"
+        app:layout_constraintVertical_bias="0.15"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <Space
+                android:layout_width="85dp"
+                android:layout_height="match_parent"/>
+            <Button
+                android:id="@+id/customButton3"
+                style="@style/CheckButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp" />
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="match_parent"/>
+            <TextView
+                style="@style/TextNormalBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login3_bell" />
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+        <Space
+            android:layout_height="10dp"
+            android:layout_width="match_parent" />
+        <TextView
+            android:id="@+id/login2_spec"
+            style="@style/TextSpec"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login3_spec"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3" />
+
+
+    </LinearLayout>
+
+    <!-- Circular View -->
+    <View
+        android:id="@+id/circleView1"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:background="@drawable/circleview"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/circleView2"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.88" />
+    <View
+        android:id="@+id/circleView2"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:background="@drawable/circleview"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.88" />
+    <View
+        android:id="@+id/circleView3"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:background="@drawable/circleview_on"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/circleView2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.88" />
+
+    <TextView
+        android:id="@+id/textView4"
+        style="@style/TextNormalWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        app:layout_constraintBottom_toBottomOf="@+id/circleView3"
+        app:layout_constraintEnd_toEndOf="@+id/circleView3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/circleView3"
+        app:layout_constraintTop_toTopOf="@+id/circleView3"
+        app:layout_constraintVertical_bias="0.5" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

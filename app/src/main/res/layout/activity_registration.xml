@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="50dp"
+    tools:context=".RegActivity">
+
+
+            <!-- Intro-->
+    <!-- 약이름-->
+
+    <!-- 복용시간-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:orientation="vertical" >
+
+            <Space
+                android:layout_height="90dp"
+                android:layout_width="match_parent"/>
+
+            <TextView
+                android:id="@+id/reg_intro"
+                style="@style/TextTitleLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reg_intro"
+                android:gravity="center_horizontal"/>
+            <Space
+                android:layout_height="50dp"
+                android:layout_width="match_parent"/>
+
+            <!-- 약이름 -->
+            <TextView
+                android:id="@+id/reg_name"
+                style="@style/TextTitleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reg_name" />
+            <EditText
+                android:layout_marginHorizontal="20dp"
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter your text" />
+            <Space
+                android:layout_height="50dp"
+                android:layout_width="match_parent"/>
+
+            <!-- 복용시간 -->
+            <TextView
+                android:id="@+id/reg_time"
+                style="@style/TextTitleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reg_time" />
+            <Space
+            android:layout_height="20dp"
+            android:layout_width="match_parent"/>
+            <TextView
+                android:id="@+id/reg_spec"
+                style="@style/TextSpec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reg_spec"
+                android:gravity="center_horizontal"/>
+            <Space
+                android:layout_height="20dp"
+                android:layout_width="match_parent"/>
+            <TableLayout
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TableRow
+                    android:gravity="center_horizontal">
+                    <Button
+                        android:width="120dp"
+                        android:layout_height="80dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/breakfast"
+                        style="@style/TextNormalWhiteBold">
+                    </Button>
+
+                    <Button
+                        android:width="120dp"
+                        android:layout_height="80dp"
+                        android:backgroundTint="@color/primary_light"
+                        android:text="@string/lunch"
+                        style="@style/TextNormalWhiteBold">
+
+                    </Button>
+                </TableRow>
+
+                <TableRow
+                    android:gravity="center_horizontal">
+                    <Button
+                        android:width="120dp"
+                        android:layout_height="80dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/dinner"
+                        style="@style/TextNormalWhiteBold">
+                    </Button>
+                    <Button
+                        android:width="120dp"
+                        android:layout_height="80dp"
+                        android:text="@string/sleep"                        android:backgroundTint="@color/primary_light"
+
+
+                        style="@style/TextNormalWhiteBold">
+                    </Button>
+                </TableRow>
+
+                <!-- Add more rows as needed -->
+
+            </TableLayout>
+            <Space
+                android:layout_height="50dp"
+                android:layout_width="match_parent"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/reg_more"
+                    style="@style/TextTitleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reg_more" />
+                <Space
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <ImageButton
+                    android:src="@drawable/arrow_icon_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/reg_spec2"
+                style="@style/TextSpec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reg_spec2" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="welcome">안녕하세요</string>
+
+    <string name="login2_intro">약을 주로 언제 드시나요?</string>
+    <string name="login2_spec">* 눌러서 시간 설정</string>
+    <string name="breakfast">아침</string>
+    <string name="lunch">점심</string>
+    <string name="dinner">저녁</string>
+    <string name="sleep">자기전</string>
+
+    <string name="login3_intro">알림을 어떻게 받고 싶나요?</string>
+    <string name="login3_once">시간마다 한 번만</string>
+    <string name="login3_while">복용할 때까지</string>
+    <string name="login3_bell">벨소리 알람 사용</string>
+    <string name="login3_spec">* 벨소리 알람은 한 번만 울립니다</string>
+
+    <string name="reg_intro">약/영양제 등록</string>
+    <string name="reg_name">약이름</string>
+    <string name="reg_time">복용시간</string>
+    <string name="reg_more">자세히 입력하기</string>
+    <string name="reg_spec">* 원하는 시간을 눌러주세요</string>
+    <string name="reg_spec2">* 선택사항</string>
+
+
+
+
+    <string name="google_login">구글 아이디로 시작하기</string>
+    <string name="apple_login">애플 아이디로 시작하기</string>
+</resources>

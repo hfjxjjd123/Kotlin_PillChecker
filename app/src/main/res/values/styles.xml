@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TITLE -->
+    <style name="TextTitleLarge">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textSize">36sp</item>
+    </style>
+    <style name="TextTitleMedium">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textSize">28sp</item>
+    </style>
+    <style name="TextTitleSmall">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <!-- Normal text -->
+    <style name="TextNormalBlack">
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+    <style name="TextNormalWhite">
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="TextNormalWhiteBold">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <!-- Spec text -->
+    <style name="TextSpec">
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- Button Style -->
+    <style name="ButtonTemp" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="colorAccent">@color/primary</item>
+    </style>
+    <style name="CheckButton" parent="ThemeOverlay.AppCompat">
+        <item name="android:background">@drawable/checkbox</item>
+        <item name="colorAccent">@color/primary_light</item>
+    </style>
+
+</resources>
