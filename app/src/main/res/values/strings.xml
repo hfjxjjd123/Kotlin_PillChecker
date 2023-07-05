@@ -15,6 +15,7 @@
     <string name="login3_bell">벨소리 알람 사용</string>
     <string name="login3_spec">* 벨소리 알람은 한 번만 울립니다</string>
 
+    <!-- 약/영양제 등록 페이지 -->
     <string name="reg_intro">약/영양제 등록</string>
     <string name="reg_name">약이름</string>
     <string name="reg_time">복용시간</string>
@@ -26,6 +27,10 @@
     <string name="reg_cancel">취소</string>
     <string name="reg_reg">등록</string>
     <string name="reg_metric">알</string>
+
+    <!-- Calendar 페이지 -->
+    <string name="cal_intro">복용 달력</string>
+    <string name="cal_example">5일전 아침</string>
 
 
 
