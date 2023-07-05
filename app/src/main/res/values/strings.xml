@@ -21,7 +21,11 @@
     <string name="reg_more">자세히 입력하기</string>
     <string name="reg_spec">* 원하는 시간을 눌러주세요</string>
     <string name="reg_spec2">* 선택사항</string>
-
+    <string name="reg_image">사진등록</string>
+    <string name="reg_nums">수량</string>
+    <string name="reg_cancel">취소</string>
+    <string name="reg_reg">등록</string>
+    <string name="reg_metric">알</string>
 
 
 
