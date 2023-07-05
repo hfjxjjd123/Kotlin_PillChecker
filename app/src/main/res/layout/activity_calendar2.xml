@@ -38,7 +38,7 @@
         app:layout_constraintStart_toStartOf="@id/start_of_panel"
         app:layout_constraintTop_toBottomOf="@+id/top_of_panel"
         app:layout_constraintVertical_bias="0"
-        android:background="@color/primary" />
+        android:background="@drawable/recycler_panel" />
 
     <androidx.constraintlayout.widget.Guideline
         android:orientation="horizontal"
