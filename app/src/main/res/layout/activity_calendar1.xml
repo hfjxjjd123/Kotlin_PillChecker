@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CalendarActivity2">
+
+    <TextView
+        android:id="@+id/calendar_text_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text= "@string/cal_intro"
+        style="@style/TextTitleLarge"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/top_of_intro"
+        app:layout_constraintVertical_bias="0"/>
+    <TextView
+        android:id="@+id/calendar_spec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text= "@string/cal_spec"
+        style="@style/TextSpec"
+        app:layout_constraintBottom_toBottomOf="@id/top_of_panel"
+        app:layout_constraintEnd_toStartOf="@id/end_of_panel"
+        app:layout_constraintStart_toEndOf="@id/start_of_panel"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintHorizontal_bias="0"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toTopOf="@id/bottom_of_panel"
+        app:layout_constraintEnd_toStartOf="@id/start_of_panel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_of_panel"
+        >
+        <TextView
+            android:id="@+id/calendar_today"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cal_today"
+            style="@style/TextSmallBlack" />
+        <TextView
+            android:id="@+id/calendar_yesterday"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cal_yesterday"
+            style="@style/TextSmallBlack" />
+        <TextView
+            android:id="@+id/calendar_d2"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cal_d2"
+            style="@style/TextSmallBlack" />
+        <TextView
+            android:id="@+id/calendar_d3"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cal_d3"
+            style="@style/TextSmallBlack" />
+        <TextView
+            android:id="@+id/calendar_d4"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cal_d4"
+            style="@style/TextSmallBlack" />
+        <TextView
+            android:id="@+id/calendar_d5"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cal_d5"
+            style="@style/TextSmallBlack" />
+
+    </LinearLayout>
+
+
+
+
+
+    <!-- 잠깐 보류
+        <TextView
+            style="@style/TextSmallBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cal_today"
+
+            app:layout_constraintBottom_toTopOf="@id/bottom_of_panel"
+            app:layout_constraintEnd_toStartOf="@id/start_of_panel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_of_panel"
+            app:layout_constraintHorizontal_bias="1"/>
+        <TextView
+            style="@style/TextSmallBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cal_yesterday"
+
+            app:layout_constraintBottom_toTopOf="@id/bottom_of_panel"
+            app:layout_constraintEnd_toStartOf="@id/start_of_panel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_of_panel"
+            app:layout_constraintHorizontal_bias="1"/>
+        <TextView
+            style="@style/TextSmallBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cal_d2"
+
+            app:layout_constraintBottom_toTopOf="@id/bottom_of_panel"
+            app:layout_constraintEnd_toStartOf="@id/start_of_panel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_of_panel"
+            app:layout_constraintHorizontal_bias="1"/>
+        <TextView
+            style="@style/TextSmallBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cal_d3"
+
+            app:layout_constraintBottom_toTopOf="@id/bottom_of_panel"
+            app:layout_constraintEnd_toStartOf="@id/start_of_panel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_of_panel"
+            app:layout_constraintHorizontal_bias="1"/>
+        <TextView
+            style="@style/TextSmallBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cal_d4"
+
+            app:layout_constraintBottom_toTopOf="@id/bottom_of_panel"
+            app:layout_constraintEnd_toStartOf="@id/start_of_panel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_of_panel"
+            app:layout_constraintHorizontal_bias="1"/>
+        <TextView
+            style="@style/TextSmallBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cal_d5"
+
+            app:layout_constraintBottom_toTopOf="@id/bottom_of_panel"
+            app:layout_constraintEnd_toStartOf="@id/start_of_panel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_of_panel"
+            app:layout_constraintHorizontal_bias="1"/>
+    -->
+
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/top_of_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_begin="90dp" />
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/top_of_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.24" />
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/bottom_of_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.6" />
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="vertical"
+        android:id="@+id/start_of_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.15" />
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="vertical"
+        android:id="@+id/end_of_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.85" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

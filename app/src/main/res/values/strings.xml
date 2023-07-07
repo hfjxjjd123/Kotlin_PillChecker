@@ -31,6 +31,14 @@
     <!-- Calendar 페이지 -->
     <string name="cal_intro">복용 달력</string>
     <string name="cal_example">5일전 아침</string>
+    <string name="cal_spec">* X 눌러서 안 먹은 약 보기</string>
+    <string name="cal_today">오늘</string>
+    <string name="cal_yesterday">어제</string>
+    <string name="cal_d2">2일전</string>
+    <string name="cal_d3">3일전</string>
+    <string name="cal_d4">4일전</string>
+    <string name="cal_d5">5일전</string>
+
 
 
 
