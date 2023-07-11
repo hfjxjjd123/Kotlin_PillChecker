@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Enter your text" />
             <Space
-                android:layout_height="50dp"
+                android:layout_height="60dp"
                 android:layout_width="match_parent"/>
 
             <!-- 복용시간 -->
@@ -78,7 +78,7 @@
                 android:text="@string/reg_spec"
                 android:gravity="center_horizontal"/>
             <Space
-                android:layout_height="20dp"
+                android:layout_height="5dp"
                 android:layout_width="match_parent"/>
             <TableLayout
                 android:layout_marginHorizontal="20dp"
@@ -128,8 +128,9 @@
 
             </TableLayout>
             <Space
-                android:layout_height="50dp"
+                android:layout_height="60dp"
                 android:layout_width="match_parent"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -183,6 +184,7 @@
             <Space
                 android:layout_height="30dp"
                 android:layout_width="match_parent"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -199,7 +201,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0.5"
+                    android:text="1.0"
                     style="@style/TextNormalWhite">
                 </Button>
                 <Space

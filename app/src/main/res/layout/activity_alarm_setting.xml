@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AlarmSettingActivity">
+
+    <TextView
+        android:id="@+id/calendar_text_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text= "@string/alarm_intro"
+        style="@style/TextTitleLarge"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/top_of_intro"
+        app:layout_constraintVertical_bias="0"/>
+    <TextView
+        android:id="@+id/login2_spec"
+        style="@style/TextSpec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login2_spec"
+        app:layout_constraintBottom_toTopOf="@id/top_of_panel"
+        app:layout_constraintEnd_toEndOf="@id/end_of_panel"
+        app:layout_constraintStart_toStartOf="@id/start_of_panel"
+        app:layout_constraintTop_toTopOf="@id/calendar_text_intro"
+        app:layout_constraintVertical_bias="1" />
+
+    <TextView
+        style="@style/TextNormalBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_of_time1"
+        app:layout_constraintEnd_toEndOf="@id/end_of_time"
+        app:layout_constraintStart_toStartOf="@id/start_of_panel"
+        app:layout_constraintTop_toTopOf="@id/top_of_time1"
+        app:layout_constraintHorizontal_bias="1"
+        android:text="@string/breakfast"/>
+    <Button
+        android:text="08:30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/end_of_time"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_of_time1"
+        app:layout_constraintTop_toTopOf="@id/top_of_time1"
+        app:layout_constraintHorizontal_bias="0.15" />
+    <TextView
+        style="@style/TextNormalBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_of_time2"
+        app:layout_constraintEnd_toEndOf="@id/end_of_time"
+        app:layout_constraintStart_toStartOf="@id/start_of_panel"
+        app:layout_constraintTop_toTopOf="@id/top_of_time2"
+        app:layout_constraintHorizontal_bias="1"
+        android:text="@string/lunch"/>
+    <Button
+        android:text="12:00"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/end_of_time"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_of_time2"
+        app:layout_constraintTop_toTopOf="@id/top_of_time2"
+        app:layout_constraintHorizontal_bias="0.15" />
+    <TextView
+        style="@style/TextNormalBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_of_time3"
+        app:layout_constraintEnd_toEndOf="@id/end_of_time"
+        app:layout_constraintStart_toStartOf="@id/start_of_panel"
+        app:layout_constraintTop_toTopOf="@id/top_of_time3"
+        app:layout_constraintHorizontal_bias="1"
+        android:text="@string/dinner"/>
+    <Button
+        android:text="17:30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/end_of_time"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_of_time3"
+        app:layout_constraintTop_toTopOf="@id/top_of_time3"
+        app:layout_constraintHorizontal_bias="0.15" />
+    <TextView
+        style="@style/TextNormalBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_of_time4"
+        app:layout_constraintEnd_toEndOf="@id/end_of_time"
+        app:layout_constraintStart_toStartOf="@id/start_of_panel"
+        app:layout_constraintTop_toTopOf="@id/top_of_time4"
+        app:layout_constraintHorizontal_bias="1"
+        android:text="@string/sleep"/>
+    <Button
+        android:text="23:00"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/end_of_time"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_of_time4"
+        app:layout_constraintTop_toTopOf="@id/top_of_time4"
+        app:layout_constraintHorizontal_bias="0.15" />
+
+    <TextView
+        android:id="@+id/alarm_toggle1"
+        style="@style/TextNormalBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_of_toggle1"
+        app:layout_constraintEnd_toEndOf="@id/end_of_panel"
+        app:layout_constraintStart_toStartOf="@id/start_of_panel"
+        app:layout_constraintTop_toTopOf="@id/top_of_toggle1"
+        android:text="@string/alarm_toggle1"
+        app:layout_constraintHorizontal_bias="0.2"/>
+    <Switch
+        android:id="@+id/chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_of_toggle1"
+        app:layout_constraintEnd_toEndOf="@id/end_of_panel"
+        app:layout_constraintStart_toEndOf="@+id/alarm_toggle1"
+        app:layout_constraintTop_toTopOf="@id/top_of_toggle1"
+        app:layout_constraintHorizontal_bias="1"/>
+
+    <TextView
+        android:id="@+id/alarm_toggle2"
+        style="@style/TextNormalBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_of_toggle2"
+        app:layout_constraintEnd_toEndOf="@id/end_of_panel"
+        app:layout_constraintStart_toStartOf="@id/start_of_panel"
+        app:layout_constraintTop_toTopOf="@id/top_of_toggle2"
+        android:text="@string/alarm_toggle2_off"
+        app:layout_constraintHorizontal_bias="0.2"/>
+    <Switch
+        android:id="@+id/chip2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_of_toggle2"
+        app:layout_constraintEnd_toEndOf="@id/end_of_panel"
+        app:layout_constraintStart_toEndOf="@+id/alarm_toggle2"
+        app:layout_constraintTop_toTopOf="@id/top_of_toggle2"
+        app:layout_constraintHorizontal_bias="1"/>
+
+    <TextView
+        android:id="@+id/login3_spec"
+        style="@style/TextSpec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login3_spec"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/end_of_panel"
+        app:layout_constraintStart_toStartOf="@id/start_of_panel"
+        app:layout_constraintTop_toBottomOf="@id/bottom_of_toggle2"
+        app:layout_constraintVertical_bias="0.02" />
+
+
+
+
+
+
+
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/top_of_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_begin="90dp" />
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="vertical"
+        android:id="@+id/start_of_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.15" />
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="vertical"
+        android:id="@+id/end_of_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.85" />
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/top_of_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.24" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="vertical"
+        android:id="@+id/end_of_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.44" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/top_of_time1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.27" />
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/bottom_of_time1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.32" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/top_of_time2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.35" />
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/bottom_of_time2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/top_of_time3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.43" />
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/bottom_of_time3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.48" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/top_of_time4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.51" />
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/bottom_of_time4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.56" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/top_of_toggle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.6" />
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/bottom_of_toggle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <View
+        android:id="@+id/lineView"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/end_of_panel"
+        app:layout_constraintStart_toStartOf="@id/start_of_panel"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.68"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/top_of_toggle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.71" />
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/bottom_of_toggle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.76" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

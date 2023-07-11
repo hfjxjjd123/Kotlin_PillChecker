@@ -39,6 +39,13 @@
     <string name="cal_d4">4일전</string>
     <string name="cal_d5">5일전</string>
 
+    <!-- 알림 설정 페이지 -->
+    <string name="alarm_intro">알림 설정</string>
+    <string name="alarm_toggle1">복용할 때까지 알림</string>
+    <string name="alarm_toggle2_off">메시지 알림만 사용</string>
+    <string name="alarm_toggle2_on">벨소리 알림도 사용</string>
+
+
 
 
 
