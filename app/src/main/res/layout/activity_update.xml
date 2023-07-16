@@ -4,223 +4,221 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="50dp"
     tools:context=".UpdateActivity">
 
 
-            <!-- Intro-->
-    <!-- 약이름-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/gray"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0">
 
-    <!-- 복용시간-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom">
+            <ImageButton
+                android:src="@drawable/arrow_back_24"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/gray"/>
+            <Space
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"/>
+            <ImageButton
+                android:src="@drawable/menu_icon_24"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/gray"/>
+            <Space
+                android:layout_width="15dp"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+
+    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_marginHorizontal="50dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@+id/register_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <Space
-                android:layout_height="90dp"
-                android:layout_width="match_parent"/>
-
-            <TextView
-                android:id="@+id/reg_intro"
-                style="@style/TextTitleLarge"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/reg_intro"
-                android:gravity="center_horizontal"/>
-            <Space
-                android:layout_height="50dp"
-                android:layout_width="match_parent"/>
+                android:layout_height="50dp" />
 
-            <!-- 약이름 -->
             <TextView
-                android:id="@+id/reg_name"
-                style="@style/TextTitleSmall"
+                android:id="@+id/reg_pill"
+                style="@style/TextTitleMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/reg_name" />
-            <EditText
-                android:layout_marginHorizontal="20dp"
-                android:id="@+id/editText"
+                android:text="마그네슘" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter your text" />
-            <Space
-                android:layout_height="60dp"
-                android:layout_width="match_parent"/>
+                android:gravity="left">
 
-            <!-- 복용시간 -->
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"></Space>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        app:srcCompat="@drawable/pill_image" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
             <TextView
                 android:id="@+id/reg_time"
                 style="@style/TextTitleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/reg_time" />
+
             <Space
-            android:layout_height="20dp"
-            android:layout_width="match_parent"/>
-            <TextView
-                android:id="@+id/reg_spec"
-                style="@style/TextSpec"
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="5dp" />
+
+            <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/reg_spec"
-                android:gravity="center_horizontal"/>
-            <Space
-                android:layout_height="5dp"
-                android:layout_width="match_parent"/>
-            <TableLayout
-                android:layout_marginHorizontal="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_marginHorizontal="20dp">
 
-                <TableRow
-                    android:gravity="center_horizontal">
+                <TableRow android:gravity="center_horizontal">
+
                     <Button
-                        android:width="120dp"
+                        style="@style/TextNormalWhiteBold"
                         android:layout_height="80dp"
                         android:layout_marginEnd="16dp"
-                        android:text="@string/breakfast"
-                        style="@style/TextNormalWhiteBold">
-                    </Button>
+                        android:width="120dp"
+                        android:text="@string/breakfast"></Button>
 
                     <Button
-                        android:width="120dp"
+                        style="@style/TextNormalWhiteBold"
                         android:layout_height="80dp"
+                        android:width="120dp"
                         android:backgroundTint="@color/primary_light"
-                        android:text="@string/lunch"
-                        style="@style/TextNormalWhiteBold">
+                        android:text="@string/lunch">
 
                     </Button>
                 </TableRow>
 
-                <TableRow
-                    android:gravity="center_horizontal">
+                <TableRow android:gravity="center_horizontal">
+
                     <Button
-                        android:width="120dp"
+                        style="@style/TextNormalWhiteBold"
                         android:layout_height="80dp"
                         android:layout_marginEnd="16dp"
-                        android:text="@string/dinner"
-                        style="@style/TextNormalWhiteBold">
-                    </Button>
-                    <Button
                         android:width="120dp"
+                        android:text="@string/dinner"></Button>
+
+                    <Button
+                        style="@style/TextNormalWhiteBold"
                         android:layout_height="80dp"
-                        android:text="@string/sleep"                        android:backgroundTint="@color/primary_light"
+                        android:width="120dp"
+                        android:backgroundTint="@color/primary_light"
 
 
-                        style="@style/TextNormalWhiteBold">
-                    </Button>
+                        android:text="@string/sleep"></Button>
                 </TableRow>
 
                 <!-- Add more rows as needed -->
 
             </TableLayout>
-            <Space
-                android:layout_height="60dp"
-                android:layout_width="match_parent"/>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/reg_more"
-                    style="@style/TextTitleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/reg_more" />
-                <Space
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <ImageButton
-                    android:src="@drawable/arrow_icon_24"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white"/>
-            </LinearLayout>
-            <TextView
-                android:id="@+id/reg_spec2"
-                style="@style/TextSpec"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/reg_spec2" />
+                android:gravity="center" />
 
             <Space
-                android:layout_height="30dp"
-                android:layout_width="match_parent"/>
-            <TextView
-                android:id="@+id/reg_image"
-                style="@style/TextTitleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/reg_image" />
-            <Space
-                android:layout_height="20dp"
-                android:layout_width="match_parent"/>
-            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    app:srcCompat="@drawable/pill_image" />
-            </LinearLayout>
-            <Space
-                android:layout_height="30dp"
-                android:layout_width="match_parent"/>
+                android:layout_height="40dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/reg_nums"
                     style="@style/TextTitleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/reg_nums" />
+
                 <Space
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"></Space>
+
                 <Button
+                    style="@style/TextNormalWhite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1.0"
-                    style="@style/TextNormalWhite">
-                </Button>
+                    android:text="1.0"></Button>
+
                 <Space
                     android:layout_width="10dp"
                     android:layout_height="wrap_content"></Space>
+
                 <TextView
                     android:id="@+id/reg_metric"
                     style="@style/TextTitleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/reg_metric" />
+
                 <Space
                     android:layout_width="10dp"
                     android:layout_height="wrap_content"></Space>
 
             </LinearLayout>
+
             <Space
-                android:layout_height="100dp"
-                android:layout_width="match_parent"/>
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
 
 
         </LinearLayout>
@@ -228,31 +226,30 @@
 
     <Button
         android:id="@+id/cancel_button"
+        style="@style/TextSmallWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingVertical="12dp"
+        android:text="@string/reg_cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95"
         app:layout_constraintHorizontal_bias="0"
-        android:text="@string/reg_cancel"
-        style="@style/TextSmallWhite">
-    </Button>
+        app:layout_constraintStart_toStartOf="@+id/scroll_view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95"></Button>
+
     <Button
         android:id="@+id/register_button"
+        style="@style/TextSmallWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingVertical="12dp"
+        android:text="@string/reg_reg"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/scroll_view"
+        app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95"
-        app:layout_constraintHorizontal_bias="1"
-        android:text="@string/reg_reg"
-        style="@style/TextSmallWhite">
-    </Button>
+        app:layout_constraintVertical_bias="0.95"></Button>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
