@@ -1,11 +1,11 @@
-package com.example.myapplication
+package com.example.pill_checker
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
-class LoginActivity3:AppCompatActivity() {
+class ReadActivity:AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login3)
+        setContentView(R.layout.activity_read)
     }
 }

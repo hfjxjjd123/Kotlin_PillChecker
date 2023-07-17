@@ -4,7 +4,6 @@
     android:shape="rectangle">
     <size android:width="32dp" android:height="32dp" />
     <solid android:color= "@color/primary_light" />
-    <solid android:backgroudTint = "@color/primary_light" />
     <!-- Add any additional styling properties as needed -->
 </shape>
 
