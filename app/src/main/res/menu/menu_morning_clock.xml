@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/lunch_clock1"
+        android:title="06:00" />
+    <item
+        android:id="@+id/morning_clock2"
+        android:title="06:30" />
+    <item
+        android:id="@+id/morning_clock3"
+        android:title="07:00" />
+    <item
+        android:id="@+id/morning_clock4"
+        android:title="07:30" />
+    <item
+        android:id="@+id/morning_clock5"
+        android:title="08:00" />
+    <item
+        android:id="@+id/morning_clock6"
+        android:title="08:30" />
+    <item
+        android:id="@+id/morning_clock7"
+        android:title="09:00" />
+</menu>

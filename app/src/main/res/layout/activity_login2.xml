@@ -119,6 +119,7 @@
                 android:layout_height="match_parent"
                 android:layout_width="28dp"/>
             <Button
+                android:id="@+id/morning_clock"
                 android:text="08:30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -142,6 +143,7 @@
                 android:layout_width="28dp" />
             <!-- (수정) 시간 리터럴임 -->
             <Button
+                android:id="@+id/lunch_clock"
                 android:text="12:00"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -164,6 +166,7 @@
                 android:layout_width="28dp" />
             <!-- (수정) 시간 리터럴임 -->
             <Button
+                android:id="@+id/dinner_clock"
                 android:text="18:00"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -186,6 +189,7 @@
                 android:layout_width="28dp" />
             <!-- (수정) 시간 리터럴임 -->
             <Button
+                android:id="@+id/sleep_clock"
                 android:text="23:00"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
