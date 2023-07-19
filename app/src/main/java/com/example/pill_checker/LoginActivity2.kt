@@ -1,13 +1,32 @@
 package com.example.pill_checker
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.Button
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
+import java.lang.Thread.sleep
+import java.time.Duration
 
 class LoginActivity2:AppCompatActivity() {
+
+    override fun getIntent(): Intent {
+        return Intent(this, LoginActivity3::class.java)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        var isMorningSet: Boolean = false
+        var isLunchSet: Boolean = false
+        var isDinnerSet: Boolean = false
+        var isSleepSet: Boolean = false
+
+        fun navigate(): Boolean{
+            if(isMorningSet && isLunchSet && isDinnerSet && isSleepSet){
+                startActivity(intent)
+            }
+            return true
+        }
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login2)
@@ -21,7 +40,8 @@ class LoginActivity2:AppCompatActivity() {
 
             popupMenu.setOnMenuItemClickListener { item ->
                 morningClock.text = item.title
-                true
+                isMorningSet = true;
+                navigate()
             }
 
             popupMenu.show()
@@ -36,7 +56,8 @@ class LoginActivity2:AppCompatActivity() {
 
             popupMenu.setOnMenuItemClickListener { item ->
                 lunchClock.text = item.title
-                true
+                isLunchSet=true
+                navigate()
             }
 
             popupMenu.show()
@@ -51,7 +72,8 @@ class LoginActivity2:AppCompatActivity() {
 
             popupMenu.setOnMenuItemClickListener { item ->
                 dinnerClock.text = item.title
-                true
+                isDinnerSet=true
+                navigate()
             }
 
             popupMenu.show()
@@ -66,11 +88,16 @@ class LoginActivity2:AppCompatActivity() {
 
             popupMenu.setOnMenuItemClickListener { item ->
                 sleepClock.text = item.title
-                true
+                isSleepSet=true
+                navigate()
             }
 
             popupMenu.show()
         }
+
+
+
+
     }
 
 
