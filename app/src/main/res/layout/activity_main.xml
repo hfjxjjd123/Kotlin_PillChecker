@@ -96,7 +96,6 @@
 
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/calendar_detail"
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -109,6 +108,7 @@
             app:cardElevation="4dp">
 
             <LinearLayout
+                android:id="@+id/title_calender"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/recycler_panel"
@@ -117,7 +117,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    style="@style/TextLargeWhiteBold"
+                    style="@style/TextNormalWhiteBold"
                     android:gravity="center"
                     android:text="@string/cal_intro"/>
                 <Space
@@ -153,10 +153,11 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/recycler_panel"
-                android:paddingVertical="25dp">
+                android:background="@drawable/recycler_panel">
 
                 <LinearLayout
+                    android:paddingVertical="20dp"
+                    android:id="@+id/title_pills"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingStart="25dp"
@@ -164,7 +165,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        style="@style/TextLargeWhiteBold"
+                        style="@style/TextNormalWhiteBold"
                         android:gravity="center"
                         android:text="@string/pills"/>
                     <Space
@@ -179,17 +180,19 @@
                         />
 
                 </LinearLayout>
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"/>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
 
-
-
         </androidx.cardview.widget.CardView>
+
+        <Space
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pills"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
 
 
         <!-- Scrollable하게 구현하기 -->
@@ -241,7 +244,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintGuide_begin="90dp" />
+            app:layout_constraintGuide_begin="70dp" />
         <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:id="@+id/top_of_panel"
@@ -251,7 +254,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintGuide_begin="200dp" />
+            app:layout_constraintGuide_begin="180dp" />
         <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:id="@+id/bottom_of_panel"
@@ -261,7 +264,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintGuide_begin="600dp" />
+            app:layout_constraintGuide_begin="580dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
@@ -272,7 +275,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintGuide_begin="650dp" />
+            app:layout_constraintGuide_begin="620dp" />
         <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:id="@+id/bottom_of_calendar_detail"
@@ -282,7 +285,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintGuide_begin="740dp" />
+            app:layout_constraintGuide_begin="700dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
@@ -293,7 +296,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintGuide_begin="790dp" />
+            app:layout_constraintGuide_begin="740dp" />
 
 
         <androidx.constraintlayout.widget.Guideline
