@@ -58,32 +58,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
+            android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
             <Space
-                android:layout_width="85dp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"/>
-            <Button
-                android:id="@+id/customButton"
-                style="@style/CheckButton"
-                android:backgroundTint="@color/primary_light"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                />
-            <Space
-                android:layout_width="20dp"
-                android:layout_height="match_parent"/>
-            <TextView
-                style="@style/TextNormalBlack"
+            <Switch
+                android:id="@+id/switch1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/login3_once" />
-
+                android:layout_weight="1"
+                android:textOn="@string/login3_while"
+                android:textOff="@string/login3_once"
+                style="@style/TextNormalBlack"/>
+            <Space
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
         <Space
