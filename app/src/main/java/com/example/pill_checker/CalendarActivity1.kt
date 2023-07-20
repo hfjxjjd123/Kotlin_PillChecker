@@ -9,7 +9,7 @@ class CalendarActivity1:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar1)
 
-        val backArrow = findViewById<ImageButton>(R.id.back_to_main)
+        val backArrow = findViewById<ImageButton>(R.id.back_arrow)
         backArrow.setOnClickListener(){
             finish()
         }
