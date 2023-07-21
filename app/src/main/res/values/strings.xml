@@ -11,9 +11,11 @@
 
     <string name="not_defined">-- : --</string>
     <string name="login3_intro">알림을 어떻게 받고 싶나요?</string>
-    <string name="login3_once">시간마다 한 번만</string>
+    <string name="login3_once">시간마다 한 번만 알림</string>
     <string name="login3_while">복용할 때까지 알림</string>
     <string name="login3_bell">벨소리 알람 사용</string>
+    <string name="login3_nobell">벨소리 알람 미사용</string>
+
     <string name="login3_spec">* 벨소리 알람은 한 번만 울립니다</string>
 
     <!-- 약/영양제 등록 페이지 -->

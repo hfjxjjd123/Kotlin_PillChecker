@@ -31,107 +31,35 @@
         app:layout_constraintVertical_bias="0.01" />
 
     <ImageView
-        android:paddingHorizontal="30dp"
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingHorizontal="30dp"
+        app:layout_constraintBottom_toBottomOf="@id/bottom_of_pic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintVertical_bias="1"
         app:srcCompat="@drawable/push_notification" />
 
     <!-- Checkbox Panel1 -->
-    <LinearLayout
-        android:id="@+id/checkbox_panel1"
-        android:layout_width="match_parent"
+
+    <Switch
+        android:id="@+id/switch1"
+        style="@style/TextNormalBlack"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/circleView2"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:switchPadding="20dp"
+        android:text="@string/login3_once"
+        android:thumb="@drawable/switch_thumb"
+        android:track="@drawable/switch_selector"
+        app:layout_constraintBottom_toTopOf="@id/bottom_of_switch1"
+        app:layout_constraintEnd_toEndOf="@id/end_of_switch1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.1"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <Space
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
-            <Switch
-                android:id="@+id/switch1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textOn="@string/login3_while"
-                android:textOff="@string/login3_once"
-                style="@style/TextNormalBlack"/>
-            <Space
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintHorizontal_bias="1"/>
 
-        </LinearLayout>
-        <Space
-            android:layout_height="10dp"
-            android:layout_width="match_parent" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="VS"
-            style="@style/TextNormalBlack"/>
-        <Space
-            android:layout_height="10dp"
-            android:layout_width="match_parent" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <Space
-                android:layout_width="85dp"
-                android:layout_height="match_parent"/>
-            <Button
-                android:id="@+id/customButton2"
-                style="@style/CheckButton"
-                android:layout_width="32dp"
-                android:layout_height="32dp" />
-            <Space
-                android:layout_width="20dp"
-                android:layout_height="match_parent"/>
-            <TextView
-                style="@style/TextNormalBlack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/login3_while" />
-
-            <Space
-                android:layout_width="20dp"
-                android:layout_height="match_parent" />
-
-            <Space
-                android:layout_width="80dp"
-                android:layout_height="match_parent" />
-
-        </LinearLayout>
-
-
-    </LinearLayout>
 
     <!-- Divide line-->
     <View
@@ -139,76 +67,56 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/divider"
         app:layout_constraintEnd_toEndOf="@+id/login3_intro"
         app:layout_constraintStart_toStartOf="@+id/login3_intro"
-        app:layout_constraintTop_toBottomOf="@+id/checkbox_panel1"
-        app:layout_constraintVertical_bias="0.05" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1" />
 
     <!-- Checkbox Panel2 -->
-    <LinearLayout
-        android:id="@+id/checkbox_panel2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/circleView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lineView2"
-        app:layout_constraintVertical_bias="0.15"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <Switch
+            android:id="@+id/switch2"
+            style="@style/TextNormalBlack"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:switchPadding="20dp"
+            android:text="@string/login3_nobell"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/switch_selector"
+
+            app:layout_constraintBottom_toTopOf="@id/circleView2"
+            app:layout_constraintEnd_toEndOf="@id/end_of_switch1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <Space
-                android:layout_width="85dp"
-                android:layout_height="match_parent"/>
-            <Button
-                android:id="@+id/customButton3"
-                style="@style/CheckButton"
-                android:layout_width="32dp"
-                android:layout_height="32dp" />
-            <Space
-                android:layout_width="20dp"
-                android:layout_height="match_parent"/>
-            <TextView
-                style="@style/TextNormalBlack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/login3_bell" />
+            app:layout_constraintTop_toTopOf="@id/top_of_switch2"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintHorizontal_bias="1"/>
 
-            <Space
-                android:layout_width="20dp"
-                android:layout_height="match_parent" />
-
-
-        </LinearLayout>
-        <Space
-            android:layout_height="10dp"
-            android:layout_width="match_parent" />
         <TextView
             android:id="@+id/login2_spec"
             style="@style/TextSpec"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/login3_spec"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/circleView2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.3" />
-
-
-    </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@id/switch2"
+            app:layout_constraintVertical_bias="0.04" />
+    <!-- 임시 버튼 for 네비게이트-->
+    <Button
+        android:id="@+id/start_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/circleView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login2_spec"
+        android:paddingVertical="20dp"
+        android:text="앱 시작하기"
+        style="@style/TextNormalWhiteBold"
+        app:layout_constraintVertical_bias="0.5"/>
 
     <!-- Circular View -->
     <View
@@ -222,6 +130,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.88" />
+
     <View
         android:id="@+id/circleView2"
         android:layout_width="50sp"
@@ -232,6 +141,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.88" />
+
     <View
         android:id="@+id/circleView3"
         android:layout_width="50sp"
@@ -256,6 +166,62 @@
         app:layout_constraintStart_toStartOf="@+id/circleView3"
         app:layout_constraintTop_toTopOf="@+id/circleView3"
         app:layout_constraintVertical_bias="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottom_of_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.39"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottom_of_switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/top_of_switch2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.55"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/end_of_switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.82"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

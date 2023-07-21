@@ -11,7 +11,7 @@ import java.time.Duration
 class LoginActivity2:AppCompatActivity() {
 
     override fun getIntent(): Intent {
-        return Intent(this, MainActivity::class.java)
+        return Intent(this, LoginActivity3::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
