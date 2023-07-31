@@ -139,10 +139,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/pills"
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/end_of_content"
             app:layout_constraintStart_toStartOf="@id/start_of_content"
             app:layout_constraintTop_toBottomOf="@+id/top_of_pills"
@@ -151,41 +149,44 @@
             app:cardElevation="4dp">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/recycler_panel">
+                android:background="@drawable/recycler_panel"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:paddingVertical="20dp"
                     android:id="@+id/title_pills"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:paddingVertical="20dp"
                     android:paddingStart="25dp"
                     android:paddingEnd="10dp">
+
                     <TextView
+                        style="@style/TextNormalWhiteBold"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        style="@style/TextNormalWhiteBold"
                         android:gravity="center"
-                        android:text="@string/pills"/>
+                        android:text="@string/pills" />
+
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <ImageView
-                        android:src="@drawable/arrow_white_24"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:backgroundTint="@color/primary"
                         android:paddingRight="12dp"
-                        />
+                        android:src="@drawable/arrow_white_24" />
 
                 </LinearLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                <include layout="@layout/recycler_pill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -195,6 +196,7 @@
             app:layout_constraintTop_toBottomOf="@+id/pills"
             android:layout_width="match_parent"
             android:layout_height="40dp"/>
+
 
 
         <!-- Scrollable하게 구현하기 -->
