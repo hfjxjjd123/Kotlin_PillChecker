@@ -14,5 +14,7 @@ class ReadActivity:AppCompatActivity() {
             finish()
         }
 
+
+
     }
 }
