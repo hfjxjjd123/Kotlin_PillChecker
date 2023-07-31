@@ -124,11 +124,12 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"/>
-                <ImageButton
+                <ImageView
                     android:src="@drawable/arrow_white_24"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:backgroundTint="@color/primary"
+                    android:paddingRight="12dp"
                     />
 
             </LinearLayout>
@@ -172,11 +173,12 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"/>
-                    <ImageButton
+                    <ImageView
                         android:src="@drawable/arrow_white_24"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:backgroundTint="@color/primary"
+                        android:paddingRight="12dp"
                         />
 
                 </LinearLayout>
