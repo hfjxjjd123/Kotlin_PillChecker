@@ -1,17 +1,18 @@
 package com.example.pill_checker
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
-import java.lang.Thread.sleep
-import java.time.Duration
+import androidx.core.content.ContextCompat.startActivity
+
 
 class LoginActivity2:AppCompatActivity() {
 
     override fun getIntent(): Intent {
-        return Intent(this, MainActivity::class.java)
+        return Intent(this, LoginActivity3::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
