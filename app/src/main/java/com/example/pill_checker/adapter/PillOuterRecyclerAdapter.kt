@@ -1,5 +1,6 @@
 package com.example.pill_checker.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pill_checker.ManageActivity
 import com.example.pill_checker.R
 import com.example.pill_checker.data.PillItem
 
@@ -31,6 +33,13 @@ class PillOuterRecyclerAdapter(val items: List<PillItem>) : RecyclerView.Adapter
         innerRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = innerAdapter
+        }
+
+        val toManage = Intent(holder.itemView.context, ManageActivity::class.java)
+        // 해당 앱인지 알림
+        toManage.putExtra("pillName", holder.itemView.findViewById<TextView>(R.id.pill_name).text)
+        holder.itemView.setOnClickListener() {
+            holder.itemView.context.startActivity(toManage)
         }
     }
 

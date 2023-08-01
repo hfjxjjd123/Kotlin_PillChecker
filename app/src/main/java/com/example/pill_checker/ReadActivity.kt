@@ -31,6 +31,8 @@ class ReadActivity:AppCompatActivity() {
             startActivity(toReg)
         }
 
+
+        //RecyclerView 영역
         val pills = listOf<PillItem>(
             PillItem("마그네슘", R.drawable.pill_image, listOf("아침", "점심", "저녁")),
             PillItem("비타민C", R.drawable.push_notification, listOf("저녁")),

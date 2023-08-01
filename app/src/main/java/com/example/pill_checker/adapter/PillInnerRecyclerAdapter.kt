@@ -15,7 +15,6 @@ class PillInnerRecyclerAdapter(private val times: List<String>): RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: InnerViewHolder, position: Int) {
-        println("/////////////////////////${times[position]}//////////////////////////////")
         val indexTime = times[position]
 
         // Set up the inner item layout here based on the chosen time
