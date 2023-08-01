@@ -52,14 +52,17 @@
         app:layout_constraintTop_toTopOf="@id/top_of_intro"
         app:layout_constraintVertical_bias="0"/>
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="top"
         app:layout_constraintEnd_toEndOf="@id/end_of_panel"
         app:layout_constraintStart_toStartOf="@id/start_of_panel"
         app:layout_constraintTop_toBottomOf="@+id/top_of_panel"
         app:layout_constraintVertical_bias="0"
-        android:background="@drawable/recycler_panel">
+        android:background="@drawable/recycler_panel"
+        android:orientation="vertical"
+        android:paddingVertical="15dp">
 
         <include layout="@layout/recycler_pill"
             android:layout_width="match_parent"
@@ -69,7 +72,14 @@
             app:layout_constraintTop_toBottomOf="@+id/top_of_panel"
             app:layout_constraintVertical_bias="0" />
 
-    </androidx.cardview.widget.CardView>
+        <ImageView
+            android:paddingVertical="10dp"
+            android:src="@drawable/add_24"
+            android:id="@+id/reg_pill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 
 
