@@ -22,6 +22,7 @@ class PillOuterRecyclerAdapter(val items: List<PillItem>) : RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: OuterViewHolder, position: Int) {
         val currentItem = items[position]
+        println("TEST ITER")
 
         // Set up the inner RecyclerView and its adapter
         val innerRecyclerView = holder.itemView.findViewById<RecyclerView>(R.id.recycler_time)

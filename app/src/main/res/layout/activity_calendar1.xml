@@ -64,6 +64,7 @@
         app:layout_constraintVertical_bias="1"
         app:layout_constraintHorizontal_bias="0"/>
 
+    <!-- TODO dynamic quantity -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -129,46 +130,21 @@
             style="@style/TextSmallBlack" />
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@id/bottom_of_panel"
-        app:layout_constraintEnd_toStartOf="@id/end_of_panel"
-        app:layout_constraintStart_toStartOf="@id/start_of_panel"
-        app:layout_constraintTop_toBottomOf="@id/top_of_panel">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
-
-        </androidx.recyclerview.widget.RecyclerView>
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
-
-        </androidx.recyclerview.widget.RecyclerView>
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
-
-        </androidx.recyclerview.widget.RecyclerView>
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:id="@+id/check_recycler_view"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/bottom_of_panel"
+            app:layout_constraintEnd_toStartOf="@id/end_of_panel"
+            app:layout_constraintStart_toStartOf="@id/start_of_panel"
+            app:layout_constraintTop_toBottomOf="@id/top_of_panel">
 
         </androidx.recyclerview.widget.RecyclerView>
 
-    </LinearLayout>
+
 
 
     <androidx.constraintlayout.widget.Guideline
