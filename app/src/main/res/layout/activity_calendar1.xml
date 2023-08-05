@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:gravity="bottom">
             <ImageButton
-                android:id="@+id/back_to_main"
+                android:id="@+id/back_arrow"
                 android:src="@drawable/arrow_back_24"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -33,6 +33,18 @@
             <Space
                 android:layout_weight="1"
                 android:layout_width="0dp"
+                android:layout_height="0dp"/>
+
+
+            <ImageButton
+                android:id="@+id/notification_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/gray"
+                android:src="@drawable/notification_24" />
+
+            <Space
+                android:layout_width="18dp"
                 android:layout_height="0dp"/>
 
         </LinearLayout>
@@ -57,13 +69,30 @@
         android:layout_height="wrap_content"
         android:text= "@string/cal_spec"
         style="@style/TextSpec"
-        app:layout_constraintBottom_toBottomOf="@id/top_of_panel"
-        app:layout_constraintEnd_toStartOf="@id/end_of_panel"
-        app:layout_constraintStart_toEndOf="@id/start_of_panel"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1"
-        app:layout_constraintHorizontal_bias="0"/>
+        app:layout_constraintBottom_toBottomOf="@id/top_of_table"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendar_text_intro"
+        app:layout_constraintVertical_bias="0.1"/>
 
+    <FrameLayout
+        app:layout_constraintTop_toBottomOf="@id/top_of_table"
+        app:layout_constraintBottom_toTopOf="@+id/top_of_panel"
+        app:layout_constraintStart_toEndOf="@id/start_of_panel"
+        app:layout_constraintEnd_toStartOf="@id/end_of_panel"
+        android:layout_height="0dp"
+        android:layout_width="0dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/category_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal" />
+    </FrameLayout>
+
+
+    <!-- TODO dynamic quantity -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -74,11 +103,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_of_panel"
         >
-        <TextView
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp" />
         <TextView
             android:layout_weight="1"
             android:id="@+id/calendar_today"
@@ -129,46 +153,21 @@
             style="@style/TextSmallBlack" />
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@id/bottom_of_panel"
-        app:layout_constraintEnd_toStartOf="@id/end_of_panel"
-        app:layout_constraintStart_toStartOf="@id/start_of_panel"
-        app:layout_constraintTop_toBottomOf="@id/top_of_panel">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
-
-        </androidx.recyclerview.widget.RecyclerView>
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
-
-        </androidx.recyclerview.widget.RecyclerView>
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
-
-        </androidx.recyclerview.widget.RecyclerView>
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:id="@+id/check_recycler_view"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/bottom_of_panel"
+            app:layout_constraintEnd_toStartOf="@id/end_of_panel"
+            app:layout_constraintStart_toStartOf="@id/start_of_panel"
+            app:layout_constraintTop_toBottomOf="@id/top_of_panel">
 
         </androidx.recyclerview.widget.RecyclerView>
 
-    </LinearLayout>
+
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -180,7 +179,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintGuide_begin="70dp" />
+        app:layout_constraintGuide_begin="80dp" />
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/top_of_table"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.21" />
     <androidx.constraintlayout.widget.Guideline
         android:orientation="horizontal"
         android:id="@+id/top_of_panel"
@@ -190,7 +199,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintGuide_percent="0.24" />
+        app:layout_constraintGuide_percent="0.31" />
     <androidx.constraintlayout.widget.Guideline
         android:orientation="horizontal"
         android:id="@+id/bottom_of_panel"
@@ -200,7 +209,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintGuide_percent="0.65" />
+        app:layout_constraintGuide_percent="0.73" />
     <androidx.constraintlayout.widget.Guideline
         android:orientation="vertical"
         android:id="@+id/start_of_panel"
@@ -220,7 +229,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintGuide_percent="0.85" />
+        app:layout_constraintGuide_percent="0.95" />
 <!--
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
