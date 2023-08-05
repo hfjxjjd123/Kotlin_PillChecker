@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.adapter.CalendarRecyclerAdapter
+import com.example.pill_checker.adapter.CategoryRecyclerAdapter
 import com.example.pill_checker.adapter.DoneRecyclerAdapter
 import com.example.pill_checker.adapter.PillOuterRecyclerAdapter
 import com.example.pill_checker.data.DoneItem
@@ -14,6 +15,9 @@ import com.example.pill_checker.data.PillItem
 class CalendarActivity1:AppCompatActivity() {
     private lateinit var calendarRecyclerView: RecyclerView
     private lateinit var adapter: CalendarRecyclerAdapter
+    private lateinit var categoryRecyclerView: RecyclerView
+    private lateinit var categoryAdapter: CategoryRecyclerAdapter
+    val timeCategory: List<String> = listOf<String>("아침", "점심", "저녁", "자기전")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,13 +32,13 @@ class CalendarActivity1:AppCompatActivity() {
         val dataOfList = listOf<List<DoneItem>>(
             listOf<DoneItem>(
                 DoneItem("O"),
-                DoneItem("N"),
+                DoneItem("O"),
                 DoneItem("X"),
                 DoneItem("N"),
             ),
             listOf<DoneItem>(
                 DoneItem("O"),
-                DoneItem("N"),
+                DoneItem("O"),
                 DoneItem("X"),
                 DoneItem("O"),
             ),
@@ -64,22 +68,30 @@ class CalendarActivity1:AppCompatActivity() {
             ),
 
             )
-        val dataOfStat = 0b1011
+        val dataOfStat = 0b1010
 
         val filteredItems = mutableListOf<List<DoneItem>>()
             for (item in dataOfList){
-                val filteredItem: List<DoneItem?> = item.filterIndexed() { index, _ ->
+                val filteredItem: List<DoneItem> = item.filterIndexed() { index, _ ->
                     val indexStats = _indexToStats(index)
                     (dataOfStat and indexStats) == indexStats
                 }
-                filteredItems.add(filteredItem as List<DoneItem>)
+                filteredItems.add(filteredItem)
             }
+        val filteredCategory: List<String> = timeCategory.filterIndexed() { index, _ ->
+            val indexStats = _indexToStats(index)
+            (dataOfStat and indexStats) == indexStats
+        }
 
-        println(filteredItems)
         calendarRecyclerView = findViewById<RecyclerView>(R.id.check_recycler_view)
         calendarRecyclerView.layoutManager = LinearLayoutManager(this)
         adapter = CalendarRecyclerAdapter(filteredItems)
         calendarRecyclerView.adapter = adapter
+
+        categoryRecyclerView = findViewById<RecyclerView>(R.id.category_recycler_view)
+        categoryRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        categoryAdapter = CategoryRecyclerAdapter(filteredCategory)
+        categoryRecyclerView.adapter = categoryAdapter
 
     }
 

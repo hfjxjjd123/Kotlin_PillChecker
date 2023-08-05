@@ -15,7 +15,7 @@ class CalendarRecyclerAdapter(private val items: List<List<DoneItem>>) :
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_calendar_layout, parent, false)
         val parentHeight = parent.height
-        val itemHeight = parentHeight / (items.size+1)
+        val itemHeight = parentHeight / (items.size)
 
         itemView.layoutParams = RecyclerView.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
@@ -39,7 +39,7 @@ class CalendarRecyclerAdapter(private val items: List<List<DoneItem>>) :
         private val innerRecyclerView: RecyclerView = itemView.findViewById(R.id.recycler_done)
 
         fun bind(data: List<DoneItem>) {
-            val innerAdapter = DoneRecyclerAdapter(data)
+            val innerAdapter = DoneRecyclerAdapter(data, adapterPosition)
             innerRecyclerView.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 adapter = innerAdapter
