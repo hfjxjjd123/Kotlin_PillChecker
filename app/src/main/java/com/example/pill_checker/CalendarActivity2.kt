@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 class CalendarActivity2:AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val date: Int = intent.getIntExtra("date", -1)
-        val time: Int = intent.getIntExtra("time", -1)
+        val time: String = intent.getStringExtra("time")?: "오류"
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar2)
@@ -23,14 +23,7 @@ class CalendarActivity2:AppCompatActivity() {
             1 -> text += "어제"
             else -> text = text + date.toString() + "일전"
         }
-        text += " "
-        when(time){
-            0 -> text += "아침"
-            1 -> text += "점심"
-            2 -> text += "저녁"
-            3 -> text += "자기전"
-            else -> text += "오류"
-        }
+        text = text + " " + time
 
         val textCalendarTime = findViewById<TextView>(R.id.calendar_text_time)
         textCalendarTime.text = text

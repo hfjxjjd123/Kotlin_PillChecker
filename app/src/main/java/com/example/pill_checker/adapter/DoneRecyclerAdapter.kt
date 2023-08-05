@@ -14,10 +14,12 @@ import com.example.pill_checker.data.DoneItem
 
 //outer list: date
 //inner list: done
-class DoneRecyclerAdapter(private val itemsDone: List<DoneItem>, val date: Int): RecyclerView.Adapter<DoneRecyclerAdapter.InnerViewHolder>() {
+class DoneRecyclerAdapter(private val itemsDone: List<DoneItem>) :
+    RecyclerView.Adapter<DoneRecyclerAdapter.InnerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InnerViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_done_layout, parent, false)
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_done_layout, parent, false)
 
         return InnerViewHolder(itemView)
     }
@@ -25,23 +27,23 @@ class DoneRecyclerAdapter(private val itemsDone: List<DoneItem>, val date: Int):
     override fun onBindViewHolder(holder: InnerViewHolder, position: Int) {
         val indexDone: DoneItem = itemsDone[position]
 
-        if (indexDone.done == "O"){
+        if (indexDone.done == "O") {
             holder.doneImage.setImageResource(R.drawable.done)
-        }
-        else if(indexDone.done == "X"){
+        } else if (indexDone.done == "X") {
             holder.doneImage.setImageResource(R.drawable.notdone)
-        }else{
+        } else {
             holder.doneImage.setImageResource(R.drawable.background)
         }
 
-        val toCal2 = Intent(holder.itemView.context, CalendarActivity2::class.java)
-        // 해당 앱인지 알림
-        toCal2.putExtra("date", date)
-        toCal2.putExtra("time", position)
-        holder.itemView.setOnClickListener() {
-            holder.itemView.context.startActivity(toCal2)
+        if (indexDone.done == "O" || indexDone.done == "X") {
+            val toCal2 = Intent(holder.itemView.context, CalendarActivity2::class.java)
+            toCal2.putExtra("date", indexDone.date)
+            toCal2.putExtra("time", indexDone.time)
+            // 해당 앱인지 알림
+            holder.itemView.setOnClickListener() {
+                holder.itemView.context.startActivity(toCal2)
+            }
         }
-
     }
 
     override fun getItemCount(): Int {

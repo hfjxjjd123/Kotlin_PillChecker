@@ -39,12 +39,13 @@ class CalendarRecyclerAdapter(private val items: List<List<DoneItem>>) :
         private val innerRecyclerView: RecyclerView = itemView.findViewById(R.id.recycler_done)
 
         fun bind(data: List<DoneItem>) {
-            val innerAdapter = DoneRecyclerAdapter(data, adapterPosition)
+            val innerAdapter = DoneRecyclerAdapter(data)
             innerRecyclerView.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 adapter = innerAdapter
             }
         }
+
     }
 
 }
