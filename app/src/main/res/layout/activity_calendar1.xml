@@ -58,10 +58,10 @@
         android:text= "@string/cal_spec"
         style="@style/TextSpec"
         app:layout_constraintBottom_toBottomOf="@id/top_of_table"
-        app:layout_constraintEnd_toStartOf="@id/end_of_panel"
-        app:layout_constraintStart_toEndOf="@id/start_of_panel"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendar_text_intro"
+        app:layout_constraintVertical_bias="0.1"/>
 
     <FrameLayout
         app:layout_constraintTop_toBottomOf="@id/top_of_table"
@@ -177,7 +177,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintGuide_percent="0.24" />
+        app:layout_constraintGuide_percent="0.21" />
     <androidx.constraintlayout.widget.Guideline
         android:orientation="horizontal"
         android:id="@+id/top_of_panel"
@@ -197,7 +197,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintGuide_percent="0.66" />
+        app:layout_constraintGuide_percent="0.73" />
     <androidx.constraintlayout.widget.Guideline
         android:orientation="vertical"
         android:id="@+id/start_of_panel"
@@ -217,7 +217,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintGuide_percent="0.85" />
+        app:layout_constraintGuide_percent="0.95" />
 <!--
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"

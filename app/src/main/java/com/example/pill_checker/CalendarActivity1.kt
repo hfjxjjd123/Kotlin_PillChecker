@@ -54,21 +54,9 @@ class CalendarActivity1:AppCompatActivity() {
                 DoneItem("X", 3, "저녁"),
                 DoneItem("X", 3, "자기전"),
             ),
-            listOf<DoneItem>(
-                DoneItem("N", 4, "아침"),
-                DoneItem("N", 4, "점심"),
-                DoneItem("X", 4, "저녁"),
-                DoneItem("N", 4, "자기전"),
-            ),
-            listOf<DoneItem>(
-                DoneItem("N", 5, "아침"),
-                DoneItem("N", 5, "점심"),
-                DoneItem("O", 5, "저녁"),
-                DoneItem("N", 5, "자기전"),
-            ),
 
             )
-        val dataOfStat = 0b1010
+        val dataOfStat = 0b1111
 
         val filteredItems = mutableListOf<List<DoneItem>>()
             for (item in dataOfList){

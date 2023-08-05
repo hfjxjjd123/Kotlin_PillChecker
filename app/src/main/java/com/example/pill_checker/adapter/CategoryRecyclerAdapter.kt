@@ -1,5 +1,6 @@
 package com.example.pill_checker.adapter
 
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ class CategoryRecyclerAdapter(private val items: List<String>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_category_layout, parent, false)
+
         return ViewHolder(itemView)
     }
 
@@ -30,6 +32,13 @@ class CategoryRecyclerAdapter(private val items: List<String>) :
     // OuterViewHolder class definition
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val categoryTextView: TextView = itemView.findViewById<TextView>(R.id.category_text)
+    }
+
+    private fun calculateDesiredTextSize(viewWidth: Int): Float {
+        // Calculate the desired text size based on the view width
+        // You can adjust the formula here to achieve the desired result
+        val scaleFactor = 0.5f // Adjust this value as needed
+        return viewWidth * scaleFactor
     }
 
 }
