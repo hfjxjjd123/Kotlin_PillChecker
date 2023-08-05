@@ -63,6 +63,10 @@
         <activity android:name=".AlarmSettingActivity">
 
         </activity>
+
+        <activity android:name=".ManageActivity">
+
+        </activity>
     </application>
 
 </manifest>

@@ -25,6 +25,7 @@
             android:layout_height="match_parent"
             android:gravity="bottom">
             <ImageButton
+                android:id="@+id/back_arrow"
                 android:src="@drawable/arrow_back_24"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -54,7 +55,6 @@
         android:id="@+id/calendar_text_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text= "@string/cal_example"
         style="@style/TextNormalBlack"
         app:layout_constraintBottom_toTopOf="@+id/calendar_panel"
         app:layout_constraintEnd_toEndOf="parent"
