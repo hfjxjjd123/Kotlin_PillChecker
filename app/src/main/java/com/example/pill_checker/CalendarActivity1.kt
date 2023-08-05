@@ -1,5 +1,6 @@
 package com.example.pill_checker
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +27,11 @@ class CalendarActivity1:AppCompatActivity() {
         val backArrow = findViewById<ImageButton>(R.id.back_arrow)
         backArrow.setOnClickListener(){
             finish()
+        }
+        val toAlarm = Intent(this, AlarmSettingActivity::class.java)
+        val notificationButton = findViewById<ImageButton>(R.id.notification_button)
+        notificationButton.setOnClickListener(){
+            startActivity(toAlarm)
         }
 
         //TODO Data DB에서 얻어와야함
