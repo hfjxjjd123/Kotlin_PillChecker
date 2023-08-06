@@ -88,14 +88,18 @@
                 <TableRow
                     android:gravity="center_horizontal">
                     <Button
+                        android:id="@+id/morning_clock"
                         android:width="120dp"
                         android:layout_height="80dp"
+                        android:backgroundTint="@color/primary_light"
+
                         android:layout_marginEnd="16dp"
                         android:text="@string/breakfast"
                         style="@style/TextNormalWhiteBold">
                     </Button>
 
                     <Button
+                        android:id="@+id/lunch_clock"
                         android:width="120dp"
                         android:layout_height="80dp"
                         android:backgroundTint="@color/primary_light"
@@ -108,13 +112,16 @@
                 <TableRow
                     android:gravity="center_horizontal">
                     <Button
+                        android:id="@+id/dinner_clock"
                         android:width="120dp"
                         android:layout_height="80dp"
                         android:layout_marginEnd="16dp"
+                        android:backgroundTint="@color/primary_light"
                         android:text="@string/dinner"
                         style="@style/TextNormalWhiteBold">
                     </Button>
                     <Button
+                        android:id="@+id/sleep_clock"
                         android:width="120dp"
                         android:layout_height="80dp"
                         android:text="@string/sleep"                        android:backgroundTint="@color/primary_light"
