@@ -3,6 +3,7 @@ package com.example.pill_checker
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -35,7 +36,6 @@ class UpdateActivity:AppCompatActivity() {
         val offColor = ContextCompat.getColor(this, R.color.primary_light)
 
         morningClock.setOnClickListener() {
-            println("DEBUG!!!!!!!!!!!!!!!!!!!")
             morningOn = !morningOn
             if (morningOn) {
                 morningClock.setBackgroundColor(onColor)
@@ -66,6 +66,19 @@ class UpdateActivity:AppCompatActivity() {
             } else {
                 sleepClock.setBackgroundColor(offColor)
             }
+        }
+
+        val pillNum: Button = findViewById<Button>(R.id.pill_num)
+
+        pillNum.setOnClickListener { view ->
+            val popupMenu = PopupMenu(this, view) // Create a PopupMenu and pass the context and anchor view
+            popupMenu.inflate(R.menu.menu_pill_num) // Inflate the menu resource
+
+            popupMenu.setOnMenuItemClickListener { item ->
+                pillNum.text = item.title
+                true
+            }
+            popupMenu.show()
         }
 
     }
