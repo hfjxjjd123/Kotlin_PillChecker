@@ -79,13 +79,14 @@
         android:text="@string/breakfast"/>
     <Button
         android:text="08:30"
+        android:id="@+id/morning_clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/end_of_time"
         app:layout_constraintBottom_toBottomOf="@id/bottom_of_time1"
         app:layout_constraintTop_toTopOf="@id/top_of_time1"
-        app:layout_constraintHorizontal_bias="0.15" />
+        app:layout_constraintHorizontal_bias="0.17" />
     <TextView
         style="@style/TextNormalBlack"
         android:layout_width="wrap_content"
@@ -98,13 +99,14 @@
         android:text="@string/lunch"/>
     <Button
         android:text="12:00"
+        android:id="@+id/lunch_clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/end_of_time"
         app:layout_constraintBottom_toBottomOf="@id/bottom_of_time2"
         app:layout_constraintTop_toTopOf="@id/top_of_time2"
-        app:layout_constraintHorizontal_bias="0.15" />
+        app:layout_constraintHorizontal_bias="0.17" />
     <TextView
         style="@style/TextNormalBlack"
         android:layout_width="wrap_content"
@@ -117,13 +119,14 @@
         android:text="@string/dinner"/>
     <Button
         android:text="17:30"
+        android:id="@+id/dinner_clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/end_of_time"
         app:layout_constraintBottom_toBottomOf="@id/bottom_of_time3"
         app:layout_constraintTop_toTopOf="@id/top_of_time3"
-        app:layout_constraintHorizontal_bias="0.15" />
+        app:layout_constraintHorizontal_bias="0.17" />
     <TextView
         style="@style/TextNormalBlack"
         android:layout_width="wrap_content"
@@ -136,13 +139,14 @@
         android:text="@string/sleep"/>
     <Button
         android:text="23:00"
+        android:id="@+id/sleep_clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/end_of_time"
         app:layout_constraintBottom_toBottomOf="@id/bottom_of_time4"
         app:layout_constraintTop_toTopOf="@id/top_of_time4"
-        app:layout_constraintHorizontal_bias="0.15" />
+        app:layout_constraintHorizontal_bias="0.17" />
 
     <TextView
         android:id="@+id/alarm_toggle1"
