@@ -34,9 +34,9 @@ class ReadActivity:AppCompatActivity() {
 
         //RecyclerView 영역
         val pills = listOf<PillItem>(
-            PillItem("마그네슘", R.drawable.pill_image, listOf("아침", "점심", "저녁")),
-            PillItem("비타민C", R.drawable.push_notification, listOf("저녁")),
-            PillItem("프로틴", R.drawable.pill_image, listOf("자기전")),
+            PillItem(1),
+            PillItem(2),
+            PillItem(3),
         )
 
         outerRecyclerView = findViewById<RecyclerView>(R.id.recycler_pill)
