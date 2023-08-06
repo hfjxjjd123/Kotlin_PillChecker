@@ -7,6 +7,7 @@ import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.pill_checker.data.PillDetailItem
 
 class UpdateActivity:AppCompatActivity() {
     var morningOn = false
@@ -15,13 +16,13 @@ class UpdateActivity:AppCompatActivity() {
     var sleepOn = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val pillName = intent.getStringExtra("pillName")
+        val pid = intent.getIntExtra("pid", -1)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update)
 
         val pillText = findViewById<TextView>(R.id.reg_pill)
-        pillText.text = pillName
+        pillText.text = getDBPills[pid - 1].name
         val backArrow = findViewById<ImageButton>(R.id.back_arrow)
         backArrow.setOnClickListener(){
             finish()
@@ -34,6 +35,37 @@ class UpdateActivity:AppCompatActivity() {
 
         val onColor = ContextCompat.getColor(this, R.color.primary)
         val offColor = ContextCompat.getColor(this, R.color.primary_light)
+        val pillNum: Button = findViewById<Button>(R.id.pill_num)
+
+
+        //FIRST setting
+        if (getDBPills[pid - 1].times.contains("아침")) {
+            morningOn = true
+            morningClock.setBackgroundColor(onColor)
+        }
+        if (getDBPills[pid - 1].times.contains("점심")) {
+            lunchOn = true
+            lunchClock.setBackgroundColor(onColor)
+        }
+        if (getDBPills[pid - 1].times.contains("저녁")) {
+            dinnerOn = true
+            dinnerClock.setBackgroundColor(onColor)
+        }
+        if (getDBPills[pid - 1].times.contains("자기전")) {
+            sleepOn = true
+            sleepClock.setBackgroundColor(onColor)
+        }
+
+        pillNum.text = when(getDBPills[pid-1].pillHalfNum){
+            0 -> "0.5"
+            1 -> "1.0"
+            2 -> "1.5"
+            3 -> "2.0"
+            else -> "0.0"
+        }
+
+
+        ///////////////////////////
 
         morningClock.setOnClickListener() {
             morningOn = !morningOn
@@ -67,8 +99,6 @@ class UpdateActivity:AppCompatActivity() {
                 sleepClock.setBackgroundColor(offColor)
             }
         }
-
-        val pillNum: Button = findViewById<Button>(R.id.pill_num)
 
         pillNum.setOnClickListener { view ->
             val popupMenu = PopupMenu(this, view) // Create a PopupMenu and pass the context and anchor view

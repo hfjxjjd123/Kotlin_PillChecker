@@ -5,10 +5,17 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.pill_checker.data.PillDetailItem
+
+val getDBPills = listOf<PillDetailItem>(
+    PillDetailItem(1, "마그네슘", R.drawable.background, listOf("아침", "점심", "저녁"), 1),
+    PillDetailItem(2, "비타민C", R.drawable.pill_image, listOf("자기전"), 1),
+    PillDetailItem(3, "프로틴", R.drawable.pill_image, listOf("저녁"), 3),
+)
 
 class ManageActivity:AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        val pillName = intent.getStringExtra("pillName")
+        val pid = intent.getIntExtra("pid", -1)
         val toUpdate = Intent(this, UpdateActivity::class.java)
 
         super.onCreate(savedInstanceState)
@@ -25,12 +32,12 @@ class ManageActivity:AppCompatActivity() {
         }
         val editButton = findViewById<ImageView>(R.id.edit_button)
         editButton.setOnClickListener(){
-            toUpdate.putExtra("pillName", pillName)
+            toUpdate.putExtra("pid", getDBPills[pid - 1].pid)
             startActivity(toUpdate)
         }
 
         val pillText = findViewById<TextView>(R.id.reg_name)
-        pillText.text = pillName
+        pillText.text = getDBPills[pid - 1].name
 
 
     }
