@@ -1,19 +1,29 @@
 package com.example.pill_checker
 
+import android.animation.ValueAnimator
 import android.os.Bundle
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.Transformation
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 
-class RegActivity:AppCompatActivity() {
+class RegActivity : AppCompatActivity() {
     var morningOn = false
     var lunchOn = false
     var dinnerOn = false
     var sleepOn = false
 
+    private var isPanelShown = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
+        var isPanelShown = false
 
         val cancelButton = findViewById<Button>(R.id.cancel_button)
         val registerButton = findViewById<Button>(R.id.register_button)
@@ -64,5 +74,21 @@ class RegActivity:AppCompatActivity() {
                 sleepClock.setBackgroundColor(offColor)
             }
         }
+
+        val detailTitle = findViewById<LinearLayout>(R.id.details_title)
+        val detailsLayout = findViewById<LinearLayout>(R.id.details_layout)
+        val toggleView = findViewById<ImageView>(R.id.toggle_button)
+        detailTitle.setOnClickListener() {
+            isPanelShown = !isPanelShown
+
+            if(isPanelShown) {
+                detailsLayout.visibility = View.VISIBLE
+                toggleView.setImageResource(R.drawable.arrow_down_24)
+            } else {
+                detailsLayout.visibility = View.GONE
+                toggleView.setImageResource(R.drawable.arrow_toggle_24)
+            }
+        }
+
     }
 }

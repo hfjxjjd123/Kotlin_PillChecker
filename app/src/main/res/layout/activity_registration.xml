@@ -8,7 +8,7 @@
     tools:context=".RegActivity">
 
 
-            <!-- Intro-->
+    <!-- Intro-->
     <!-- 약이름-->
 
     <!-- 복용시간-->
@@ -26,22 +26,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <Space
-                android:layout_height="90dp"
-                android:layout_width="match_parent"/>
+                android:layout_width="match_parent"
+                android:layout_height="90dp" />
 
             <TextView
                 android:id="@+id/reg_intro"
                 style="@style/TextTitleLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/reg_intro"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:text="@string/reg_intro" />
+
             <Space
-                android:layout_height="50dp"
-                android:layout_width="match_parent"/>
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
 
             <!-- 약이름 -->
             <TextView
@@ -50,15 +51,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/reg_name" />
+
             <EditText
-                android:layout_marginHorizontal="20dp"
                 android:id="@+id/editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
                 android:hint="Enter your text" />
+
             <Space
-                android:layout_height="60dp"
-                android:layout_width="match_parent"/>
+                android:layout_width="match_parent"
+                android:layout_height="60dp" />
 
             <!-- 복용시간 -->
             <TextView
@@ -67,78 +70,83 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/reg_time" />
+
             <Space
-            android:layout_height="20dp"
-            android:layout_width="match_parent"/>
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
             <TextView
                 android:id="@+id/reg_spec"
                 style="@style/TextSpec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/reg_spec"
-                android:gravity="center_horizontal"/>
-            <Space
-                android:layout_height="5dp"
-                android:layout_width="match_parent"/>
-            <TableLayout
-                android:layout_marginHorizontal="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:gravity="center_horizontal"
+                android:text="@string/reg_spec" />
 
-                <TableRow
-                    android:gravity="center_horizontal">
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="5dp" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp">
+
+                <TableRow android:gravity="center_horizontal">
+
                     <Button
                         android:id="@+id/morning_clock"
-                        android:width="120dp"
+                        style="@style/TextNormalWhiteBold"
                         android:layout_height="80dp"
-                        android:backgroundTint="@color/primary_light"
-
                         android:layout_marginEnd="16dp"
-                        android:text="@string/breakfast"
-                        style="@style/TextNormalWhiteBold">
-                    </Button>
+
+                        android:width="120dp"
+                        android:backgroundTint="@color/primary_light"
+                        android:text="@string/breakfast"></Button>
 
                     <Button
                         android:id="@+id/lunch_clock"
-                        android:width="120dp"
+                        style="@style/TextNormalWhiteBold"
                         android:layout_height="80dp"
+                        android:width="120dp"
                         android:backgroundTint="@color/primary_light"
-                        android:text="@string/lunch"
-                        style="@style/TextNormalWhiteBold">
+                        android:text="@string/lunch">
 
                     </Button>
                 </TableRow>
 
-                <TableRow
-                    android:gravity="center_horizontal">
+                <TableRow android:gravity="center_horizontal">
+
                     <Button
                         android:id="@+id/dinner_clock"
-                        android:width="120dp"
+                        style="@style/TextNormalWhiteBold"
                         android:layout_height="80dp"
                         android:layout_marginEnd="16dp"
+                        android:width="120dp"
                         android:backgroundTint="@color/primary_light"
-                        android:text="@string/dinner"
-                        style="@style/TextNormalWhiteBold">
-                    </Button>
+                        android:text="@string/dinner"></Button>
+
                     <Button
                         android:id="@+id/sleep_clock"
-                        android:width="120dp"
+                        style="@style/TextNormalWhiteBold"
                         android:layout_height="80dp"
-                        android:text="@string/sleep"                        android:backgroundTint="@color/primary_light"
+                        android:width="120dp"
+                        android:backgroundTint="@color/primary_light"
 
 
-                        style="@style/TextNormalWhiteBold">
-                    </Button>
+                        android:text="@string/sleep"></Button>
                 </TableRow>
 
                 <!-- Add more rows as needed -->
 
             </TableLayout>
+
             <Space
-                android:layout_height="60dp"
-                android:layout_width="match_parent"/>
+                android:layout_width="match_parent"
+                android:layout_height="60dp" />
 
             <LinearLayout
+                android:id="@+id/details_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center">
@@ -149,16 +157,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/reg_more" />
+
                 <Space
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <ImageButton
-                    android:src="@drawable/arrow_icon_24"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/gray"/>
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/toggle_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/gray"
+                    android:src="@drawable/arrow_toggle_24" />
             </LinearLayout>
+
             <TextView
                 android:id="@+id/reg_spec2"
                 style="@style/TextSpec"
@@ -167,67 +179,87 @@
                 android:text="@string/reg_spec2" />
 
             <Space
-                android:layout_height="30dp"
-                android:layout_width="match_parent"/>
-            <TextView
-                android:id="@+id/reg_image"
-                style="@style/TextTitleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/reg_image" />
-            <Space
-                android:layout_height="20dp"
-                android:layout_width="match_parent"/>
-            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    app:srcCompat="@drawable/pill_image" />
-            </LinearLayout>
-            <Space
-                android:layout_height="30dp"
-                android:layout_width="match_parent"/>
+                android:layout_height="30dp" />
 
             <LinearLayout
+                android:id="@+id/details_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:animateLayoutChanges="true">
+
                 <TextView
-                    android:id="@+id/reg_nums"
+                    android:id="@+id/reg_image"
                     style="@style/TextTitleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/reg_nums" />
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"></Space>
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1.0"
-                    style="@style/TextNormalWhite">
-                </Button>
-                <Space
-                    android:layout_width="10dp"
-                    android:layout_height="wrap_content"></Space>
-                <TextView
-                    android:id="@+id/reg_metric"
-                    style="@style/TextTitleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/reg_metric" />
-                <Space
-                    android:layout_width="10dp"
-                    android:layout_height="wrap_content"></Space>
+                    android:text="@string/reg_image" />
 
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        app:srcCompat="@drawable/pill_image" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/reg_nums"
+                        style="@style/TextTitleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/reg_nums" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"></Space>
+
+                    <Button
+                        style="@style/TextNormalWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1.0"></Button>
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"></Space>
+
+                    <TextView
+                        android:id="@+id/reg_metric"
+                        style="@style/TextTitleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/reg_metric" />
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"></Space>
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp" />
             </LinearLayout>
-            <Space
-                android:layout_height="100dp"
-                android:layout_width="match_parent"/>
 
 
         </LinearLayout>
@@ -235,31 +267,30 @@
 
     <Button
         android:id="@+id/cancel_button"
+        style="@style/TextSmallWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingVertical="12dp"
+        android:text="@string/reg_cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95"
-        app:layout_constraintHorizontal_bias="0"
-        android:text="@string/reg_cancel"
-        style="@style/TextSmallWhite">
-    </Button>
+        app:layout_constraintVertical_bias="0.95"></Button>
+
     <Button
         android:id="@+id/register_button"
+        style="@style/TextSmallWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingVertical="12dp"
+        android:text="@string/reg_reg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95"
-        app:layout_constraintHorizontal_bias="1"
-        android:text="@string/reg_reg"
-        style="@style/TextSmallWhite">
-    </Button>
+        app:layout_constraintVertical_bias="0.95"></Button>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
