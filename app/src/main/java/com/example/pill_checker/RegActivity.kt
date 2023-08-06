@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.Transformation
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.LinearLayout
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 
@@ -88,6 +85,19 @@ class RegActivity : AppCompatActivity() {
                 detailsLayout.visibility = View.GONE
                 toggleView.setImageResource(R.drawable.arrow_toggle_24)
             }
+        }
+
+        val pillNum: Button = findViewById<Button>(R.id.pill_num)
+
+        pillNum.setOnClickListener { view ->
+            val popupMenu = PopupMenu(this, view) // Create a PopupMenu and pass the context and anchor view
+            popupMenu.inflate(R.menu.menu_pill_num) // Inflate the menu resource
+
+            popupMenu.setOnMenuItemClickListener { item ->
+                pillNum.text = item.title
+                true
+            }
+            popupMenu.show()
         }
 
     }

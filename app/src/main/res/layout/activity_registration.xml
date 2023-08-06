@@ -234,10 +234,12 @@
                         android:layout_weight="1"></Space>
 
                     <Button
+                        android:id="@+id/pill_num"
                         style="@style/TextNormalWhite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1.0"></Button>
+                        android:text="1.0"
+                        tools:ignore="DuplicateClickableBoundsCheck" />
 
                     <Space
                         android:layout_width="10dp"
