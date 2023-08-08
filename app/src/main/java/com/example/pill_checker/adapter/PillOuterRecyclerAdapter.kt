@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.ManageActivity
 import com.example.pill_checker.R
+import com.example.pill_checker.data.PillDetailItem
 import com.example.pill_checker.data.PillItem
+import com.example.pill_checker.getDBPills
+
 
 class PillOuterRecyclerAdapter(val items: List<PillItem>) : RecyclerView.Adapter<PillOuterRecyclerAdapter.OuterViewHolder>() {
 
@@ -22,15 +25,16 @@ class PillOuterRecyclerAdapter(val items: List<PillItem>) : RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: OuterViewHolder, position: Int) {
         val currentItem = items[position]
-        println("TEST ITER")
+        //get DB
+        val pillDetailItem = getDBPills[position]
 
         // Set up the inner RecyclerView and its adapter
         val innerRecyclerView = holder.itemView.findViewById<RecyclerView>(R.id.recycler_time)
-        holder.pillName.text = currentItem.name
+        holder.pillName.text = pillDetailItem.name
         //TODO IMAGE ID에 맞게 매칭
-        holder.pillImage.setImageResource(currentItem.imageId)
+        holder.pillImage.setImageResource(pillDetailItem.imageId)
 
-        val innerAdapter = PillInnerRecyclerAdapter(currentItem.times)
+        val innerAdapter = PillInnerRecyclerAdapter(pillDetailItem.times)
         innerRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = innerAdapter
@@ -38,7 +42,7 @@ class PillOuterRecyclerAdapter(val items: List<PillItem>) : RecyclerView.Adapter
 
         val toManage = Intent(holder.itemView.context, ManageActivity::class.java)
         // 해당 앱인지 알림
-        toManage.putExtra("pillName", holder.itemView.findViewById<TextView>(R.id.pill_name).text)
+        toManage.putExtra("pid", currentItem.pid)
         holder.itemView.setOnClickListener() {
             holder.itemView.context.startActivity(toManage)
         }

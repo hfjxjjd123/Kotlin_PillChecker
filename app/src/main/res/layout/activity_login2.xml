@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/login_page2"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_page2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity2">
@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="@+id/login2_intro"
         app:layout_constraintStart_toStartOf="@+id/login2_intro"
         app:layout_constraintTop_toBottomOf="@+id/login2_intro"
-        app:layout_constraintVertical_bias="0.01"/>
+        app:layout_constraintVertical_bias="0.01" />
 
     <TextView
         android:id="@+id/login2_spec"
@@ -43,7 +43,6 @@
         app:layout_constraintVertical_bias="0.3" />
 
 
-
     <View
         android:id="@+id/circleView1"
         android:layout_width="50sp"
@@ -55,6 +54,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.88" />
+
     <View
         android:id="@+id/circleView2"
         android:layout_width="50sp"
@@ -64,8 +64,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.88"
-        />
+        app:layout_constraintVertical_bias="0.88" />
+
     <View
         android:id="@+id/circleView3"
         android:layout_width="50sp"
@@ -80,128 +80,180 @@
 
     <TextView
         android:id="@+id/textView4"
+        style="@style/TextNormalWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2"
-        style="@style/TextNormalWhite"
         app:layout_constraintBottom_toBottomOf="@+id/circleView2"
         app:layout_constraintEnd_toEndOf="@+id/circleView2"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/circleView2"
-        app:layout_constraintTop_toTopOf="@+id/circleView2"
-        app:layout_constraintVertical_bias="0.5" />
-
-    <LinearLayout
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/circleView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login2_spec"
-        android:layout_height="0dp"
-        android:layout_width="0dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp">
+        app:layout_constraintTop_toTopOf="@+id/circleView2" />
 
         <!-- 아침시간 -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <!-- (수정) 시간 리터럴임 -->
+        <TextView
+            style="@style/TextNormalBlack"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            android:gravity="center">
-            <!-- (수정) 시간 리터럴임 -->
-            <TextView
-                style="@style/TextNormalBlack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/breakfast"/>
-            <Space
-                android:layout_height="match_parent"
-                android:layout_width="28dp"/>
-            <Button
-                android:id="@+id/morning_clock"
-                android:text="@string/not_defined"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            app:layout_constraintEnd_toEndOf="@+id/center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/morning_clock"
+            app:layout_constraintBottom_toBottomOf="@+id/morning_line"
+            app:layout_constraintHorizontal_bias="1"
+            android:layout_marginRight="22dp"
+            android:text="@string/breakfast" />
 
-        </LinearLayout>
+
+    <Button
+        android:id="@+id/morning_clock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="@string/not_defined"
+        app:layout_constraintBottom_toBottomOf="@+id/morning_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1"
+        tools:ignore="DuplicateClickableBoundsCheck" />
+
 
         <!-- 점심시간 -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            style="@style/TextNormalBlack"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            android:gravity="center">
-            <TextView
-                style="@style/TextNormalBlack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lunch"/>
-            <Space
-                android:layout_height="match_parent"
-                android:layout_width="28dp" />
-            <!-- (수정) 시간 리터럴임 -->
-            <Button
-                android:id="@+id/lunch_clock"
-                android:text="@string/not_defined"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+            app:layout_constraintEnd_toEndOf="@+id/center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/lunch_clock"
+            app:layout_constraintBottom_toBottomOf="@+id/lunch_line"
+            app:layout_constraintHorizontal_bias="1"
+            android:layout_marginRight="22dp"
+            android:text="@string/lunch" />
+
+        <!-- (수정) 시간 리터럴임 -->
+        <Button
+            android:id="@+id/lunch_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/lunch_line"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintHorizontal_bias="0"
+            android:text="@string/not_defined" />
 
         <!-- 저녁시간 -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            style="@style/TextNormalBlack"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            android:gravity="center">
-            <TextView
-                style="@style/TextNormalBlack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dinner"/>
-            <Space
-                android:layout_height="match_parent"
-                android:layout_width="28dp" />
-            <!-- (수정) 시간 리터럴임 -->
-            <Button
-                android:id="@+id/dinner_clock"
-                android:text="@string/not_defined"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+            app:layout_constraintEnd_toEndOf="@+id/center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/dinner_clock"
+            app:layout_constraintBottom_toBottomOf="@+id/dinner_line"
+            app:layout_constraintHorizontal_bias="1"
+            android:layout_marginRight="22dp"
+            android:text="@string/dinner" />
+
+        <!-- (수정) 시간 리터럴임 -->
+        <Button
+            android:id="@+id/dinner_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/dinner_line"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintHorizontal_bias="0"
+            android:text="@string/not_defined" />
 
         <!-- 자기전 시간 -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            style="@style/TextNormalBlack"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            android:gravity="center">
-            <TextView
-                style="@style/TextNormalBlack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sleep"/>
-            <Space
-                android:layout_height="match_parent"
-                android:layout_width="28dp" />
-            <!-- (수정) 시간 리터럴임 -->
-            <Button
-                android:id="@+id/sleep_clock"
-                android:text="@string/not_defined"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-        <!-- 공백관리 -->
-        <LinearLayout
-            android:layout_width="match_parent"
+            app:layout_constraintEnd_toEndOf="@+id/center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/sleep_clock"
+            app:layout_constraintBottom_toBottomOf="@+id/sleep_line"
+            app:layout_constraintHorizontal_bias="1"
+            android:layout_marginRight="22dp"
+            android:text="@string/sleep" />
+
+        <!-- (수정) 시간 리터럴임 -->
+        <Button
+            android:id="@+id/sleep_clock"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="1">
-        </LinearLayout>
-    </LinearLayout>
+            android:layout_marginLeft="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/sleep_line"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintHorizontal_bias="0"
+            android:text="@string/not_defined" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/morning_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.43"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/lunch_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.54"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/dinner_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.65"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/sleep_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.76"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
