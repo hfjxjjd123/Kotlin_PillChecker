@@ -71,7 +71,8 @@
             app:cardElevation="4dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/calendar"
+                android:id="@+id/calendar_done_list"
+                android:paddingVertical="40dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/recycler_panel" />

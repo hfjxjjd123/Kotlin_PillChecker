@@ -5,7 +5,7 @@
     <item>
         <shape android:shape="oval">
             <solid android:color="#FFFFFF" /> <!-- Set to the border color -->
-            <size android:width="24dp" android:height="24dp" /> <!-- Adjust the size as needed -->
+            <size android:width="12dp" android:height="12dp" /> <!-- Adjust the size as needed -->
         </shape>
     </item>
 
@@ -16,5 +16,5 @@
         </shape>
     </item>
 
-    <item android:drawable="@drawable/ic_check_24" android:gravity="center" />
+        <item android:drawable="@drawable/ic_check_24" android:gravity="center" />
 </layer-list>
