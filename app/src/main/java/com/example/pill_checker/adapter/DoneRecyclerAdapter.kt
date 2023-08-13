@@ -25,20 +25,20 @@ class DoneRecyclerAdapter(private val itemsDone: List<DoneItem>) :
     }
 
     override fun onBindViewHolder(holder: InnerViewHolder, position: Int) {
-        val indexDone: DoneItem = itemsDone[position]
+        val item: DoneItem = itemsDone[position]
 
-        if (indexDone.done == "O") {
+        if (item.done == "O") {
             holder.doneImage.setImageResource(R.drawable.done)
-        } else if (indexDone.done == "X") {
+        } else if (item.done == "X") {
             holder.doneImage.setImageResource(R.drawable.notdone)
         } else {
             holder.doneImage.setImageResource(R.drawable.background)
         }
 
-        if (indexDone.done == "O" || indexDone.done == "X") {
+        if (item.done == "O" || item.done == "X") {
             val toCal2 = Intent(holder.itemView.context, CalendarActivity2::class.java)
-            toCal2.putExtra("date", indexDone.date)
-            toCal2.putExtra("time", indexDone.time)
+            toCal2.putExtra("date", item.date)
+            toCal2.putExtra("time", item.time)
             // 해당 앱인지 알림
             holder.itemView.setOnClickListener() {
                 holder.itemView.context.startActivity(toCal2)

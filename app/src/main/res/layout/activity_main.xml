@@ -23,6 +23,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/top_of_intro"
             app:layout_constraintVertical_bias="0"/>
+
+        <ImageView
+            android:id="@+id/to_last_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/triangle_arrow_left_24"
+            app:layout_constraintBottom_toBottomOf="@id/calendar_text_intro"
+            app:layout_constraintEnd_toStartOf="@id/calendar_text_intro"
+            app:layout_constraintStart_toStartOf="@id/start_of_content"
+            app:layout_constraintTop_toTopOf="@id/calendar_text_intro"
+            app:layout_constraintHorizontal_bias="0"/>
+        <ImageView
+            android:id="@+id/to_next_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/triangle_arrow_right_24"
+            app:layout_constraintBottom_toBottomOf="@id/calendar_text_intro"
+            app:layout_constraintEnd_toStartOf="@id/end_of_content"
+            app:layout_constraintStart_toEndOf="@id/calendar_text_intro"
+            app:layout_constraintTop_toTopOf="@id/calendar_text_intro"
+            app:layout_constraintHorizontal_bias="1"/>
+
         <TextView
             android:id="@+id/calendar_text_time"
             android:layout_width="wrap_content"
@@ -41,56 +63,19 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="@id/bottom_of_panel"
-            app:layout_constraintEnd_toEndOf="@id/end_of_panel"
-            app:layout_constraintStart_toStartOf="@id/start_of_panel"
+            app:layout_constraintEnd_toEndOf="@id/end_of_content"
+            app:layout_constraintStart_toStartOf="@id/start_of_content"
             app:layout_constraintTop_toBottomOf="@+id/top_of_panel"
             app:layout_constraintVertical_bias="0"
             app:cardCornerRadius="8dp"
             app:cardElevation="4dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/calendar"
+                android:id="@+id/calendar_done_list"
+                android:paddingVertical="40dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/recycler_panel" />
-
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:id="@+id/calendar_cards_pre"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@id/bottom_of_panel"
-            app:layout_constraintEnd_toEndOf="@id/end_of_prepanel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/top_of_panel"
-            app:layout_constraintVertical_bias="0"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/recycler_panel"/>
-
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:id="@+id/calendar_cards_next"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@id/bottom_of_panel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/start_of_nextpanel"
-            app:layout_constraintTop_toBottomOf="@+id/top_of_panel"
-            app:layout_constraintVertical_bias="0"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/recycler_panel"/>
 
         </androidx.cardview.widget.CardView>
 
@@ -202,48 +187,6 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"/>
 
-
-
-        <!-- Scrollable하게 구현하기 -->
-        <!--
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <androidx.cardview.widget.CardView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/calendar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@id/bottom_of_panel"
-                    app:layout_constraintEnd_toEndOf="@id/end_of_panel"
-                    app:layout_constraintStart_toStartOf="@id/start_of_panel"
-                    app:layout_constraintTop_toBottomOf="@+id/top_of_panel"
-                    android:background="@drawable/recycler_panel" />
-
-            </androidx.cardview.widget.CardView>
-
-
-
-        </androidx.viewpager2.widget.ViewPager2>
--->
-
-
-
-
-
         <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:id="@+id/top_of_intro"
@@ -306,28 +249,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintGuide_begin="740dp" />
-
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/start_of_panel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintGuide_percent="0.15"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent" />
-        <androidx.constraintlayout.widget.Guideline
-            android:orientation="vertical"
-            android:id="@+id/end_of_panel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintGuide_percent="0.85" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/start_of_content"
