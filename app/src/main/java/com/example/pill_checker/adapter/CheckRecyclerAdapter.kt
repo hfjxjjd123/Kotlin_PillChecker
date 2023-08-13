@@ -43,7 +43,6 @@ class CheckRecyclerAdapter(private val items: MutableList<PillDone>) :
         holder.pillTab.setOnClickListener {
 
             if (item.done == "O") {
-                println("Check -> Uncheck")
                 item.done = "X"
                 holder.checkImage.setImageResource(R.drawable.checkbox_custom)
                 holder.pillName.paintFlags =
@@ -53,18 +52,14 @@ class CheckRecyclerAdapter(private val items: MutableList<PillDone>) :
                     val itemToMove = items.removeAt(indexManager.indexOf(position))
                     items.add(0, itemToMove)
                     notifyItemMoved(indexManager.indexOf(position), 0)
-                    println(items.map { it.name })
 
                     val indexToMove = indexManager.removeAt(indexManager.indexOf(position))
                     indexManager.add(0, indexToMove)
-                    println(indexManager)
                 }
 
                 checkedCounter -= 1
 
             } else {
-                println("Uncheck -> check")
-
                 item.done = "O"
                 holder.checkImage.setImageResource(R.drawable.checkbox_custom_checked)
                 holder.pillName.paintFlags =
@@ -74,7 +69,6 @@ class CheckRecyclerAdapter(private val items: MutableList<PillDone>) :
                     val itemToMove = items.removeAt(indexManager.indexOf(position))
                     items.add(itemToMove)
                     notifyItemMoved(indexManager.indexOf(position), items.size - 1)
-                    println(items.map { it.name })
 
                     val indexToMove = indexManager.removeAt(indexManager.indexOf(position))
                     indexManager.add(indexToMove)
@@ -82,7 +76,6 @@ class CheckRecyclerAdapter(private val items: MutableList<PillDone>) :
 
 
                 checkedCounter += 1
-                println("///////////////")
 
             }
         }
