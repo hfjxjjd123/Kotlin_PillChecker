@@ -5,8 +5,16 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.pill_checker.adapter.CalendarRecyclerAdapter
+import com.example.pill_checker.adapter.CheckRecyclerAdapter
+import com.example.pill_checker.data.PillDone
 
 class CalendarActivity2:AppCompatActivity() {
+    private lateinit var calendarRecyclerView: RecyclerView
+    private lateinit var calendarRecyclerAdapter: CheckRecyclerAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         val date: Int = intent.getIntExtra("date", -1)
         val time: String = intent.getStringExtra("time")?: "오류"
@@ -34,6 +42,23 @@ class CalendarActivity2:AppCompatActivity() {
         backArrow.setOnClickListener(){
             finish()
         }
+
+        ///
+        val doneItems = listOf<PillDone>(
+            PillDone(1, "마그네슘", 0, "아침", "O"),
+            PillDone(2, "비타민", 0, "아침", "X"),
+            PillDone(3, "프로틴", 0, "아침", "O"),
+        )
+
+        //bool로 sorted 할 수 있나? ㅋㅋ
+        val alignedItems: MutableList<PillDone> = doneItems.sortedBy { it.done }.reversed().toMutableList()
+
+        //doneItems 정렬된 상태로 넘겨줌
+        calendarRecyclerView = findViewById<RecyclerView>(R.id.calendar_panel)
+        calendarRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        calendarRecyclerAdapter = CheckRecyclerAdapter(alignedItems)
+        calendarRecyclerView.adapter = calendarRecyclerAdapter
 
     }
 }
