@@ -13,12 +13,12 @@
         android:layout_height="match_parent" />
     <ImageView
         android:id="@+id/pill_done_calendar"
-         android:layout_height="36dp"
-        android:layout_width="36dp"
+         android:layout_height="32dp"
+        android:layout_width="32dp"
         android:src="@drawable/checkbox_custom"/>
 
     <Space
-        android:layout_width="20dp"
+        android:layout_width="15dp"
         android:layout_height="match_parent" />
     <TextView
         android:id="@+id/pill_name_calendar"
