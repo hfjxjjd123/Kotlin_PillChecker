@@ -64,6 +64,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/calendar_panel"
+        android:paddingVertical="30dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/bottom_of_panel"
@@ -82,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintGuide_begin="70dp" />
+        app:layout_constraintGuide_begin="80dp" />
     <androidx.constraintlayout.widget.Guideline
         android:orientation="horizontal"
         android:id="@+id/top_of_panel"
@@ -92,7 +93,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintGuide_percent="0.24" />
+        app:layout_constraintGuide_percent="0.28" />
     <androidx.constraintlayout.widget.Guideline
         android:orientation="horizontal"
         android:id="@+id/bottom_of_panel"
@@ -102,7 +103,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintGuide_percent="0.64" />
+        app:layout_constraintGuide_percent="0.68" />
     <androidx.constraintlayout.widget.Guideline
         android:orientation="vertical"
         android:id="@+id/start_of_panel"
