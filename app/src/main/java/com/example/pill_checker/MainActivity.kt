@@ -52,12 +52,17 @@ class MainActivity : AppCompatActivity() {
         val doneItems = listOf<PillDone>(
             PillDone(1, "마그네슘", 0, "아침", "O"),
             PillDone(2, "비타민", 0, "아침", "X"),
+            PillDone(3, "프로틴", 0, "아침", "O"),
             )
 
+        //bool로 sorted 할 수 있나? ㅋㅋ
+        val alignedItems: MutableList<PillDone> = doneItems.sortedBy { it.done }.reversed().toMutableList()
+
+        //doneItems 정렬된 상태로 넘겨줌
         checkRecyclerView = findViewById<RecyclerView>(R.id.calendar_done_list)
         checkRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        checkAdapter = CheckRecyclerAdapter(doneItems)
+        checkAdapter = CheckRecyclerAdapter(alignedItems)
         checkRecyclerView.adapter = checkAdapter
 
         val pills = listOf<PillItem>(
