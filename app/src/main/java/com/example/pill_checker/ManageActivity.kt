@@ -12,7 +12,7 @@ import com.example.pill_checker.data.PillDetailItem
 val getDBPills = listOf<PillDetailItem>(
     PillDetailItem(1, "마그네슘", R.drawable.background, listOf("아침", "점심", "저녁"), 1),
     PillDetailItem(2, "비타민C", R.drawable.pill_image, listOf("자기전"), 1),
-    PillDetailItem(3, "프로틴", R.drawable.pill_image, listOf("저녁"), 3),
+    PillDetailItem(3, "프로틴", R.drawable.push_notification, listOf("저녁"), 3),
 )
 
 class ManageActivity:AppCompatActivity() {
@@ -36,6 +36,7 @@ class ManageActivity:AppCompatActivity() {
         val onColor = ContextCompat.getColor(this, R.color.primary)
         val offColor = ContextCompat.getColor(this, R.color.primary_light)
         val pillNum: Button = findViewById<Button>(R.id.pill_num)
+        val pillImage = findViewById<ImageView>(R.id.pill_image)
 
         //NAVIGATION
         val backArrow = findViewById<ImageView>(R.id.back_arrow)
@@ -79,6 +80,8 @@ class ManageActivity:AppCompatActivity() {
             3 -> "2.0"
             else -> "0.0"
         }
+        pillImage.setImageResource(getDBPills[pid-1].imageId)
+
 
     }
 }

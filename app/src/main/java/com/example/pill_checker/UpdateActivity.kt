@@ -1,10 +1,7 @@
 package com.example.pill_checker
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.PopupMenu
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.pill_checker.data.PillDetailItem
@@ -36,7 +33,7 @@ class UpdateActivity:AppCompatActivity() {
         val onColor = ContextCompat.getColor(this, R.color.primary)
         val offColor = ContextCompat.getColor(this, R.color.primary_light)
         val pillNum: Button = findViewById<Button>(R.id.pill_num)
-
+        val pillImage = findViewById<ImageView>(R.id.pill_image)
 
         //FIRST setting
         if (getDBPills[pid - 1].times.contains("아침")) {
@@ -64,6 +61,7 @@ class UpdateActivity:AppCompatActivity() {
             else -> "0.0"
         }
 
+        pillImage.setImageResource(getDBPills[pid-1].imageId)
 
         ///////////////////////////
 

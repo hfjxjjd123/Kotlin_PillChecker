@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pill_done_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="left|center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="10dp">
+
+    <Space
+        android:layout_width="20dp"
+        android:layout_height="match_parent" />
+    <ImageView
+        android:id="@+id/pill_done_calendar"
+         android:layout_height="32dp"
+        android:layout_width="32dp"
+        android:src="@drawable/checkbox_custom"/>
+
+    <Space
+        android:layout_width="15dp"
+        android:layout_height="match_parent" />
+    <TextView
+        android:id="@+id/pill_name_calendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextLargeWhiteBold"
+        />
+
+</LinearLayout>
