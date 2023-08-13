@@ -14,7 +14,8 @@ import com.example.pill_checker.data.PillDone
 
 class CheckRecyclerAdapter(private val items: MutableList<PillDone>) :
     RecyclerView.Adapter<CheckRecyclerAdapter.ViewHolder>() {
-    val indexManager: MutableList<Int> = (0..items.size-1).toMutableList()
+    val indexManager: MutableList<Int> = (0..items.size - 1).toMutableList()
+    var checkedCounter: Int = items.count { it.done == "O" }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView =
@@ -32,7 +33,7 @@ class CheckRecyclerAdapter(private val items: MutableList<PillDone>) :
         if (item.done == "O") {
             holder.checkImage.setImageResource(R.drawable.checkbox_custom_checked)
             holder.pillName.paintFlags = holder.pillName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-        } else{
+        } else {
             holder.checkImage.setImageResource(R.drawable.checkbox_custom)
             holder.pillName.paintFlags =
                 holder.pillName.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
@@ -48,36 +49,39 @@ class CheckRecyclerAdapter(private val items: MutableList<PillDone>) :
                 holder.pillName.paintFlags =
                     holder.pillName.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
 
-                val itemToMove = items.removeAt(indexManager.indexOf(position))
-                items.add(0, itemToMove)
-                notifyItemMoved(indexManager.indexOf(position), 0)
-                println(items.map { it.name })
+                if (items.size - checkedCounter < indexManager.indexOf(position)) {
+                    val itemToMove = items.removeAt(indexManager.indexOf(position))
+                    items.add(0, itemToMove)
+                    notifyItemMoved(indexManager.indexOf(position), 0)
+                    println(items.map { it.name })
 
-                val  indexToMove = indexManager.removeAt(indexManager.indexOf(position))
-                indexManager.add(0, indexToMove)
-                println(indexManager)
+                    val indexToMove = indexManager.removeAt(indexManager.indexOf(position))
+                    indexManager.add(0, indexToMove)
+                    println(indexManager)
+                }
 
-                println("///////////////")
-
+                checkedCounter -= 1
 
             } else {
                 println("Uncheck -> check")
 
                 item.done = "O"
                 holder.checkImage.setImageResource(R.drawable.checkbox_custom_checked)
-                holder.pillName.paintFlags = holder.pillName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                holder.pillName.paintFlags =
+                    holder.pillName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
-                println("Position: " + position + " Hot Watching: "+ indexManager.indexOf(position))
+                if (items.size - checkedCounter - 1 > indexManager.indexOf(position)) {
+                    val itemToMove = items.removeAt(indexManager.indexOf(position))
+                    items.add(itemToMove)
+                    notifyItemMoved(indexManager.indexOf(position), items.size - 1)
+                    println(items.map { it.name })
 
-                val itemToMove = items.removeAt(indexManager.indexOf(position))
-                items.add(itemToMove)
-                notifyItemMoved(indexManager.indexOf(position), items.size-1)
-                println(items.map { it.name })
+                    val indexToMove = indexManager.removeAt(indexManager.indexOf(position))
+                    indexManager.add(indexToMove)
+                }
 
-                val indexToMove = indexManager.removeAt(indexManager.indexOf(position))
-                indexManager.add(indexToMove)
 
-                println(indexManager)
+                checkedCounter += 1
                 println("///////////////")
 
             }
