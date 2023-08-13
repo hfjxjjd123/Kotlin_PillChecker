@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        //TODO Login 로직 구현
         if (!isLoggedIn()) {
             val signInIntent = Intent(this, LoginActivity1::class.java)
             signInIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -31,6 +33,15 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val show_last: ImageView = findViewById(R.id.to_last_time)
+        val show_next: ImageView = findViewById(R.id.to_next_time)
+        show_last.setOnClickListener(){
+            //Panel Data Fetching
+        }
+        show_next.setOnClickListener(){
+            //Panel Data Fetching
+        }
 
         val pills = listOf<PillItem>(
             PillItem(1),
