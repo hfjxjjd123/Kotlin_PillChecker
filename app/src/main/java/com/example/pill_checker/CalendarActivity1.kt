@@ -8,10 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.adapter.CalendarRecyclerAdapter
 import com.example.pill_checker.adapter.CategoryRecyclerAdapter
-import com.example.pill_checker.adapter.DoneRecyclerAdapter
-import com.example.pill_checker.adapter.PillOuterRecyclerAdapter
-import com.example.pill_checker.data.DoneItem
-import com.example.pill_checker.data.PillItem
+import com.example.pill_checker.data.CalendarDoneItem
 
 class CalendarActivity1:AppCompatActivity() {
     private lateinit var calendarRecyclerView: RecyclerView
@@ -35,38 +32,38 @@ class CalendarActivity1:AppCompatActivity() {
         }
 
         //TODO Data DB에서 얻어와야함
-        val dataOfList = listOf<List<DoneItem>>(
-            listOf<DoneItem>(
-                DoneItem("O", 0, "아침"),
-                DoneItem("O", 0, "점심"),
-                DoneItem("X", 0, "저녁"),
-                DoneItem("N", 0, "자기전"),
+        val dataOfList = listOf<List<CalendarDoneItem>>(
+            listOf<CalendarDoneItem>(
+                CalendarDoneItem("O", 0, "아침"),
+                CalendarDoneItem("O", 0, "점심"),
+                CalendarDoneItem("X", 0, "저녁"),
+                CalendarDoneItem("N", 0, "자기전"),
             ),
-            listOf<DoneItem>(
-                DoneItem("O", 1, "아침"),
-                DoneItem("O", 1, "점심"),
-                DoneItem("X", 1, "저녁"),
-                DoneItem("O", 1, "자기전"),
+            listOf<CalendarDoneItem>(
+                CalendarDoneItem("O", 1, "아침"),
+                CalendarDoneItem("O", 1, "점심"),
+                CalendarDoneItem("X", 1, "저녁"),
+                CalendarDoneItem("O", 1, "자기전"),
             ),
-            listOf<DoneItem>(
-                DoneItem("O", 2, "아침"),
-                DoneItem("N", 2, "점심"),
-                DoneItem("X", 2, "저녁"),
-                DoneItem("O", 2, "자기전"),
+            listOf<CalendarDoneItem>(
+                CalendarDoneItem("O", 2, "아침"),
+                CalendarDoneItem("N", 2, "점심"),
+                CalendarDoneItem("X", 2, "저녁"),
+                CalendarDoneItem("O", 2, "자기전"),
             ),
-            listOf<DoneItem>(
-                DoneItem("O", 3, "아침"),
-                DoneItem("N", 3, "점심"),
-                DoneItem("X", 3, "저녁"),
-                DoneItem("X", 3, "자기전"),
+            listOf<CalendarDoneItem>(
+                CalendarDoneItem("O", 3, "아침"),
+                CalendarDoneItem("N", 3, "점심"),
+                CalendarDoneItem("X", 3, "저녁"),
+                CalendarDoneItem("X", 3, "자기전"),
             ),
 
             )
         val dataOfStat = 0b1111
 
-        val filteredItems = mutableListOf<List<DoneItem>>()
+        val filteredItems = mutableListOf<List<CalendarDoneItem>>()
             for (item in dataOfList){
-                val filteredItem: List<DoneItem> = item.filterIndexed() { index, _ ->
+                val filteredItem: List<CalendarDoneItem> = item.filterIndexed() { index, _ ->
                     val indexStats = _indexToStats(index)
                     (dataOfStat and indexStats) == indexStats
                 }

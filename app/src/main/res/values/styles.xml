@@ -4,27 +4,27 @@
     <style name="TextTitleLarge">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/text_black</item>
-        <item name="android:textSize">36sp</item>
+        <item name="android:textSize">32sp</item>
     </style>
     <style name="TextTitleMedium">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/text_black</item>
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">24sp</item>
     </style>
     <style name="TextTitleSmall">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/text_black</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <!-- Normal text -->
     <style name="TextNormalBlack">
         <item name="android:textColor">@color/text_black</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">20sp</item>
     </style>
     <style name="TextSmallBlack">
         <item name="android:textColor">@color/text_black</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
     <style name="TextAutoBlack">
         <item name="android:textColor">@color/text_black</item>
@@ -32,28 +32,28 @@
     </style>
     <style name="TextNormalWhite">
         <item name="android:textColor">@color/text_white</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
     <style name="TextSmallWhite">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/text_white</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">12sp</item>
     </style>
     <style name="TextNormalWhiteBold">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/text_white</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
     <style name="TextLargeWhiteBold">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/text_white</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <!-- Spec text -->
     <style name="TextSpec">
         <item name="android:textColor">@color/text_black</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <!-- Button Style -->

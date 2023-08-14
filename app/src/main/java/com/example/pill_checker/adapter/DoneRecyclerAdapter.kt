@@ -5,16 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.CalendarActivity2
-import com.example.pill_checker.ManageActivity
 import com.example.pill_checker.R
-import com.example.pill_checker.data.DoneItem
+import com.example.pill_checker.data.CalendarDoneItem
 
 //outer list: date
 //inner list: done
-class DoneRecyclerAdapter(private val itemsDone: List<DoneItem>) :
+class DoneRecyclerAdapter(private val itemsDone: List<CalendarDoneItem>) :
     RecyclerView.Adapter<DoneRecyclerAdapter.InnerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InnerViewHolder {
@@ -25,7 +23,7 @@ class DoneRecyclerAdapter(private val itemsDone: List<DoneItem>) :
     }
 
     override fun onBindViewHolder(holder: InnerViewHolder, position: Int) {
-        val item: DoneItem = itemsDone[position]
+        val item: CalendarDoneItem = itemsDone[position]
 
         if (item.done == "O") {
             holder.doneImage.setImageResource(R.drawable.done)

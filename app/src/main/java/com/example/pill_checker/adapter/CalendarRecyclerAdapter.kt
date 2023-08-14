@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.R
-import com.example.pill_checker.data.DoneItem
+import com.example.pill_checker.data.CalendarDoneItem
 
-class CalendarRecyclerAdapter(private val items: List<List<DoneItem>>) :
+class CalendarRecyclerAdapter(private val items: List<List<CalendarDoneItem>>) :
     RecyclerView.Adapter<CalendarRecyclerAdapter.OuterViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OuterViewHolder {
@@ -26,7 +26,7 @@ class CalendarRecyclerAdapter(private val items: List<List<DoneItem>>) :
     }
 
     override fun onBindViewHolder(holder: OuterViewHolder, position: Int) {
-        val currentItem:List<DoneItem> = items[position]
+        val currentItem:List<CalendarDoneItem> = items[position]
         holder.bind(currentItem)
     }
 
@@ -38,7 +38,7 @@ class CalendarRecyclerAdapter(private val items: List<List<DoneItem>>) :
     class OuterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val innerRecyclerView: RecyclerView = itemView.findViewById(R.id.recycler_done)
 
-        fun bind(data: List<DoneItem>) {
+        fun bind(data: List<CalendarDoneItem>) {
             val innerAdapter = DoneRecyclerAdapter(data)
             innerRecyclerView.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
