@@ -7,3 +7,11 @@ data class PillDone(
     val time: String,
     var done: String
     )
+
+
+//data class PillDone(
+//    val pid: Int,
+//    val name: String,
+//    val time: Int,
+//    var done: String
+//)
