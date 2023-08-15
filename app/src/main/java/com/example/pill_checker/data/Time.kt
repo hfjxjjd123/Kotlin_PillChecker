@@ -5,6 +5,6 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Time(
-    @PrimaryKey val tid: Long,
+    @PrimaryKey val tid: Int,
     var count: Int
     )
