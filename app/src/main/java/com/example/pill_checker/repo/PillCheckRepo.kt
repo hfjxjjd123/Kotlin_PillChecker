@@ -42,15 +42,18 @@ class PillCheckRepo(private val database: MainDatabase.MainDatabase) {
         pillCheckDao.updatePillCheck(pillCheck)
 
         val dateTime = dateTimeDao.getDateTimeById(dtid)
-        dateTime.checked = true
-        val pillChecks = pillCheckDao.getAllPillChecksByDtid(dtid)
-        for(pill in pillChecks){
-            if(!pill.checked){
-                dateTime.checked = false
-                break
+        if (dateTime != null) {
+            dateTime.checked = true
+            val pillChecks = pillCheckDao.getAllPillChecksByDtid(dtid)
+            for(pill in pillChecks){
+                if(!pill.checked){
+                    dateTime.checked = false
+                    break
+                }
             }
+            dateTimeDao.updateDateTime(dateTime)
         }
-        dateTimeDao.updateDateTime(dateTime)
+
 
     }
 

@@ -16,6 +16,7 @@ import com.example.pill_checker.data.PillCheck
 import com.example.pill_checker.repo.PillCheckRepo
 import com.example.pill_checker.repo.PillRepo
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 var isLogin = false
 
@@ -75,8 +76,8 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        val datetimeNow = DateTimeManager().getDateValue(LocalDate.now())
-        val checkedPill = pillCheckRepo.getPillChecksByDtid(datetimeNow)
+        val dtidNow = DateTimeManager().getDateTimeValueNow()
+        val checkedPill = pillCheckRepo.getPillChecksByDtid(dtidNow)
         val alignedItems: MutableList<PillCheck> = checkedPill.sortedBy { it.checked }.reversed().toMutableList()
 
         checkAdapter = CheckRecyclerAdapter(alignedItems)
