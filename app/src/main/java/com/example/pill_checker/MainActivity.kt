@@ -9,6 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.adapter.CheckRecyclerAdapter
 import com.example.pill_checker.adapter.PillOuterRecyclerAdapter
+import com.example.pill_checker.dao.MainDatabase
+import com.example.pill_checker.data.DateTime
+import com.example.pill_checker.data.PillCheck
+import com.example.pill_checker.repo.PillCheckRepo
+import com.example.pill_checker.repo.PillRepo
 
 var isLogin = false
 
@@ -44,14 +49,12 @@ class MainActivity : AppCompatActivity() {
             //Panel Data Fetching
         }
 
-        val doneItems = listOf<PillDone>(
-            PillDone(1, "마그네슘", 0, "아침", "O"),
-            PillDone(2, "비타민", 0, "아침", "X"),
-            PillDone(3, "프로틴", 0, "아침", "O"),
-            )
+        //TODO Date 변환기로 변환 후 넣기
+        val datetimeNow = 10L
+        val pillCheckRepo = PillCheckRepo(MainDatabase.MainDatabase.getDatabase(this))
+        val doneItems = pillCheckRepo.getPillChecksByDtid(datetimeNow)
 
-        //bool로 sorted 할 수 있나? ㅋㅋ
-        val alignedItems: MutableList<PillDone> = doneItems.sortedBy { it.done }.reversed().toMutableList()
+        val alignedItems: MutableList<PillCheck> = doneItems.sortedBy { it.checked }.reversed().toMutableList()
 
         //doneItems 정렬된 상태로 넘겨줌
         checkRecyclerView = findViewById<RecyclerView>(R.id.calendar_done_list)
@@ -60,11 +63,8 @@ class MainActivity : AppCompatActivity() {
         checkAdapter = CheckRecyclerAdapter(alignedItems)
         checkRecyclerView.adapter = checkAdapter
 
-        val pills = listOf<PillItem>(
-            PillItem(1),
-            PillItem(2),
-            PillItem(3),
-        )
+        val pillRepo = PillRepo(MainDatabase.MainDatabase.getDatabase(this))
+        val pills = pillRepo.getAllPills()
 
         outerRecyclerView = findViewById<RecyclerView>(R.id.recycler_pill)
         outerRecyclerView.layoutManager = LinearLayoutManager(this)

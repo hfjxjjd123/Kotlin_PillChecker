@@ -4,6 +4,10 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.pill_checker.dao.MainDatabase
+import com.example.pill_checker.repo.PillRepo
+
+//TODO Update DB 로직 필요
 
 class UpdateActivity:AppCompatActivity() {
     var morningOn = false
@@ -12,13 +16,16 @@ class UpdateActivity:AppCompatActivity() {
     var sleepOn = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val pid = intent.getIntExtra("pid", -1)
+        val pid = intent.getLongExtra("pid", -1)
+
+        val pillRepo = PillRepo(MainDatabase.MainDatabase.getDatabase(this))
+        val pill = pillRepo.getPillById(pid)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update)
 
         val pillText = findViewById<TextView>(R.id.reg_pill)
-        pillText.text = getDBPills[pid - 1].name
+        pillText.text = pill.name
         val backArrow = findViewById<ImageButton>(R.id.back_arrow)
         backArrow.setOnClickListener(){
             finish()
@@ -35,24 +42,25 @@ class UpdateActivity:AppCompatActivity() {
         val pillImage = findViewById<ImageView>(R.id.pill_image)
 
         //FIRST setting
-        if (getDBPills[pid - 1].times.contains("아침")) {
+        if (pill.times and 0b0001 == 0b0001) {
             morningOn = true
             morningClock.setBackgroundColor(onColor)
         }
-        if (getDBPills[pid - 1].times.contains("점심")) {
+        if (pill.times and 0b0010 == 0b0010) {
             lunchOn = true
             lunchClock.setBackgroundColor(onColor)
         }
-        if (getDBPills[pid - 1].times.contains("저녁")) {
+        if (pill.times and 0b0100 == 0b0100) {
             dinnerOn = true
             dinnerClock.setBackgroundColor(onColor)
         }
-        if (getDBPills[pid - 1].times.contains("자기전")) {
+        if (pill.times and 0b1000 == 0b1000) {
             sleepOn = true
             sleepClock.setBackgroundColor(onColor)
         }
 
-        pillNum.text = when(getDBPills[pid-1].pillHalfNum){
+        pillNum.text = when(pill.ea){
+            null -> "1.0"
             0 -> "0.5"
             1 -> "1.0"
             2 -> "1.5"
@@ -60,7 +68,7 @@ class UpdateActivity:AppCompatActivity() {
             else -> "0.0"
         }
 
-        pillImage.setImageResource(getDBPills[pid-1].imageId)
+        pillImage.setImageBitmap(pill.image)
 
         ///////////////////////////
 

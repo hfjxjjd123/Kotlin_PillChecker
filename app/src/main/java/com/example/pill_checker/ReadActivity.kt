@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.adapter.PillOuterRecyclerAdapter
+import com.example.pill_checker.dao.MainDatabase
+import com.example.pill_checker.data.Pill
+import com.example.pill_checker.repo.PillRepo
 
 class ReadActivity:AppCompatActivity() {
 
@@ -15,6 +18,10 @@ class ReadActivity:AppCompatActivity() {
     private lateinit var adapter: PillOuterRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val pillRepo = PillRepo(MainDatabase.MainDatabase.getDatabase(this))
+        val pills: List<Pill> = pillRepo.getAllPills()
+
         val toReg = Intent(this, RegActivity::class.java)
 
         super.onCreate(savedInstanceState)
@@ -29,14 +36,6 @@ class ReadActivity:AppCompatActivity() {
         registerPill.setOnClickListener(){
             startActivity(toReg)
         }
-
-
-        //RecyclerView 영역
-        val pills = listOf<PillItem>(
-            PillItem(1),
-            PillItem(2),
-            PillItem(3),
-        )
 
         outerRecyclerView = findViewById<RecyclerView>(R.id.recycler_pill)
         outerRecyclerView.layoutManager = LinearLayoutManager(this)
