@@ -9,12 +9,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.R
+import com.example.pill_checker.data.PillCheck
 
 
-class CheckRecyclerAdapter(private val items: MutableList<PillDone>) :
+class CheckRecyclerAdapter(private val items: MutableList<PillCheck>) :
     RecyclerView.Adapter<CheckRecyclerAdapter.ViewHolder>() {
     val indexManager: MutableList<Int> = (0..items.size - 1).toMutableList()
-    var checkedCounter: Int = items.count { it.done == "O" }
+    var checkedCounter: Int = items.count { it.checked }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView =
@@ -24,12 +25,12 @@ class CheckRecyclerAdapter(private val items: MutableList<PillDone>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: PillDone = items[indexManager[position]]
+        val item: PillCheck = items[indexManager[position]]
 
 
         holder.pillName.text = item.name
 
-        if (item.done == "O") {
+        if (item.checked) {
             holder.checkImage.setImageResource(R.drawable.checkbox_custom_checked)
             holder.pillName.paintFlags = holder.pillName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         } else {
@@ -41,8 +42,8 @@ class CheckRecyclerAdapter(private val items: MutableList<PillDone>) :
         //TODO 데이터베이스 변화를 먼저하기, 변화 후 위치 맨 끝으로 보내기
         holder.pillTab.setOnClickListener {
 
-            if (item.done == "O") {
-                item.done = "X"
+            if (item.checked) {
+                item.checked = false
                 holder.checkImage.setImageResource(R.drawable.checkbox_custom)
                 holder.pillName.paintFlags =
                     holder.pillName.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
@@ -59,7 +60,7 @@ class CheckRecyclerAdapter(private val items: MutableList<PillDone>) :
                 checkedCounter -= 1
 
             } else {
-                item.done = "O"
+                item.checked = true
                 holder.checkImage.setImageResource(R.drawable.checkbox_custom_checked)
                 holder.pillName.paintFlags =
                     holder.pillName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
