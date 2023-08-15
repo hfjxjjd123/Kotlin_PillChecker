@@ -1,4 +1,4 @@
-package com.example.pill_checker.database
+package com.example.pill_checker.dao
 
 import androidx.room.Dao
 import androidx.room.Insert

@@ -1,10 +1,9 @@
-package com.example.pill_checker.database
+package com.example.pill_checker.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.example.pill_checker.data.DateTime
 import com.example.pill_checker.data.PillCheck
 
 @Dao
