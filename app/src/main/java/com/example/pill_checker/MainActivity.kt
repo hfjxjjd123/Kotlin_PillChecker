@@ -9,11 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.adapter.CheckRecyclerAdapter
 import com.example.pill_checker.adapter.PillOuterRecyclerAdapter
+import com.example.pill_checker.dao.DateTimeManager
 import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.DateTime
 import com.example.pill_checker.data.PillCheck
 import com.example.pill_checker.repo.PillCheckRepo
 import com.example.pill_checker.repo.PillRepo
+import java.time.LocalDate
 
 var isLogin = false
 
@@ -22,6 +24,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: PillOuterRecyclerAdapter
     private lateinit var checkRecyclerView: RecyclerView
     private lateinit var checkAdapter: CheckRecyclerAdapter
+
+    private val pillCheckRepo = PillCheckRepo(MainDatabase.MainDatabase.getDatabase(this))
+    private val pillRepo = PillRepo(MainDatabase.MainDatabase.getDatabase(this))
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,30 +54,11 @@ class MainActivity : AppCompatActivity() {
             //Panel Data Fetching
         }
 
-        //TODO Date 변환기로 변환 후 넣기
-        val datetimeNow = 10L
-        val pillCheckRepo = PillCheckRepo(MainDatabase.MainDatabase.getDatabase(this))
-        val doneItems = pillCheckRepo.getPillChecksByDtid(datetimeNow)
-
-        val alignedItems: MutableList<PillCheck> = doneItems.sortedBy { it.checked }.reversed().toMutableList()
-
-        //doneItems 정렬된 상태로 넘겨줌
         checkRecyclerView = findViewById<RecyclerView>(R.id.calendar_done_list)
         checkRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        checkAdapter = CheckRecyclerAdapter(alignedItems)
-        checkRecyclerView.adapter = checkAdapter
-
-        val pillRepo = PillRepo(MainDatabase.MainDatabase.getDatabase(this))
-        val pills = pillRepo.getAllPills()
-
         outerRecyclerView = findViewById<RecyclerView>(R.id.recycler_pill)
         outerRecyclerView.layoutManager = LinearLayoutManager(this)
-
-        adapter = PillOuterRecyclerAdapter(pills)
-        outerRecyclerView.adapter = adapter
-
-
 
         val calendarPanel: LinearLayout= findViewById(R.id.title_calender)
         calendarPanel.setOnClickListener(){
@@ -83,6 +69,22 @@ class MainActivity : AppCompatActivity() {
         pillsPanel.setOnClickListener(){
             startActivity(toPills)
         }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val datetimeNow = DateTimeManager().getDateValue(LocalDate.now())
+        val checkedPill = pillCheckRepo.getPillChecksByDtid(datetimeNow)
+        val alignedItems: MutableList<PillCheck> = checkedPill.sortedBy { it.checked }.reversed().toMutableList()
+
+        checkAdapter = CheckRecyclerAdapter(alignedItems)
+        checkRecyclerView.adapter = checkAdapter
+
+        val pills = pillRepo.getAllPills()
+        adapter = PillOuterRecyclerAdapter(pills)
+        outerRecyclerView.adapter = adapter
 
     }
 
