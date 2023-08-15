@@ -1,8 +1,8 @@
 package com.example.pill_checker
 
 import android.app.Application
-import com.example.pill_checker.dao.AppDatabase
+import com.example.pill_checker.dao.MainDatabase
 
 class MyApplication: Application(){
-    val database by lazy { AppDatabase.AppDatabase.getDatabase(this) }
+    val database by lazy { MainDatabase.MainDatabase.getDatabase(this) }
 }
