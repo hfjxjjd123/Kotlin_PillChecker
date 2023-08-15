@@ -12,7 +12,7 @@ class PillCheckRepo(private val database: MainDatabase.MainDatabase) {
     fun getPillChecksByDtid(dtid: Long) = pillCheckDao.getAllPillChecksByDtid(dtid)
     fun createNextPillChecks(dtid: Long){
         //TODO 수정
-        val time: Long = dtid - 1;
+        val time: Int = 0b1000
         val pillLights = pillLightDao.getPillLightsByTid(time)
 
         val dateTime = DateTime(dtid = dtid, checked = false)

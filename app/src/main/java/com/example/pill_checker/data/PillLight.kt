@@ -9,5 +9,5 @@ import androidx.room.PrimaryKey
 data class PillLight(
     @PrimaryKey val pid: Long,
     val name: String,
-    val tid: Long
+    val tid: Int
     )
