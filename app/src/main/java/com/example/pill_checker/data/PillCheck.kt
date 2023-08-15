@@ -8,5 +8,6 @@ import androidx.room.PrimaryKey
 data class PillCheck(
     @PrimaryKey val pid: Long,
     var name: String,
+    var checked: Boolean,
     val dtid: Long
 )
