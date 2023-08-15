@@ -14,7 +14,7 @@ import com.example.pill_checker.data.PillCheck
 
 class CheckRecyclerAdapter(private val items: MutableList<PillCheck>) :
     RecyclerView.Adapter<CheckRecyclerAdapter.ViewHolder>() {
-    val indexManager: MutableList<Int> = (0..items.size - 1).toMutableList()
+    private val indexManager: MutableList<Int> = (0 until items.size).toMutableList()
     var checkedCounter: Int = items.count { it.checked }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
