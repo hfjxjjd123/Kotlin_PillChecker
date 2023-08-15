@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.adapter.PillOuterRecyclerAdapter
-import com.example.pill_checker.data.PillItem
 
 class ReadActivity:AppCompatActivity() {
 

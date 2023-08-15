@@ -6,13 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.ManageActivity
 import com.example.pill_checker.R
-import com.example.pill_checker.data.PillDetailItem
-import com.example.pill_checker.data.PillItem
 import com.example.pill_checker.getDBPills
 
 

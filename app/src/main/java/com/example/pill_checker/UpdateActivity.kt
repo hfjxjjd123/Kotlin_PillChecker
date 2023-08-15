@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.example.pill_checker.data.PillDetailItem
 
 class UpdateActivity:AppCompatActivity() {
     var morningOn = false

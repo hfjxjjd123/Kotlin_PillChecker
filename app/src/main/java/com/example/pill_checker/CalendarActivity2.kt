@@ -2,14 +2,11 @@ package com.example.pill_checker
 
 import android.os.Bundle
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pill_checker.adapter.CalendarRecyclerAdapter
 import com.example.pill_checker.adapter.CheckRecyclerAdapter
-import com.example.pill_checker.data.PillDone
 
 class CalendarActivity2:AppCompatActivity() {
     private lateinit var calendarRecyclerView: RecyclerView

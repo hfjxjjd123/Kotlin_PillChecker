@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.example.pill_checker.data.PillDetailItem
 
 val getDBPills = listOf<PillDetailItem>(
     PillDetailItem(1, "마그네슘", R.drawable.background, listOf("아침", "점심", "저녁"), 1),

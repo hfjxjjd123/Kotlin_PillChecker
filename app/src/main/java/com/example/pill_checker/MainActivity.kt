@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.adapter.CheckRecyclerAdapter
 import com.example.pill_checker.adapter.PillOuterRecyclerAdapter
-import com.example.pill_checker.data.PillDone
-import com.example.pill_checker.data.PillItem
 
 var isLogin = false
 

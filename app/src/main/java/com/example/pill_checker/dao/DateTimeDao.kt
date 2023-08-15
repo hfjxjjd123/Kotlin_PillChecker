@@ -12,7 +12,7 @@ interface DateTimeDao {
     fun getAllDateTimes(): List<DateTime>
 
     @Query("SELECT * FROM DateTime WHERE dtid = :id")
-    fun getDateTimeById(id: Long): DateTime
+    fun getDateTimeById(id: Long): DateTime?
 
     @Insert
     fun insertDateTime(dateTime: DateTime)
