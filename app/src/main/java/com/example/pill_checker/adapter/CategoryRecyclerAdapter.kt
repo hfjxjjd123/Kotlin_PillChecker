@@ -1,14 +1,11 @@
 package com.example.pill_checker.adapter
 
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.R
-import com.example.pill_checker.data.DoneItem
 
 class CategoryRecyclerAdapter(private val items: List<String>) :
     RecyclerView.Adapter<CategoryRecyclerAdapter.ViewHolder>() {

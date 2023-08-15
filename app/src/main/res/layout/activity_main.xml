@@ -196,7 +196,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintGuide_begin="70dp" />
+            app:layout_constraintGuide_begin="85dp" />
         <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:id="@+id/top_of_panel"
@@ -206,7 +206,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintGuide_begin="180dp" />
+            app:layout_constraintGuide_begin="200dp" />
         <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:id="@+id/bottom_of_panel"
@@ -216,7 +216,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintGuide_begin="580dp" />
+            app:layout_constraintGuide_begin="600dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
@@ -227,7 +227,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintGuide_begin="620dp" />
+            app:layout_constraintGuide_begin="640dp" />
         <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:id="@+id/bottom_of_calendar_detail"
@@ -237,7 +237,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintGuide_begin="700dp" />
+            app:layout_constraintGuide_begin="720dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
@@ -248,7 +248,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintGuide_begin="740dp" />
+            app:layout_constraintGuide_begin="760dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/start_of_content"
