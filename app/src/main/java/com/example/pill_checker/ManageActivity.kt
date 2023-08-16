@@ -12,16 +12,12 @@ import com.example.pill_checker.data.Pill
 import com.example.pill_checker.repo.PillRepo
 
 class ManageActivity:AppCompatActivity() {
-    var morningOn = false
-    var lunchOn = false
-    var dinnerOn = false
-    var sleepOn = false
+    var time: Int = 0b0000
+    val pillRepo = PillRepo(MainDatabase.MainDatabase.getDatabase(this))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val pid = intent.getLongExtra("pid", -1)
         val toUpdate = Intent(this, UpdateActivity::class.java)
-
-        val pillRepo = PillRepo(MainDatabase.MainDatabase.getDatabase(this))
         val pill = pillRepo.getPillById(pid)
 
         super.onCreate(savedInstanceState)
@@ -55,30 +51,27 @@ class ManageActivity:AppCompatActivity() {
         val pillText = findViewById<TextView>(R.id.reg_name)
         pillText.text = pill.name
 
-        if (pill.times and 0b0001 == 0b0001) {
-            morningOn = true
+        time = pill.times
+        if (time and 0b0001 == 0b0001) {
             morningClock.setBackgroundColor(onColor)
         }
-        if (pill.times and 0b0010 == 0b0010) {
-            lunchOn = true
+        if (time and 0b0010 == 0b0010) {
             lunchClock.setBackgroundColor(onColor)
         }
-        if (pill.times and 0b0100 == 0b0100) {
-            dinnerOn = true
+        if (time and 0b0100 == 0b0100) {
             dinnerClock.setBackgroundColor(onColor)
         }
-        if (pill.times and 0b1000 == 0b1000) {
-            sleepOn = true
+        if (time and 0b1000 == 0b1000) {
             sleepClock.setBackgroundColor(onColor)
         }
 
         pillNum.text = when(pill.ea){
-            null -> "1.0"
+            null -> ""
             0 -> "0.5"
             1 -> "1.0"
             2 -> "1.5"
             3 -> "2.0"
-            else -> "0.0"
+            else -> "1.0"
         }
         pillImage.setImageBitmap(pill.image)
 
