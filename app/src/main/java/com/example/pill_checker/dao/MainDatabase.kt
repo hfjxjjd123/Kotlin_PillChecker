@@ -1,9 +1,11 @@
 package com.example.pill_checker.dao
 
+import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.pill_checker.CalendarActivity2
+import com.example.pill_checker.adapter.CheckRecyclerAdapter
 import com.example.pill_checker.data.*
 
 abstract class MainDatabase {
@@ -22,7 +24,7 @@ abstract class MainDatabase {
             @Volatile
             private var INSTANCE: MainDatabase? = null
 
-            fun getDatabase(context: CalendarActivity2): MainDatabase {
+            fun getDatabase(context: Context): MainDatabase {
                 return INSTANCE ?: synchronized(this) {
                     val instance = Room.databaseBuilder(
                         context.applicationContext,

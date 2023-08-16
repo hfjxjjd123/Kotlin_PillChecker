@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         val checkedPill = pillCheckRepo.getPillChecksByDtid(dtidNow)
         val alignedItems: MutableList<PillCheck> = checkedPill.sortedBy { it.checked }.reversed().toMutableList()
 
-        checkAdapter = CheckRecyclerAdapter(alignedItems)
+        checkAdapter = CheckRecyclerAdapter(this, alignedItems)
         checkRecyclerView.adapter = checkAdapter
 
         val pills = pillRepo.getAllPills()

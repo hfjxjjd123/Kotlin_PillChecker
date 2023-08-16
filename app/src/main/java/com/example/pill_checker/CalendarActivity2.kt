@@ -50,7 +50,7 @@ class CalendarActivity2:AppCompatActivity() {
         calendarRecyclerView = findViewById<RecyclerView>(R.id.calendar_panel)
         calendarRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        calendarRecyclerAdapter = CheckRecyclerAdapter(alignedItems)
+        calendarRecyclerAdapter = CheckRecyclerAdapter(this, alignedItems)
         calendarRecyclerView.adapter = calendarRecyclerAdapter
 
     }

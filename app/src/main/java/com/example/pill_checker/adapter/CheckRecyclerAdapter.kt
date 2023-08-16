@@ -1,5 +1,6 @@
 package com.example.pill_checker.adapter
 
+import android.content.Context
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
@@ -8,21 +9,19 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pill_checker.CalendarActivity2
-import com.example.pill_checker.MainActivity
 import com.example.pill_checker.R
 import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.PillCheck
 import com.example.pill_checker.repo.PillCheckRepo
 
 
-class CheckRecyclerAdapter(private val items: MutableList<PillCheck>) :
+class CheckRecyclerAdapter(private val context: Context, private val items: MutableList<PillCheck>) :
     RecyclerView.Adapter<CheckRecyclerAdapter.ViewHolder>() {
     private val indexManager: MutableList<Int> = (0 until items.size).toMutableList()
     var checkedCounter: Int = items.count { it.checked }
 
     private val pillCheckRepo = PillCheckRepo(
-        MainDatabase.MainDatabase.getDatabase(CalendarActivity2())
+        MainDatabase.MainDatabase.getDatabase(context)
 
     )
 
