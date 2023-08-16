@@ -20,6 +20,8 @@ const val MIN_DINNER = 0
 const val HOUR_SLEEP = 0
 const val MIN_SLEEP = -30
 
+val timeIter: List<Int> = listOf(0b0001, 0b0010, 0b0100, 0b1000)
+
 class DateTimeManager {
     fun getDateValue(datetime: LocalDateTime): Long {
         val consideredDate = datetime

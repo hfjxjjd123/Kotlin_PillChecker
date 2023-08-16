@@ -1,6 +1,7 @@
 package com.example.pill_checker.repo
 
 import com.example.pill_checker.dao.MainDatabase
+import com.example.pill_checker.dao.timeIter
 import com.example.pill_checker.data.DateTime
 
 class DateTimeRepo(private val database: MainDatabase.MainDatabase) {
@@ -31,7 +32,7 @@ class DateTimeRepo(private val database: MainDatabase.MainDatabase) {
     private fun getDateTimeByDate(date: Long): MutableList<DateTime?>{
         val dateTimeList = mutableListOf<DateTime?>()
 
-        for(time in 0b0001..0b1000 step 0b0010){
+        for(time in timeIter){
             val dtid = date + time
             val dateTime = dateTimeDao.getDateTimeById(dtid)
             dateTimeList.add(dateTime)

@@ -14,6 +14,7 @@ import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.PillCheck
 import com.example.pill_checker.repo.PillCheckRepo
 import com.example.pill_checker.repo.PillRepo
+import com.example.pill_checker.repo.TimeRepo
 
 var isLogin = false
 
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     private val pillCheckRepo = PillCheckRepo(MainDatabase.MainDatabase.getDatabase(this))
     private val pillRepo = PillRepo(MainDatabase.MainDatabase.getDatabase(this))
+    private val timeRepo = TimeRepo(MainDatabase.MainDatabase.getDatabase(this))
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,9 +76,17 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         val dtidNow = DateTimeManager().getDateTimeValueNow()
-        val checkedPill = pillCheckRepo.getPillChecksByDtid(dtidNow)
-        val alignedItems: MutableList<PillCheck> = checkedPill.sortedBy { it.checked }.reversed().toMutableList()
+        val consideredDtid: Long? = timeRepo.veryNextDtid(dtidNow)
 
+        val checkedPill: List<PillCheck> = if(consideredDtid != null) {
+            pillCheckRepo.getPillChecksByDtid(consideredDtid)
+        }else{
+            listOf<PillCheck>()
+        }
+
+        //TODO checkedPill이 Empty한 상황 핸들링하기
+
+        val alignedItems: MutableList<PillCheck> = checkedPill.sortedBy { it.checked }.reversed().toMutableList()
         checkAdapter = CheckRecyclerAdapter(this, alignedItems)
         checkRecyclerView.adapter = checkAdapter
 
@@ -90,5 +100,6 @@ class MainActivity : AppCompatActivity() {
     private fun isLoggedIn(): Boolean {
         return isLogin
     }
+
 
 }

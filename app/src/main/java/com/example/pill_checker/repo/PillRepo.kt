@@ -1,6 +1,7 @@
 package com.example.pill_checker.repo
 
 import com.example.pill_checker.dao.MainDatabase
+import com.example.pill_checker.dao.timeIter
 import com.example.pill_checker.data.Pill
 import com.example.pill_checker.data.PillLight
 
@@ -30,7 +31,7 @@ class PillRepo(private val database: MainDatabase.MainDatabase){
     private fun createPillLights(pill: Pill){
         val times = pill.times
         // 0001 -> 아침, 0010 -> 점심, 0100 -> 저녁, 1000 -> 취침
-        for (bit in 0b0001..0b1000 step 0b0010){
+        for (bit in timeIter){
             if(times and bit == bit){
                 val pillLight = PillLight(pid = pill.pid, tid = bit, name = pill.name)
                 pillLightDao.insertPillLight(pillLight)
@@ -50,7 +51,7 @@ class PillRepo(private val database: MainDatabase.MainDatabase){
         timeDao.updateTime(time)
     }
     private fun countDownTime(timesBefore: Int){
-        for (bit in 0b0001..0b1000 step 0b0010){
+        for (bit in timeIter){
             if(timesBefore and bit == bit){
                 val time = timeDao.getTimeById(bit)
                 time.count--

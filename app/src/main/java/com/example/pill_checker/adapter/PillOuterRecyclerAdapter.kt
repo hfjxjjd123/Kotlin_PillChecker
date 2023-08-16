@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.ManageActivity
 import com.example.pill_checker.R
+import com.example.pill_checker.dao.timeIter
 import com.example.pill_checker.data.Pill
 
 
@@ -58,7 +59,7 @@ class PillOuterRecyclerAdapter(val items: List<Pill>) : RecyclerView.Adapter<Pil
     private fun getTimeToTexts(pillTimes: Int): List<String>{
 
         val timeList: MutableList<String> = mutableListOf()
-        for (time in 0b0001..0b1000 step 0b0010){
+        for (time in timeIter){
             if(pillTimes and time == time) {
                 val timeString = when(time){
                     0b0001 -> "아침"

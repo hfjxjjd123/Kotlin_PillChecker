@@ -1,6 +1,7 @@
 package com.example.pill_checker.repo
 
 import com.example.pill_checker.dao.MainDatabase
+import com.example.pill_checker.dao.timeIter
 import com.example.pill_checker.data.DateTime
 import com.example.pill_checker.data.PillCheck
 
@@ -29,7 +30,7 @@ class PillCheckRepo(private val database: MainDatabase.MainDatabase) {
     }
 
     fun deletePrevPillChecks(date: Long){
-        for (i in 0b0001..0b1000 step 0b0010){
+        for (i in timeIter){
             val dtid = i+date
             pillCheckDao.deleteAllPillChecksByDtid(dtid)
             dateTimeDao.deleteDateTimeById(dtid)
