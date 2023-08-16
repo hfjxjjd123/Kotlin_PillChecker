@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.adapter.CheckRecyclerAdapter
 import com.example.pill_checker.adapter.PillOuterRecyclerAdapter
 import com.example.pill_checker.dao.DateTimeManager
-import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.PillCheck
 import com.example.pill_checker.repo.PillCheckRepo
 import com.example.pill_checker.repo.PillRepo
@@ -24,9 +23,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var checkRecyclerView: RecyclerView
     private lateinit var checkAdapter: CheckRecyclerAdapter
 
-    private val pillCheckRepo = PillCheckRepo(MainDatabase.getDatabase(this))
-    private val pillRepo = PillRepo(MainDatabase.getDatabase(this))
-    private val timeRepo = TimeRepo(MainDatabase.getDatabase(this))
+    val app = application as MyApplication
+    private val pillCheckRepo = PillCheckRepo(app.database)
+    private val pillRepo = PillRepo(app.database)
+    private val timeRepo = TimeRepo(app.database)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //TODO Login 로직 구현

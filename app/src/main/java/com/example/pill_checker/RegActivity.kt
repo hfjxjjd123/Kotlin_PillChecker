@@ -19,7 +19,9 @@ class RegActivity : AppCompatActivity() {
     var time: Int = 0b0000
 
     private var isPanelShown = false
-    private val pillRepo = PillRepo(MainDatabase.getDatabase(this))
+    private val pillRepo = PillRepo(app.database)
+val app = application as MyApplication
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

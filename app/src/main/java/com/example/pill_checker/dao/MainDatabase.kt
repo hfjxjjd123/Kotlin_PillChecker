@@ -18,21 +18,4 @@ abstract class MainDatabase : RoomDatabase() {
     abstract fun pillLightDao(): PillLightDao
     abstract fun dateTimeDao(): DateTimeDao
     abstract fun timeDao(): TimeDao
-
-    companion object {
-        @Volatile
-        private var INSTANCE: MainDatabase? = null
-
-        fun getDatabase(context: Context): MainDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    MainDatabase::class.java,
-                    "main_database"
-                ).build()
-                INSTANCE = instance
-                instance
-            }
-        }
-    }
 }

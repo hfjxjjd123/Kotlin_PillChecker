@@ -8,14 +8,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.adapter.CheckRecyclerAdapter
 import com.example.pill_checker.dao.DateTimeManager
-import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.PillCheck
 import com.example.pill_checker.repo.PillCheckRepo
 
-class CalendarActivity2:AppCompatActivity() {
+class CalendarActivity2 : AppCompatActivity() {
     private lateinit var calendarRecyclerView: RecyclerView
     private lateinit var calendarRecyclerAdapter: CheckRecyclerAdapter
-    private val pillCheckRepo = PillCheckRepo(MainDatabase.getDatabase(this))
+    val app = application as MyApplication
+    private val pillCheckRepo = PillCheckRepo(app.database)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val date: Long = intent.getLongExtra("date", -1L)
@@ -38,13 +38,14 @@ class CalendarActivity2:AppCompatActivity() {
         println("DEBUGING________________$text/$date/$time//////////////////////")
 
         val backArrow = findViewById<ImageButton>(R.id.back_arrow)
-        backArrow.setOnClickListener(){
+        backArrow.setOnClickListener() {
             finish()
         }
 
         ///
-        val checkItems = pillCheckRepo.getPillChecksByDtid(date+time)
-        val alignedItems: MutableList<PillCheck> = checkItems.sortedBy { it.checked }.reversed().toMutableList()
+        val checkItems = pillCheckRepo.getPillChecksByDtid(date + time)
+        val alignedItems: MutableList<PillCheck> =
+            checkItems.sortedBy{ it.checked }.reversed().toMutableList()
 
         //doneItems 정렬된 상태로 넘겨줌
         calendarRecyclerView = findViewById<RecyclerView>(R.id.calendar_panel)

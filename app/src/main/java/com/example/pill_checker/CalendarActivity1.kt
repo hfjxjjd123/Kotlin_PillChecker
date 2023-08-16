@@ -12,6 +12,7 @@ import com.example.pill_checker.dao.DateTimeManager
 import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.DateTime
 import com.example.pill_checker.repo.DateTimeRepo
+import com.example.pill_checker.repo.PillCheckRepo
 import java.time.LocalDateTime
 
 class CalendarActivity1:AppCompatActivity() {
@@ -20,7 +21,8 @@ class CalendarActivity1:AppCompatActivity() {
     private lateinit var categoryRecyclerView: RecyclerView
     private lateinit var categoryAdapter: CategoryRecyclerAdapter
     private val timeCategory: List<String> = listOf<String>("아침", "점심", "저녁", "자기전")
-    private val dateTimeRepo = DateTimeRepo(MainDatabase.getDatabase(this))
+    val app = application as MyApplication
+    private val dateTimeRepo = DateTimeRepo(app.database)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

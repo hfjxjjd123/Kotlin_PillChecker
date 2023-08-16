@@ -13,7 +13,9 @@ import com.example.pill_checker.repo.PillRepo
 
 class ManageActivity:AppCompatActivity() {
     var time: Int = 0b0000
-    val pillRepo = PillRepo(MainDatabase.getDatabase(this))
+    val app = application as MyApplication
+    val pillRepo = PillRepo(app.database)
+
     var pid: Long? = null
 
     private lateinit var pillText: TextView
