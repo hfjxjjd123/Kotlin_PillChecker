@@ -1,6 +1,7 @@
 package com.example.pill_checker
 
 import android.animation.ValueAnimator
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
@@ -8,73 +9,73 @@ import android.view.animation.Transformation
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
+import com.example.pill_checker.dao.MainDatabase
+import com.example.pill_checker.data.Pill
+import com.example.pill_checker.repo.DateTimeRepo
+import com.example.pill_checker.repo.PillRepo
 
 class RegActivity : AppCompatActivity() {
-    var morningOn = false
-    var lunchOn = false
-    var dinnerOn = false
-    var sleepOn = false
+    var time: Int = 0b0000
 
     private var isPanelShown = false
+    private val pillRepo = PillRepo(MainDatabase.MainDatabase.getDatabase(this))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
         var isPanelShown = false
-
-        val cancelButton = findViewById<Button>(R.id.cancel_button)
-        val registerButton = findViewById<Button>(R.id.register_button)
-        cancelButton.setOnClickListener() {
-            finish()
-        }
-        registerButton.setOnClickListener() {
-            finish()
-        }
+        val textField = findViewById<EditText>(R.id.editText)
 
         val morningClock = findViewById<Button>(R.id.morning_clock)
         val lunchClock = findViewById<Button>(R.id.lunch_clock)
         val dinnerClock = findViewById<Button>(R.id.dinner_clock)
         val sleepClock = findViewById<Button>(R.id.sleep_clock)
 
+        val detailTitle = findViewById<LinearLayout>(R.id.details_title)
+        val detailsLayout = findViewById<LinearLayout>(R.id.details_layout)
+        val toggleView = findViewById<ImageView>(R.id.toggle_button)
+        val pillNum: Button = findViewById<Button>(R.id.pill_num)
+        val pillImage: ImageView = findViewById<ImageView>(R.id.pill_image)
+
+
         val onColor = ContextCompat.getColor(this, R.color.primary)
         val offColor = ContextCompat.getColor(this, R.color.primary_light)
 
         morningClock.setOnClickListener() {
-            morningOn = !morningOn
-            if (morningOn) {
+            time = time.xor(0b0001)
+            if (time.and(0b0001) == 0b0001) {
                 morningClock.setBackgroundColor(onColor)
             } else {
                 morningClock.setBackgroundColor(offColor)
             }
         }
         lunchClock.setOnClickListener() {
-            lunchOn = !lunchOn
-            if (lunchOn) {
+            time = time.xor(0b0010)
+            if (time.and(0b0010) == 0b0010) {
                 lunchClock.setBackgroundColor(onColor)
             } else {
                 lunchClock.setBackgroundColor(offColor)
             }
         }
         dinnerClock.setOnClickListener() {
-            dinnerOn = !dinnerOn
-            if (dinnerOn) {
+            time = time.xor(0b0100)
+            if (time.and(0b0100) == 0b0100) {
                 dinnerClock.setBackgroundColor(onColor)
             } else {
                 dinnerClock.setBackgroundColor(offColor)
             }
         }
         sleepClock.setOnClickListener() {
-            sleepOn = !sleepOn
-            if (sleepOn) {
+            time = time.xor(0b1000)
+            if (time.and(0b1000) == 0b1000) {
                 sleepClock.setBackgroundColor(onColor)
             } else {
                 sleepClock.setBackgroundColor(offColor)
             }
         }
 
-        val detailTitle = findViewById<LinearLayout>(R.id.details_title)
-        val detailsLayout = findViewById<LinearLayout>(R.id.details_layout)
-        val toggleView = findViewById<ImageView>(R.id.toggle_button)
+
         detailTitle.setOnClickListener() {
             isPanelShown = !isPanelShown
 
@@ -87,7 +88,7 @@ class RegActivity : AppCompatActivity() {
             }
         }
 
-        val pillNum: Button = findViewById<Button>(R.id.pill_num)
+
 
         pillNum.setOnClickListener { view ->
             val popupMenu = PopupMenu(this, view) // Create a PopupMenu and pass the context and anchor view
@@ -99,6 +100,40 @@ class RegActivity : AppCompatActivity() {
             }
             popupMenu.show()
         }
+
+        val cancelButton = findViewById<Button>(R.id.cancel_button)
+        val registerButton = findViewById<Button>(R.id.register_button)
+        cancelButton.setOnClickListener() {
+            finish()
+        }
+        registerButton.setOnClickListener() {
+            // DB 등록 총체
+            val name: String = textField.text.toString()
+            val image: Bitmap? = pillImage.drawable.toBitmap()
+            val ea: Int? = when(pillNum.text.toString()){
+                "0.5" -> 1
+                "1.0" -> 2
+                "1.5" -> 3
+                "2.0" -> 4
+                else -> null
+            }
+
+            if (name == null || name.isEmpty()) {
+                Toast.makeText(this, "약 이름을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (time == 0b0000) {
+                Toast.makeText(this, "시간대를 선택해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val pill: Pill = Pill(1L, name, time, image, ea)
+            pillRepo.createPill(pill)
+
+            finish()
+        }
+
+
 
     }
 }
