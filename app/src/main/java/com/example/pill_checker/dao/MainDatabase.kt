@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.pill_checker.CalendarActivity2
 import com.example.pill_checker.adapter.CheckRecyclerAdapter
 import com.example.pill_checker.data.*
@@ -12,6 +13,7 @@ import com.example.pill_checker.data.*
     entities = [Pill::class, PillCheck::class, PillLight::class, DateTime::class, Time::class],
     version = 1
 )
+@TypeConverters(BitmapTypeConverter::class)
 abstract class MainDatabase : RoomDatabase() {
     abstract fun pillDao(): PillDao
     abstract fun pillCheckDao(): PillCheckDao
