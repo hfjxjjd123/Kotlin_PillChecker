@@ -9,17 +9,17 @@ class DateTimeRepo(private val database: MainDatabase.MainDatabase) {
 
     fun getAllDateTime() = dateTimeDao.getAllDateTimes()
 
-    fun getAllDateTimes(dateNow: Long): Pair<List<List<DateTime?>>, List<Boolean>>{
+    fun getAllDateTimes(dateNow: Long): Pair<List<List<DateTime?>>, List<Boolean>> {
         val itemList = mutableListOf<MutableList<DateTime?>>()
 
-        for(date in dateNow-5 .. dateNow){
+        for (date in dateNow - 5..dateNow) {
             itemList.add(0, getDateTimeByDate(date))
         }
 
         val categoryList = categoryIs(itemList)
-        for (indexCategory in categoryList.indices){
-            if(!categoryList[indexCategory]){
-                for (indexDate in itemList.indices){
+        for (indexCategory in categoryList.indices) {
+            if (!categoryList[indexCategory]) {
+                for (indexDate in itemList.indices) {
                     itemList[indexDate].removeAt(indexCategory)
                 }
             }
@@ -29,10 +29,10 @@ class DateTimeRepo(private val database: MainDatabase.MainDatabase) {
         return Pair(itemList, categoryList)
     }
 
-    private fun getDateTimeByDate(date: Long): MutableList<DateTime?>{
+    private fun getDateTimeByDate(date: Long): MutableList<DateTime?> {
         val dateTimeList = mutableListOf<DateTime?>()
 
-        for(time in timeIter){
+        for (time in timeIter) {
             val dtid = date + time
             val dateTime = dateTimeDao.getDateTimeById(dtid)
             dateTimeList.add(dateTime)
@@ -41,7 +41,7 @@ class DateTimeRepo(private val database: MainDatabase.MainDatabase) {
         return dateTimeList
     }
 
-    private fun categoryIs(itemList: List<List<DateTime?>>): List<Boolean>{
+    private fun categoryIs(itemList: List<List<DateTime?>>): List<Boolean> {
         val categoryList = mutableListOf<Boolean>()
 
         var haveMorning = false
@@ -49,26 +49,26 @@ class DateTimeRepo(private val database: MainDatabase.MainDatabase) {
         var haveDinner = false
         var haveSleep = false
 
-        for (item in itemList){
-            if(item[0] != null){
+        for (item in itemList) {
+            if (item[0] != null) {
                 haveMorning = true
                 break
             }
         }
-        for (item in itemList){
-            if(item[1] != null){
+        for (item in itemList) {
+            if (item[1] != null) {
                 haveLunch = true
                 break
             }
         }
-        for (item in itemList){
-            if(item[2] != null){
+        for (item in itemList) {
+            if (item[2] != null) {
                 haveDinner = true
                 break
             }
         }
-        for (item in itemList){
-            if(item[3] != null){
+        for (item in itemList) {
+            if (item[3] != null) {
                 haveSleep = true
                 break
             }
