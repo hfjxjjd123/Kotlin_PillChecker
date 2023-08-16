@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.CalendarActivity2
+import com.example.pill_checker.MainActivity
 import com.example.pill_checker.R
 import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.PillCheck
@@ -22,6 +23,7 @@ class CheckRecyclerAdapter(private val items: MutableList<PillCheck>) :
 
     private val pillCheckRepo = PillCheckRepo(
         MainDatabase.MainDatabase.getDatabase(CalendarActivity2())
+
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
