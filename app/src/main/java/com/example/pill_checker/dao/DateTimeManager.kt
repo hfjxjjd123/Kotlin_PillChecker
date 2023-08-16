@@ -62,4 +62,35 @@ class DateTimeManager {
     fun getDateTimeValue(date: Long, time: Int): Long {
         return date.shl(4) + time
     }
+
+    fun separateDateTimeValue(datetimeValue: Long): Pair<Long, Int> {
+        val date = datetimeValue.shr(4)
+        val time = datetimeValue.and(0b1111)
+        return Pair(date, time.toInt())
+    }
+
+    fun getDateDiff(date: Long): Long {
+        val dateNow = getDate(LocalDateTime.now())
+        val dateDiffNow = ChronoUnit.DAYS.between(LocalDate.parse(DATE_BEGINNING), dateNow)
+        return dateDiffNow - date
+    }
+
+    fun getDateBeforeString(dateDiff: Long): String{
+        return when(dateDiff){
+            -1L -> "오류"
+            0L -> "오늘"
+            1L -> "어제"
+            else -> dateDiff.toString() + "일전"
+        }
+    }
+
+    fun getTimeString(time: Int): String{
+        return when(time){
+            0b0001 -> "아침"
+            0b0010 -> "점심"
+            0b0100 -> "저녁"
+            0b1000 -> "취침전"
+            else -> "오류"
+        }
+    }
 }

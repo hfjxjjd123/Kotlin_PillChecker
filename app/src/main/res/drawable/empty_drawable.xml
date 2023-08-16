@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- checkbox_custom.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <size android:width="32dp" android:height="32dp" />
+    <solid android:color= "@color/transparent" />
+    <!-- Add any additional styling properties as needed -->
+</shape>
+

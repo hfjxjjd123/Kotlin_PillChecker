@@ -53,8 +53,6 @@ class PillCheckRepo(private val database: MainDatabase.MainDatabase) {
             }
             dateTimeDao.updateDateTime(dateTime)
         }
-
-
     }
 
 }

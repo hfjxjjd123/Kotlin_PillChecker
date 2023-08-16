@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.pill_checker.dao.MainDatabase
-import com.example.pill_checker.data.Pill
 import com.example.pill_checker.repo.PillRepo
 
 class ManageActivity:AppCompatActivity() {

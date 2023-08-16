@@ -8,6 +8,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.CalendarActivity2
 import com.example.pill_checker.R
+import com.example.pill_checker.dao.DateTimeManager
 import com.example.pill_checker.data.DateTime
 
 //outer list: date
@@ -26,7 +27,7 @@ class DoneRecyclerAdapter(private val itemsDone: List<DateTime?>) :
         val item: DateTime? = itemsDone[position]
 
         if (item == null){
-            holder.doneImage.setImageResource(R.drawable.background)
+            holder.doneImage.setImageResource(R.drawable.empty_drawable)
         } else {
             if (item.checked) {
                 holder.doneImage.setImageResource(R.drawable.done)
@@ -35,9 +36,11 @@ class DoneRecyclerAdapter(private val itemsDone: List<DateTime?>) :
             }
 
             val toCal2 = Intent(holder.itemView.context, CalendarActivity2::class.java)
-            //TODO dtid -> date, time 변환함수 필요
-            toCal2.putExtra("date", item.dtid)
-            toCal2.putExtra("time", item.dtid)
+
+            val datetime = DateTimeManager().separateDateTimeValue(item.dtid)
+            toCal2.putExtra("date", datetime.first)
+            toCal2.putExtra("time", datetime.second)
+
             // 해당 앱인지 알림
             holder.itemView.setOnClickListener() {
                 holder.itemView.context.startActivity(toCal2)

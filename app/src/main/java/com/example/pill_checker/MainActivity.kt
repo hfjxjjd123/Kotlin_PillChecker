@@ -11,12 +11,9 @@ import com.example.pill_checker.adapter.CheckRecyclerAdapter
 import com.example.pill_checker.adapter.PillOuterRecyclerAdapter
 import com.example.pill_checker.dao.DateTimeManager
 import com.example.pill_checker.dao.MainDatabase
-import com.example.pill_checker.data.DateTime
 import com.example.pill_checker.data.PillCheck
 import com.example.pill_checker.repo.PillCheckRepo
 import com.example.pill_checker.repo.PillRepo
-import java.time.LocalDate
-import java.time.LocalDateTime
 
 var isLogin = false
 
