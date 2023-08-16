@@ -12,13 +12,13 @@ class DateTimeRepo(private val database: MainDatabase.MainDatabase) {
         val itemList = mutableListOf<MutableList<DateTime?>>()
 
         for(date in dateNow-5 .. dateNow){
-            itemList.add(getDateTimeByDate(date))
+            itemList.add(0, getDateTimeByDate(date))
         }
 
         val categoryList = categoryIs(itemList)
-        for (indexCategory in 0 until categoryList.size - 1){
+        for (indexCategory in categoryList.indices){
             if(!categoryList[indexCategory]){
-                for (indexDate in 0 until itemList.size){
+                for (indexDate in itemList.indices){
                     itemList[indexDate].removeAt(indexCategory)
                 }
             }

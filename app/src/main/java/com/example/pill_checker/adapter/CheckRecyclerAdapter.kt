@@ -17,7 +17,7 @@ import com.example.pill_checker.repo.PillCheckRepo
 
 class CheckRecyclerAdapter(private val context: Context, private val items: MutableList<PillCheck>) :
     RecyclerView.Adapter<CheckRecyclerAdapter.ViewHolder>() {
-    private val indexManager: MutableList<Int> = (0 until items.size).toMutableList()
+    private val indexManager: MutableList<Int> = (items.indices).toMutableList()
     var checkedCounter: Int = items.count { it.checked }
 
     private val pillCheckRepo = PillCheckRepo(

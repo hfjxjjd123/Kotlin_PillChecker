@@ -26,6 +26,7 @@ class CalendarRecyclerAdapter(private val items: List<List<DateTime?>>) :
     }
 
     override fun onBindViewHolder(holder: OuterViewHolder, position: Int) {
+        //position 0 = 옛날것.
         val currentItem:List<DateTime?> = items[position]
         holder.bind(currentItem)
     }
