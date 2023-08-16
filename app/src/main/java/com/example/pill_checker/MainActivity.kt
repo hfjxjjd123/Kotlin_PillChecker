@@ -24,13 +24,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var checkRecyclerView: RecyclerView
     private lateinit var checkAdapter: CheckRecyclerAdapter
 
-    private val pillCheckRepo = PillCheckRepo(MainDatabase.MainDatabase.getDatabase(this))
-    private val pillRepo = PillRepo(MainDatabase.MainDatabase.getDatabase(this))
-    private val timeRepo = TimeRepo(MainDatabase.MainDatabase.getDatabase(this))
-
+    private val pillCheckRepo = PillCheckRepo(MainDatabase.getDatabase(this))
+    private val pillRepo = PillRepo(MainDatabase.getDatabase(this))
+    private val timeRepo = TimeRepo(MainDatabase.getDatabase(this))
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         //TODO Login 로직 구현
         if (!isLoggedIn()) {
             val signInIntent = Intent(this, LoginActivity1::class.java)

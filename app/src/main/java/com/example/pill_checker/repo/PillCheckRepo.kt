@@ -7,7 +7,7 @@ import com.example.pill_checker.data.DateTime
 import com.example.pill_checker.data.PillCheck
 import java.time.LocalDateTime
 
-class PillCheckRepo(private val database: MainDatabase.MainDatabase) {
+class PillCheckRepo(private val database: MainDatabase) {
     private val dateTimeDao = database.dateTimeDao()
     private val pillCheckDao = database.pillCheckDao()
     private val pillLightDao = database.pillLightDao()

@@ -15,7 +15,7 @@ import com.example.pill_checker.repo.PillCheckRepo
 class CalendarActivity2:AppCompatActivity() {
     private lateinit var calendarRecyclerView: RecyclerView
     private lateinit var calendarRecyclerAdapter: CheckRecyclerAdapter
-    private val pillCheckRepo = PillCheckRepo(MainDatabase.MainDatabase.getDatabase(this))
+    private val pillCheckRepo = PillCheckRepo(MainDatabase.getDatabase(this))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val date: Long = intent.getLongExtra("date", -1L)

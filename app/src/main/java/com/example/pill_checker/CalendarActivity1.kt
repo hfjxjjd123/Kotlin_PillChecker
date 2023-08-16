@@ -20,7 +20,7 @@ class CalendarActivity1:AppCompatActivity() {
     private lateinit var categoryRecyclerView: RecyclerView
     private lateinit var categoryAdapter: CategoryRecyclerAdapter
     private val timeCategory: List<String> = listOf<String>("아침", "점심", "저녁", "자기전")
-    private val dateTimeRepo = DateTimeRepo(MainDatabase.MainDatabase.getDatabase(this))
+    private val dateTimeRepo = DateTimeRepo(MainDatabase.getDatabase(this))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

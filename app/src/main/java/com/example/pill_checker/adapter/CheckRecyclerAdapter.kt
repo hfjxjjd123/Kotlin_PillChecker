@@ -21,7 +21,7 @@ class CheckRecyclerAdapter(private val context: Context, private val items: Muta
     var checkedCounter: Int = items.count { it.checked }
 
     private val pillCheckRepo = PillCheckRepo(
-        MainDatabase.MainDatabase.getDatabase(context)
+        MainDatabase.getDatabase(context)
 
     )
 

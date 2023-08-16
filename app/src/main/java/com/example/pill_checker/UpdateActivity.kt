@@ -14,7 +14,7 @@ import com.example.pill_checker.repo.PillRepo
 
 class UpdateActivity:AppCompatActivity() {
     var time: Int = 0b0000
-    val pillRepo = PillRepo(MainDatabase.MainDatabase.getDatabase(this))
+    val pillRepo = PillRepo(MainDatabase.getDatabase(this))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val pid = intent.getLongExtra("pid", -1)

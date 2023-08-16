@@ -4,7 +4,7 @@ import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.dao.timeIter
 import com.example.pill_checker.data.DateTime
 
-class DateTimeRepo(private val database: MainDatabase.MainDatabase) {
+class DateTimeRepo(private val database: MainDatabase) {
     private val dateTimeDao = database.dateTimeDao()
 
     fun getAllDateTime() = dateTimeDao.getAllDateTimes()

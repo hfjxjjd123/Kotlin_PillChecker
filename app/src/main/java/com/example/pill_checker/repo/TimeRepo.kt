@@ -4,7 +4,7 @@ import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.dao.timeIter
 import com.example.pill_checker.data.Time
 
-class TimeRepo(private val database: MainDatabase.MainDatabase){
+class TimeRepo(private val database: MainDatabase){
     private val timeDao = database.timeDao()
 
     fun initialTime(){

@@ -6,7 +6,7 @@ import com.example.pill_checker.data.Pill
 import com.example.pill_checker.data.PillLight
 
 
-class PillRepo(private val database: MainDatabase.MainDatabase){
+class PillRepo(private val database: MainDatabase){
     private val pillDao = database.pillDao()
     private val pillLightDao = database.pillLightDao()
     private val timeDao = database.timeDao()
