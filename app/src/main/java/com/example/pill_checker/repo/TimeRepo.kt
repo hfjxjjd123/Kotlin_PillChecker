@@ -1,6 +1,5 @@
 package com.example.pill_checker.repo
 
-import com.example.pill_checker.dao.DateTimeManager
 import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.dao.timeIter
 import com.example.pill_checker.data.Time
@@ -30,9 +29,6 @@ class TimeRepo(private val database: MainDatabase.MainDatabase){
         val pillExist: List<Boolean> = isTimesAnyPill()
         var panelDateValue = dtid.shr(4)
 
-        //timeValue = 0b0100 timeValue /2 = index
-        //pillExist = [true, true, true, true]
-
         var existPill = false
         for (timeExist in pillExist){
             if (timeExist){
@@ -44,14 +40,23 @@ class TimeRepo(private val database: MainDatabase.MainDatabase){
             return null
         }
 
-        while (!pillExist[timeValue/2]){
+        while (!pillExist[timeIter.indexOf(timeValue)]){
             timeValue = timeValue.shl(1)
+            //뒤에 남은 약 일정이 없는 상황임을 인지
             if(timeValue > 0b1000) {
-                panelDateValue += 1
-                timeValue = 0b0001
+                timeValue = getLastTimeValue(pillExist) ?: return null
+                break
             }
         }
         return panelDateValue.shl(4).or(timeValue.toLong())
+    }
 
+    private fun getLastTimeValue(existPill: List<Boolean>): Int?{
+        for(time in timeIter.reversed()){
+            if(existPill[timeIter.indexOf(time)]){
+                return time
+            }
+        }
+        return null
     }
 }
