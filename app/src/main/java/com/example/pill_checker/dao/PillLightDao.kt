@@ -16,7 +16,7 @@ interface PillLightDao {
     fun getPillLightByPid(pid: Long): PillLight
 
     @Query("SELECT * FROM PillLight WHERE tid = :tid")
-    fun getPillLightsByTid(time: Int): List<PillLight>
+    fun getPillLightsByTid(tid: Int): List<PillLight>
 
     @Insert
     fun insertPillLight(pillLight: PillLight)

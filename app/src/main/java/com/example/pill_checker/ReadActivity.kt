@@ -16,8 +16,8 @@ class ReadActivity:AppCompatActivity() {
 
     private lateinit var outerRecyclerView: RecyclerView
     private lateinit var adapter: PillOuterRecyclerAdapter
+    val app = application as MyApplication
     private val pillRepo = PillRepo(app.database)
-val app = application as MyApplication
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

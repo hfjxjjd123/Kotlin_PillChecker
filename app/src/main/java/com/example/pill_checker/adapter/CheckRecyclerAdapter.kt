@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pill_checker.MyApplication
 import com.example.pill_checker.R
 import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.PillCheck
@@ -20,10 +21,8 @@ class CheckRecyclerAdapter(private val context: Context, private val items: Muta
     private val indexManager: MutableList<Int> = (items.indices).toMutableList()
     var checkedCounter: Int = items.count { it.checked }
 
-    private val pillCheckRepo = PillCheckRepo(
-        MainDatabase.getDatabase(context)
-
-    )
+    val app = context.applicationContext as MyApplication
+    private val pillCheckRepo = PillCheckRepo(app.database)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView =

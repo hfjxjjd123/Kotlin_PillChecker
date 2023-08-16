@@ -19,8 +19,8 @@ class RegActivity : AppCompatActivity() {
     var time: Int = 0b0000
 
     private var isPanelShown = false
+    val app = application as MyApplication
     private val pillRepo = PillRepo(app.database)
-val app = application as MyApplication
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
