@@ -1,10 +1,13 @@
 package com.example.pill_checker
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import com.example.pill_checker.dao.MainDatabase
+import com.example.pill_checker.data.Pill
 import com.example.pill_checker.repo.PillRepo
 
 //TODO Update DB 로직 필요
@@ -30,6 +33,27 @@ class UpdateActivity:AppCompatActivity() {
 
         val backArrow = findViewById<ImageButton>(R.id.back_arrow)
         backArrow.setOnClickListener(){
+            val name: String? = pillText.text.toString()
+            val image: Bitmap? = pillImage.drawable.toBitmap()
+            val ea: Int? = when(pillNum.text.toString()){
+                "0.5" -> 1
+                "1.0" -> 2
+                "1.5" -> 3
+                "2.0" -> 4
+                else -> null
+            }
+
+            if (name == null || name.isEmpty()) {
+                Toast.makeText(this, "약 이름을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (time == 0b0000) {
+                Toast.makeText(this, "시간대를 선택해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val updatedPill: Pill = Pill(pill.pid, name, time, image, ea)
+            pillRepo.updatePill(updatedPill, pill.times)
 
             finish()
         }
