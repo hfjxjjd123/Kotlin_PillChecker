@@ -14,41 +14,55 @@ import com.example.pill_checker.repo.PillRepo
 class ManageActivity:AppCompatActivity() {
     var time: Int = 0b0000
     val pillRepo = PillRepo(MainDatabase.MainDatabase.getDatabase(this))
+    var pid: Long? = null
+
+    private lateinit var pillText: TextView
+    private lateinit var pillImage: ImageView
+    private lateinit var pillNum: Button
+    private lateinit var morningClock: Button
+    private lateinit var lunchClock: Button
+    private lateinit var dinnerClock: Button
+    private lateinit var sleepClock: Button
+    private lateinit var deleteButton: ImageView
+
+    val onColor = ContextCompat.getColor(this, R.color.primary)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val pid = intent.getLongExtra("pid", -1)
+        pid = intent.getLongExtra("pid", -1)
         val toUpdate = Intent(this, UpdateActivity::class.java)
-        val pill = pillRepo.getPillById(pid)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage)
 
-        val morningClock = findViewById<Button>(R.id.morning_clock)
-        val lunchClock = findViewById<Button>(R.id.lunch_clock)
-        val dinnerClock = findViewById<Button>(R.id.dinner_clock)
-        val sleepClock = findViewById<Button>(R.id.sleep_clock)
+        //init Views
+        pillText = findViewById<TextView>(R.id.reg_name)
+        pillImage = findViewById<ImageView>(R.id.pill_image)
+        morningClock = findViewById<Button>(R.id.morning_clock)
+        lunchClock = findViewById<Button>(R.id.lunch_clock)
+        dinnerClock = findViewById<Button>(R.id.dinner_clock)
+        sleepClock = findViewById<Button>(R.id.sleep_clock)
+        pillNum = findViewById<Button>(R.id.pill_num)
 
-        val onColor = ContextCompat.getColor(this, R.color.primary)
-        val offColor = ContextCompat.getColor(this, R.color.primary_light)
-        val pillNum: Button = findViewById<Button>(R.id.pill_num)
-        val pillImage = findViewById<ImageView>(R.id.pill_image)
 
         //NAVIGATION
         val backArrow = findViewById<ImageView>(R.id.back_arrow)
         backArrow.setOnClickListener(){
             finish()
         }
-        val deleteButton = findViewById<ImageView>(R.id.delete_button)
-        deleteButton.setOnClickListener(){
-            finish()
-        }
+        deleteButton = findViewById<ImageView>(R.id.delete_button)
+
         val editButton = findViewById<ImageView>(R.id.edit_button)
         editButton.setOnClickListener(){
-            toUpdate.putExtra("pid", pill.pid)
+            toUpdate.putExtra("pid", pid!!)
             startActivity(toUpdate)
         }
+    }
 
-        val pillText = findViewById<TextView>(R.id.reg_name)
+    //Data Binding 과정
+    override fun onResume() {
+        super.onResume()
+        val pill = pillRepo.getPillById(pid!!)
+
         pillText.text = pill.name
 
         time = pill.times
@@ -75,6 +89,9 @@ class ManageActivity:AppCompatActivity() {
         }
         pillImage.setImageBitmap(pill.image)
 
-
+        deleteButton.setOnClickListener(){
+            pillRepo.deletePill(pill)
+            finish()
+        }
     }
 }
