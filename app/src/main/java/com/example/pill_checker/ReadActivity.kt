@@ -16,12 +16,9 @@ class ReadActivity:AppCompatActivity() {
 
     private lateinit var outerRecyclerView: RecyclerView
     private lateinit var adapter: PillOuterRecyclerAdapter
+    private val pillRepo = PillRepo(MainDatabase.MainDatabase.getDatabase(this))
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        val pillRepo = PillRepo(MainDatabase.MainDatabase.getDatabase(this))
-        val pills: List<Pill> = pillRepo.getAllPills()
-
         val toReg = Intent(this, RegActivity::class.java)
 
         super.onCreate(savedInstanceState)
@@ -40,8 +37,14 @@ class ReadActivity:AppCompatActivity() {
         outerRecyclerView = findViewById<RecyclerView>(R.id.recycler_pill)
         outerRecyclerView.layoutManager = LinearLayoutManager(this)
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val pills: List<Pill> = pillRepo.getAllPills()
         adapter = PillOuterRecyclerAdapter(pills)
         outerRecyclerView.adapter = adapter
-
     }
 }
