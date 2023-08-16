@@ -11,8 +11,8 @@ interface PillDao {
     @Query("SELECT * FROM pill")
     fun getAllPills(): List<Pill>
 
-    @Query("SELECT * FROM pill WHERE pid = :id")
-    fun getPillById(id: Long): Pill
+    @Query("SELECT * FROM pill WHERE pid = :pid")
+    fun getPillById(pid: Long): Pill
 
     @Insert
     fun insertPill(pill: Pill)
@@ -20,7 +20,7 @@ interface PillDao {
     @Update
     fun updatePill(pill: Pill)
 
-    @Query("DELETE FROM pill WHERE pid = :id")
-    fun deletePillById(id: Long)
+    @Query("DELETE FROM pill WHERE pid = :pid")
+    fun deletePillById(pid: Long)
 
 }
