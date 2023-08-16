@@ -19,13 +19,17 @@ class RegActivity : AppCompatActivity() {
     var time: Int = 0b0000
 
     private var isPanelShown = false
-    val app = application as MyApplication
-    private val pillRepo = PillRepo(app.database)
+    private lateinit var db: MainDatabase
+    private lateinit var pillRepo: PillRepo
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
+
+        db = MainDatabase.getDatabase(applicationContext)
+        pillRepo = PillRepo(db)
+
         var isPanelShown = false
         val textField = findViewById<EditText>(R.id.editText)
 

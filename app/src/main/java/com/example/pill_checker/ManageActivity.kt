@@ -13,8 +13,8 @@ import com.example.pill_checker.repo.PillRepo
 
 class ManageActivity:AppCompatActivity() {
     var time: Int = 0b0000
-    val app = application as MyApplication
-    val pillRepo = PillRepo(app.database)
+    private lateinit var db: MainDatabase
+    lateinit var pillRepo: PillRepo
 
     var pid: Long? = null
 
@@ -35,6 +35,9 @@ class ManageActivity:AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage)
+
+        db = MainDatabase.getDatabase(applicationContext)
+        pillRepo = PillRepo(db)
 
         //init Views
         pillText = findViewById<TextView>(R.id.reg_name)

@@ -16,8 +16,8 @@ class ReadActivity:AppCompatActivity() {
 
     private lateinit var outerRecyclerView: RecyclerView
     private lateinit var adapter: PillOuterRecyclerAdapter
-    val app = application as MyApplication
-    private val pillRepo = PillRepo(app.database)
+    private lateinit var db: MainDatabase
+    private lateinit var pillRepo: PillRepo
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +25,9 @@ class ReadActivity:AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read)
+
+        db = MainDatabase.getDatabase(applicationContext)
+        pillRepo = PillRepo(db)
 
         //navigation
         val backArrow = findViewById<ImageButton>(R.id.back_arrow)

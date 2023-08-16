@@ -21,12 +21,15 @@ class CalendarActivity1:AppCompatActivity() {
     private lateinit var categoryRecyclerView: RecyclerView
     private lateinit var categoryAdapter: CategoryRecyclerAdapter
     private val timeCategory: List<String> = listOf<String>("아침", "점심", "저녁", "자기전")
-    val app = application as MyApplication
-    private val dateTimeRepo = DateTimeRepo(app.database)
+    private lateinit var db: MainDatabase
+    private lateinit var dateTimeRepo: DateTimeRepo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar1)
+
+        db = MainDatabase.getDatabase(applicationContext)
+        dateTimeRepo = DateTimeRepo(db)
 
         val backArrow = findViewById<ImageButton>(R.id.back_arrow)
         backArrow.setOnClickListener(){

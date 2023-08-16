@@ -21,8 +21,8 @@ class CheckRecyclerAdapter(private val context: Context, private val items: Muta
     private val indexManager: MutableList<Int> = (items.indices).toMutableList()
     var checkedCounter: Int = items.count { it.checked }
 
-    val app = context.applicationContext as MyApplication
-    private val pillCheckRepo = PillCheckRepo(app.database)
+    val db = MainDatabase.getDatabase(context.applicationContext as MyApplication)
+    private val pillCheckRepo = PillCheckRepo(db)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView =

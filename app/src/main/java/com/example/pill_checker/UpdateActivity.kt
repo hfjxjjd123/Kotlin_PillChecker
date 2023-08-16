@@ -14,8 +14,8 @@ import com.example.pill_checker.repo.PillRepo
 
 class UpdateActivity:AppCompatActivity() {
     var time: Int = 0b0000
-    val app = application as MyApplication
-    val pillRepo = PillRepo(app.database)
+    private lateinit var db: MainDatabase
+    lateinit var pillRepo: PillRepo
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +24,9 @@ class UpdateActivity:AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update)
+
+        db = MainDatabase.getDatabase(applicationContext)
+        pillRepo = PillRepo(db)
 
         val pillText = findViewById<TextView>(R.id.reg_pill)
         val morningClock = findViewById<Button>(R.id.morning_clock)

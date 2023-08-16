@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.adapter.CheckRecyclerAdapter
 import com.example.pill_checker.adapter.PillOuterRecyclerAdapter
 import com.example.pill_checker.dao.DateTimeManager
+import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.Pill
 import com.example.pill_checker.data.PillCheck
 import com.example.pill_checker.repo.DateTimeRepo
@@ -27,15 +28,20 @@ class MainActivity : AppCompatActivity() {
     private lateinit var checkRecyclerView: RecyclerView
     private lateinit var checkAdapter: CheckRecyclerAdapter
 
-    val app = application as MyApplication
-    private val db = app.database
-    private val pillCheckRepo = PillCheckRepo(db)
-    private val pillRepo = PillRepo(db)
-    private val timeRepo = TimeRepo(db)
-    private val dateTimeRepo = DateTimeRepo(db)
+    private lateinit var db: MainDatabase
+    private lateinit var pillCheckRepo: PillCheckRepo
+    private lateinit var pillRepo: PillRepo
+    private lateinit var timeRepo: TimeRepo
+    private lateinit var dateTimeRepo: DateTimeRepo
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        db = MainDatabase.getDatabase(applicationContext)
+        pillCheckRepo = PillCheckRepo(db)
+        pillRepo = PillRepo(db)
+        timeRepo = TimeRepo(db)
+        dateTimeRepo = DateTimeRepo(db)
+
         //TODO Data Injection to Test
         timeRepo.initialTime()
 
@@ -52,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         pillCheckRepo.createNextPillChecks(dtidNow - minusBit*4)
         pillCheckRepo.createNextPillChecks(dtidNow - minusBit*5)
 
+        println("////////////////Debug All Done////////////////")
         //TODO TestCode end
 
         //TODO Login 로직 구현

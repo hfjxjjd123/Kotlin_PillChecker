@@ -8,14 +8,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.adapter.CheckRecyclerAdapter
 import com.example.pill_checker.dao.DateTimeManager
+import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.PillCheck
 import com.example.pill_checker.repo.PillCheckRepo
 
 class CalendarActivity2 : AppCompatActivity() {
     private lateinit var calendarRecyclerView: RecyclerView
     private lateinit var calendarRecyclerAdapter: CheckRecyclerAdapter
-    val app = application as MyApplication
-    private val pillCheckRepo = PillCheckRepo(app.database)
+    private lateinit var db: MainDatabase
+    private lateinit var pillCheckRepo: PillCheckRepo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val date: Long = intent.getLongExtra("date", -1L)
@@ -25,6 +26,10 @@ class CalendarActivity2 : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar2)
+
+        db = MainDatabase.getDatabase(applicationContext)
+        pillCheckRepo = PillCheckRepo(db)
+
 
         var text: String = ""
         val calendarTimeText = findViewById<TextView>(R.id.calendar_text_time)
