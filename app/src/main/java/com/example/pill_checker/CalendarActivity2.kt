@@ -2,63 +2,76 @@ package com.example.pill_checker
 
 import android.os.Bundle
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pill_checker.adapter.CalendarRecyclerAdapter
 import com.example.pill_checker.adapter.CheckRecyclerAdapter
-import com.example.pill_checker.data.PillDone
+import com.example.pill_checker.dao.DateTimeManager
+import com.example.pill_checker.dao.MainDatabase
+import com.example.pill_checker.data.PillCheck
+import com.example.pill_checker.repo.PillCheckRepo
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
-class CalendarActivity2:AppCompatActivity() {
+class CalendarActivity2 : AppCompatActivity() {
     private lateinit var calendarRecyclerView: RecyclerView
     private lateinit var calendarRecyclerAdapter: CheckRecyclerAdapter
+    private lateinit var db: MainDatabase
+    private lateinit var pillCheckRepo: PillCheckRepo
+
+    lateinit var job: Job
+    lateinit var coroutineContext: CoroutineContext
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val date: Int = intent.getIntExtra("date", -1)
-        val time: String = intent.getStringExtra("time")?: "오류"
+        val date: Long = intent.getLongExtra("date", -1L)
+        val time: Int = intent.getIntExtra("time", -1)
+
+        job = Job()
+        coroutineContext = Dispatchers.Main+ job
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar2)
 
-        var text: String = ""
-        val calendarText = findViewById<TextView>(R.id.calendar_text_time)
-        when(date){
-            //error handling 필요
-            -1 -> text += "오류"
-            0 -> text += "오늘"
-            1 -> text += "어제"
-            else -> text = text + date.toString() + "일전"
-        }
-        text = text + " " + time
-
-        val textCalendarTime = findViewById<TextView>(R.id.calendar_text_time)
-        textCalendarTime.text = text
-
-        println("DEBUGING________________$text/$date/$time//////////////////////")
-
-        val backArrow = findViewById<ImageButton>(R.id.back_arrow)
-        backArrow.setOnClickListener(){
-            finish()
-        }
-
-        ///
-        val doneItems = listOf<PillDone>(
-            PillDone(1, "마그네슘", 0, "아침", "O"),
-            PillDone(2, "비타민", 0, "아침", "X"),
-            PillDone(3, "프로틴", 0, "아침", "O"),
-        )
-
-        //bool로 sorted 할 수 있나? ㅋㅋ
-        val alignedItems: MutableList<PillDone> = doneItems.sortedBy { it.done }.reversed().toMutableList()
-
-        //doneItems 정렬된 상태로 넘겨줌
         calendarRecyclerView = findViewById<RecyclerView>(R.id.calendar_panel)
-        calendarRecyclerView.layoutManager = LinearLayoutManager(this)
+        calendarRecyclerView.layoutManager = LinearLayoutManager(this@CalendarActivity2)
 
-        calendarRecyclerAdapter = CheckRecyclerAdapter(alignedItems)
-        calendarRecyclerView.adapter = calendarRecyclerAdapter
+        db = MainDatabase.getDatabase(applicationContext)
+        pillCheckRepo = PillCheckRepo(db)
 
+        CoroutineScope(coroutineContext).launch {
+            val ioScope = CoroutineScope(Dispatchers.IO).coroutineContext
+            val dateDiff = DateTimeManager().getDateDiff(date)
+
+            var text: String = ""
+            val calendarTimeText = findViewById<TextView>(R.id.calendar_text_time)
+
+            text += DateTimeManager().getDateBeforeString(dateDiff)
+            text += " "
+            text += DateTimeManager().getTimeString(time)
+
+            calendarTimeText.text = text
+
+            val backArrow = findViewById<ImageButton>(R.id.back_arrow)
+            backArrow.setOnClickListener() {
+                finish()
+            }
+
+            val checkItems = withContext(ioScope) {
+                pillCheckRepo.getPillChecksByDtid(date.shl(4) + time)
+
+            }
+            val alignedItems: MutableList<PillCheck> =
+                checkItems.sortedBy{ it.checked }.reversed().toMutableList()
+
+            calendarRecyclerAdapter = CheckRecyclerAdapter(this@CalendarActivity2, coroutineContext, alignedItems)
+            calendarRecyclerView.adapter = calendarRecyclerAdapter
+        }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
     }
 }
