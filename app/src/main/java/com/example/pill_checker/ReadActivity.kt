@@ -11,6 +11,7 @@ import com.example.pill_checker.adapter.PillOuterRecyclerAdapter
 import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.Pill
 import com.example.pill_checker.repo.PillRepo
+import kotlinx.coroutines.*
 
 class ReadActivity:AppCompatActivity() {
 
@@ -19,6 +20,8 @@ class ReadActivity:AppCompatActivity() {
     private lateinit var db: MainDatabase
     private lateinit var pillRepo: PillRepo
 
+    lateinit var job: Job
+    private val coroutineContext = Dispatchers.Default + job
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val toReg = Intent(this, RegActivity::class.java)
@@ -48,8 +51,18 @@ class ReadActivity:AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        val pills: List<Pill> = pillRepo.getAllPills()
-        adapter = PillOuterRecyclerAdapter(pills)
-        outerRecyclerView.adapter = adapter
+        CoroutineScope(coroutineContext).launch {
+            val pills: List<Pill> = withContext(Dispatchers.IO){
+                pillRepo.getAllPills()
+            }
+            adapter = PillOuterRecyclerAdapter(pills)
+            outerRecyclerView.adapter = adapter
+        }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
     }
 }
