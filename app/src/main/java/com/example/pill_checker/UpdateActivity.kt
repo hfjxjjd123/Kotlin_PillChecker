@@ -62,12 +62,12 @@ class UpdateActivity : AppCompatActivity() {
                 }
 
                 if (name == null || name.isEmpty()) {
-                    Toast.makeText(parent.applicationContext, "약 이름을 입력해주세요.", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@UpdateActivity, "약 이름을 입력해주세요.", Toast.LENGTH_SHORT)
                         .show()
                     return@setOnClickListener
                 }
                 if (time == 0b0000) {
-                    Toast.makeText(parent.applicationContext, "시간대를 선택해주세요.", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@UpdateActivity, "시간대를 선택해주세요.", Toast.LENGTH_SHORT)
                         .show()
                     return@setOnClickListener
                 }
@@ -82,8 +82,8 @@ class UpdateActivity : AppCompatActivity() {
 
             pillText.text = pill.name
 
-            val onColor = ContextCompat.getColor(parent.applicationContext, R.color.primary)
-            val offColor = ContextCompat.getColor(parent.applicationContext, R.color.primary_light)
+            val onColor = ContextCompat.getColor(this@UpdateActivity, R.color.primary)
+            val offColor = ContextCompat.getColor(this@UpdateActivity, R.color.primary_light)
             time = pill.times
             if (time and 0b0001 == 0b0001) {
                 morningClock.setBackgroundColor(onColor)
@@ -143,7 +143,7 @@ class UpdateActivity : AppCompatActivity() {
             }
             pillNum.setOnClickListener { view ->
                 val popupMenu = PopupMenu(
-                    parent.applicationContext,
+                    this@UpdateActivity,
                     view
                 ) // Create a PopupMenu and pass the context and anchor view
                 popupMenu.inflate(R.menu.menu_pill_num) // Inflate the menu resource

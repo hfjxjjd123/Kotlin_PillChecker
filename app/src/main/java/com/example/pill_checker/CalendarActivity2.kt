@@ -34,7 +34,7 @@ class CalendarActivity2 : AppCompatActivity() {
         setContentView(R.layout.activity_calendar2)
 
         calendarRecyclerView = findViewById<RecyclerView>(R.id.calendar_panel)
-        calendarRecyclerView.layoutManager = LinearLayoutManager(parent.applicationContext)
+        calendarRecyclerView.layoutManager = LinearLayoutManager(this@CalendarActivity2)
 
         db = MainDatabase.getDatabase(applicationContext)
         pillCheckRepo = PillCheckRepo(db)
@@ -64,7 +64,7 @@ class CalendarActivity2 : AppCompatActivity() {
             val alignedItems: MutableList<PillCheck> =
                 checkItems.sortedBy{ it.checked }.reversed().toMutableList()
 
-            calendarRecyclerAdapter = CheckRecyclerAdapter(parent.applicationContext, alignedItems)
+            calendarRecyclerAdapter = CheckRecyclerAdapter(this@CalendarActivity2, alignedItems)
             calendarRecyclerView.adapter = calendarRecyclerAdapter
         }
 

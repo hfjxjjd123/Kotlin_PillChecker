@@ -49,27 +49,6 @@ class MainActivity : AppCompatActivity() {
         job = Job()
         coroutineContext = Dispatchers.Default + job
 
-        CoroutineScope(coroutineContext).launch {
-            //TODO Data Injection to Test
-            timeRepo.initialTime()
-
-            pillRepo.createPill(Pill(pid = 0, name = "마그네슘", times = 0b0111, ea = 2, image = null))
-            pillRepo.createPill(Pill(pid = 1, name = "비타민C", times = 0b1000, ea = 2, image = R.drawable.pill_image.toDrawable().toBitmap()))
-            pillRepo.createPill(Pill(pid = 2, name = "프로틴", times = 0b0100, ea = 2, image = R.drawable.push_notification.toDrawable().toBitmap()))
-
-            val dtidNow = DateTimeManager().getDateTimeValueNow()
-            val minusBit = 0b10000
-            pillCheckRepo.createNextPillChecks(dtidNow)
-            pillCheckRepo.createNextPillChecks(dtidNow - minusBit*1)
-            pillCheckRepo.createNextPillChecks(dtidNow - minusBit*2)
-            pillCheckRepo.createNextPillChecks(dtidNow - minusBit*3)
-            pillCheckRepo.createNextPillChecks(dtidNow - minusBit*4)
-            pillCheckRepo.createNextPillChecks(dtidNow - minusBit*5)
-
-            println("////////////////Debug All Done////////////////")
-            //TODO TestCode end
-        }
-
         //TODO Login 로직 구현
         if (!isLoggedIn()) {
             val signInIntent = Intent(this, LoginActivity1::class.java)
@@ -134,7 +113,7 @@ class MainActivity : AppCompatActivity() {
             //TODO checkedPill이 Empty한 상황 핸들링하기
 
             val alignedItems: MutableList<PillCheck> = checkedPill.sortedBy { it.checked }.reversed().toMutableList()
-            checkAdapter = CheckRecyclerAdapter(parent.applicationContext, alignedItems)
+            checkAdapter = CheckRecyclerAdapter(this@MainActivity, alignedItems)
             checkRecyclerView.adapter = checkAdapter
 
             val pills = withContext(ioScope) {
