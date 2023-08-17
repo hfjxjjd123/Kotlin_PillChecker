@@ -7,9 +7,9 @@ import com.example.pill_checker.data.DateTime
 class DateTimeRepo(private val database: MainDatabase) {
     private val dateTimeDao = database.dateTimeDao()
 
-    fun getAllDateTime() = dateTimeDao.getAllDateTimes()
+    suspend fun getAllDateTime() = dateTimeDao.getAllDateTimes()
 
-    fun getAllDateTimes(dateNow: Long): Pair<List<List<DateTime?>>, List<Boolean>> {
+    suspend fun getAllDateTimes(dateNow: Long): Pair<List<List<DateTime?>>, List<Boolean>> {
         val itemList = mutableListOf<MutableList<DateTime?>>()
 
         for (date in dateNow - 5..dateNow) {
@@ -29,7 +29,7 @@ class DateTimeRepo(private val database: MainDatabase) {
         return Pair(itemList, categoryList)
     }
 
-    private fun getDateTimeByDate(date: Long): MutableList<DateTime?> {
+    private suspend fun getDateTimeByDate(date: Long): MutableList<DateTime?> {
         val dateTimeList = mutableListOf<DateTime?>()
 
         for (time in timeIter) {

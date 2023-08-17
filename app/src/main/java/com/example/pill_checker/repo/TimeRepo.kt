@@ -7,14 +7,15 @@ import com.example.pill_checker.data.Time
 class TimeRepo(private val database: MainDatabase){
     private val timeDao = database.timeDao()
 
-    fun initialTime(){
+    suspend fun initialTime(){
+        //기존에 있는지 확인 후 없다면 생성
         for (bit in timeIter){
             val time = Time(tid = bit, count = 0)
             timeDao.insertTime(time)
         }
     }
 
-    fun isTimesAnyPill(): List<Boolean>{
+    suspend fun isTimesAnyPill(): List<Boolean>{
         val anyPill = mutableListOf<Boolean>()
 
         for (time in timeIter){
@@ -24,7 +25,7 @@ class TimeRepo(private val database: MainDatabase){
 
         return anyPill
     }
-    fun veryNextDtid(dtid: Long): Long?{
+    suspend fun veryNextDtid(dtid: Long): Long?{
         var timeValue = dtid.and(0b1111).toInt()
         val pillExist: List<Boolean> = isTimesAnyPill()
         var panelDateValue = dtid.shr(4)

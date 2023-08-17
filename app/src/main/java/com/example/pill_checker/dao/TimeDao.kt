@@ -9,11 +9,11 @@ import com.example.pill_checker.data.Time
 @Dao
 interface TimeDao {
     @Query("SELECT * FROM Time WHERE tid = :tid")
-    fun getTimeById(tid: Int): Time
+    suspend fun getTimeById(tid: Int): Time
 
     @Update
-    fun updateTime(time: Time)
+    suspend fun updateTime(time: Time)
 
     @Insert
-    fun insertTime(time: Time)
+    suspend fun insertTime(time: Time)
 }

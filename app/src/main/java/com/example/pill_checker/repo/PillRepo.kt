@@ -11,24 +11,24 @@ class PillRepo(private val database: MainDatabase){
     private val pillLightDao = database.pillLightDao()
     private val timeDao = database.timeDao()
 
-    fun getPillById(id: Long) = pillDao.getPillById(id)
-    fun getAllPills() = pillDao.getAllPills()
-    fun createPill(pill: Pill) {
+    suspend fun getPillById(id: Long) = pillDao.getPillById(id)
+    suspend fun getAllPills() = pillDao.getAllPills()
+    suspend fun createPill(pill: Pill) {
         pillDao.insertPill(pill)
         createPillLights(pill)
     }
-    fun updatePill(pill: Pill, timesBefore: Int) {
+    suspend fun updatePill(pill: Pill, timesBefore: Int) {
         pillDao.updatePill(pill)
         deletePillLights(pill.pid, timesBefore)
         createPillLights(pill)
     }
 
-    fun deletePill(pill: Pill) {
+    suspend fun deletePill(pill: Pill) {
         pillDao.deletePillById(pill.pid)
         deletePillLights(pill.pid, pill.times)
     }
 
-    private fun createPillLights(pill: Pill){
+    suspend fun createPillLights(pill: Pill){
         val times = pill.times
         // 0001 -> 아침, 0010 -> 점심, 0100 -> 저녁, 1000 -> 취침
         for (bit in timeIter){
@@ -40,17 +40,17 @@ class PillRepo(private val database: MainDatabase){
         }
     }
 
-    private fun deletePillLights(pid: Long, beforeTimes: Int){
+    suspend fun deletePillLights(pid: Long, beforeTimes: Int){
         pillLightDao.deletePillLights(pid)
         countDownTime(beforeTimes)
     }
 
-    private fun countTime(time: Int){
+    suspend fun countTime(time: Int){
         val time = timeDao.getTimeById(time)
         time.count++
         timeDao.updateTime(time)
     }
-    private fun countDownTime(timesBefore: Int){
+    suspend fun countDownTime(timesBefore: Int){
         for (bit in timeIter){
             if(timesBefore and bit == bit){
                 val time = timeDao.getTimeById(bit)

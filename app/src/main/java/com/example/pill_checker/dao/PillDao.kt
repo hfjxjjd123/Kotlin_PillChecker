@@ -9,18 +9,18 @@ import com.example.pill_checker.data.Pill
 @Dao
 interface PillDao {
     @Query("SELECT * FROM pill")
-    fun getAllPills(): List<Pill>
+    suspend fun getAllPills(): List<Pill>
 
     @Query("SELECT * FROM pill WHERE pid = :pid")
-    fun getPillById(pid: Long): Pill
+    suspend fun getPillById(pid: Long): Pill
 
     @Insert
-    fun insertPill(pill: Pill)
+    suspend fun insertPill(pill: Pill)
 
     @Update
-    fun updatePill(pill: Pill)
+    suspend fun updatePill(pill: Pill)
 
     @Query("DELETE FROM pill WHERE pid = :pid")
-    fun deletePillById(pid: Long)
+    suspend fun deletePillById(pid: Long)
 
 }
