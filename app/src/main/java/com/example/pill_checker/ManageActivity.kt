@@ -10,11 +10,15 @@ import androidx.core.content.ContextCompat
 import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.Pill
 import com.example.pill_checker.repo.PillRepo
+import kotlinx.coroutines.*
 
 class ManageActivity:AppCompatActivity() {
     var time: Int = 0b0000
     private lateinit var db: MainDatabase
     lateinit var pillRepo: PillRepo
+
+    lateinit var job: Job
+    private val coroutineContext = Dispatchers.Default + job
 
     var pid: Long? = null
 
@@ -29,12 +33,16 @@ class ManageActivity:AppCompatActivity() {
 
     val onColor = ContextCompat.getColor(this, R.color.primary)
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         pid = intent.getLongExtra("pid", -1)
         val toUpdate = Intent(this, UpdateActivity::class.java)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage)
+
+        job = Job()
 
         db = MainDatabase.getDatabase(applicationContext)
         pillRepo = PillRepo(db)
@@ -54,7 +62,6 @@ class ManageActivity:AppCompatActivity() {
         backArrow.setOnClickListener(){
             finish()
         }
-        deleteButton = findViewById<ImageView>(R.id.delete_button)
 
         val editButton = findViewById<ImageView>(R.id.edit_button)
         editButton.setOnClickListener(){
@@ -66,37 +73,49 @@ class ManageActivity:AppCompatActivity() {
     //Data Binding 과정
     override fun onResume() {
         super.onResume()
-        val pill = pillRepo.getPillById(pid!!)
 
-        pillText.text = pill.name
+        CoroutineScope(coroutineContext).launch {
+            val pill = withContext(Dispatchers.IO){
+                pillRepo.getPillById(pid!!)
+            }
 
-        time = pill.times
-        if (time and 0b0001 == 0b0001) {
-            morningClock.setBackgroundColor(onColor)
-        }
-        if (time and 0b0010 == 0b0010) {
-            lunchClock.setBackgroundColor(onColor)
-        }
-        if (time and 0b0100 == 0b0100) {
-            dinnerClock.setBackgroundColor(onColor)
-        }
-        if (time and 0b1000 == 0b1000) {
-            sleepClock.setBackgroundColor(onColor)
-        }
+            pillText.text = pill.name
 
-        pillNum.text = when(pill.ea){
-            null -> ""
-            0 -> "0.5"
-            1 -> "1.0"
-            2 -> "1.5"
-            3 -> "2.0"
-            else -> "1.0"
-        }
-        pillImage.setImageBitmap(pill.image)
+            time = pill.times
+            if (time and 0b0001 == 0b0001) {
+                morningClock.setBackgroundColor(onColor)
+            }
+            if (time and 0b0010 == 0b0010) {
+                lunchClock.setBackgroundColor(onColor)
+            }
+            if (time and 0b0100 == 0b0100) {
+                dinnerClock.setBackgroundColor(onColor)
+            }
+            if (time and 0b1000 == 0b1000) {
+                sleepClock.setBackgroundColor(onColor)
+            }
 
-        deleteButton.setOnClickListener(){
-            pillRepo.deletePill(pill)
-            finish()
+            pillNum.text = when(pill.ea){
+                null -> ""
+                0 -> "0.5"
+                1 -> "1.0"
+                2 -> "1.5"
+                3 -> "2.0"
+                else -> "1.0"
+            }
+            pillImage.setImageBitmap(pill.image)
+
+            deleteButton.setOnClickListener(){
+                CoroutineScope(coroutineContext).launch {
+                    pillRepo.deletePill(pill)
+                }
+                finish()
+            }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
     }
 }
