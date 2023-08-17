@@ -64,11 +64,12 @@ class MainActivity : AppCompatActivity() {
 //                var dtidNow = DateTimeManager().getDateTimeValueNow()
 //
 //                pillCheckRepo.createNextPillChecks(
-//                    dtidNow.shr(4).shl(4).or(0b0001)
+//                    dtidNow.shr(4).shl(4).or(0b0100)
 //                )
 //                pillCheckRepo.createNextPillChecks(
-//                    dtidNow.shr(4).shl(4).or(0b0010)
+//                    dtidNow.shr(4).shl(4).or(0b1000)
 //                )
+//            }
 //
 //
 //                for (i in 0..4) {
@@ -88,11 +89,6 @@ class MainActivity : AppCompatActivity() {
 //                }
 //
 //            }
-            CoroutineScope(Dispatchers.IO).launch{
-                println("FOR")
-                var dtidNow = DateTimeManager().getDateTimeValueNow()
-                pillCheckRepo.getPillChecksByDtid(dtidNow.shr(4).shl(4).or(0b0001))
-            }
         }
 
         val toCalendar = Intent(this, CalendarActivity1::class.java)
