@@ -13,9 +13,10 @@ import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.DateTime
 import com.example.pill_checker.repo.DateTimeRepo
 import com.example.pill_checker.repo.PillCheckRepo
+import kotlinx.coroutines.*
 import java.time.LocalDateTime
 
-class CalendarActivity1:AppCompatActivity() {
+class CalendarActivity1 : AppCompatActivity() {
     private lateinit var calendarRecyclerView: RecyclerView
     private lateinit var adapter: CalendarRecyclerAdapter
     private lateinit var categoryRecyclerView: RecyclerView
@@ -24,20 +25,25 @@ class CalendarActivity1:AppCompatActivity() {
     private lateinit var db: MainDatabase
     private lateinit var dateTimeRepo: DateTimeRepo
 
+    lateinit var job: Job
+    private val coroutineContext = Dispatchers.Main + job
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar1)
+
+        job = Job()
 
         db = MainDatabase.getDatabase(applicationContext)
         dateTimeRepo = DateTimeRepo(db)
 
         val backArrow = findViewById<ImageButton>(R.id.back_arrow)
-        backArrow.setOnClickListener(){
+        backArrow.setOnClickListener() {
             finish()
         }
         val toAlarm = Intent(this, AlarmSettingActivity::class.java)
         val notificationButton = findViewById<ImageButton>(R.id.notification_button)
-        notificationButton.setOnClickListener(){
+        notificationButton.setOnClickListener() {
             startActivity(toAlarm)
         }
 
@@ -45,24 +51,32 @@ class CalendarActivity1:AppCompatActivity() {
         calendarRecyclerView.layoutManager = LinearLayoutManager(this)
 
         categoryRecyclerView = findViewById<RecyclerView>(R.id.category_recycler_view)
-        categoryRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        categoryRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
 
     override fun onResume() {
         super.onResume()
 
-        val itemListByDate: Pair<List<List<DateTime?>>, List<Boolean>>
-                = dateTimeRepo.getAllDateTimes(DateTimeManager().getDateValue(LocalDateTime.now()))
+        CoroutineScope(coroutineContext).launch{
+            val itemListByDate: Pair<List<List<DateTime?>>, List<Boolean>> = withContext(Dispatchers.IO) {
+                dateTimeRepo.getAllDateTimes(DateTimeManager().getDateValue(LocalDateTime.now()))
+            }
 
-        val filteredCategory: List<String> = timeCategory.filterIndexed() { index, _ ->
-            itemListByDate.second[index]
+            val filteredCategory: List<String> = timeCategory.filterIndexed() { index, _ ->
+                itemListByDate.second[index]
+            }
+
+            adapter = CalendarRecyclerAdapter(itemListByDate.first)
+            calendarRecyclerView.adapter = adapter
+
+            categoryAdapter = CategoryRecyclerAdapter(filteredCategory)
+            categoryRecyclerView.adapter = categoryAdapter
         }
+    }
 
-        adapter = CalendarRecyclerAdapter(itemListByDate.first)
-        calendarRecyclerView.adapter = adapter
-
-        categoryAdapter = CategoryRecyclerAdapter(filteredCategory)
-        categoryRecyclerView.adapter = categoryAdapter
-
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
     }
 }
