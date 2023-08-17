@@ -132,7 +132,7 @@ class RegActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val pill: Pill = Pill(1L, name, time, image, ea)
+            val pill: Pill = Pill(name = name, times = time, image = image, ea = ea)
             CoroutineScope(Dispatchers.Default).launch {
                 withContext(Dispatchers.IO) {
                     pillRepo.createPill(

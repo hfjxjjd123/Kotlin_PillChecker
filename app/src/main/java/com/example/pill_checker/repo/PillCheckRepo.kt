@@ -50,12 +50,9 @@ class PillCheckRepo(private val database: MainDatabase) {
     }
 
     suspend fun updatePillCheck(pid: Long, dtid: Long, checked: Boolean){
-        println("DEBUG1")
         val pillCheck = pillCheckDao.getPillCheckByPidAndDtid(pid, dtid)
-        println("DEBUG2 $pillCheck")
         pillCheck.checked = checked
         pillCheckDao.updatePillCheck(pillCheck)
-        println("DEBUG3 ")
 
         val dateTime = dateTimeDao.getDateTimeById(dtid)
         if (dateTime != null) {

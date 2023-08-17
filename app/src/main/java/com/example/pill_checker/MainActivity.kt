@@ -58,6 +58,41 @@ class MainActivity : AppCompatActivity() {
             signInIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(signInIntent)
             finish()
+
+            //INILTIAL
+//            CoroutineScope(Dispatchers.IO).launch {
+//                var dtidNow = DateTimeManager().getDateTimeValueNow()
+//
+//                pillCheckRepo.createNextPillChecks(
+//                    dtidNow.shr(4).shl(4).or(0b0001)
+//                )
+//                pillCheckRepo.createNextPillChecks(
+//                    dtidNow.shr(4).shl(4).or(0b0010)
+//                )
+//
+//
+//                for (i in 0..4) {
+//                    dtidNow -= 0b10000
+//                    pillCheckRepo.createNextPillChecks(
+//                        dtidNow.shr(4).shl(4).or(0b0001)
+//                    )
+//                    pillCheckRepo.createNextPillChecks(
+//                        dtidNow.shr(4).shl(4).or(0b0010)
+//                    )
+//                    pillCheckRepo.createNextPillChecks(
+//                        dtidNow.shr(4).shl(4).or(0b0100)
+//                    )
+//                    pillCheckRepo.createNextPillChecks(
+//                        dtidNow.shr(4).shl(4).or(0b1000)
+//                    )
+//                }
+//
+//            }
+            CoroutineScope(Dispatchers.IO).launch{
+                println("FOR")
+                var dtidNow = DateTimeManager().getDateTimeValueNow()
+                pillCheckRepo.getPillChecksByDtid(dtidNow.shr(4).shl(4).or(0b0001))
+            }
         }
 
         val toCalendar = Intent(this, CalendarActivity1::class.java)
@@ -68,10 +103,10 @@ class MainActivity : AppCompatActivity() {
 
         val show_last: ImageView = findViewById(R.id.to_last_time)
         val show_next: ImageView = findViewById(R.id.to_next_time)
-        show_last.setOnClickListener(){
+        show_last.setOnClickListener() {
             //Panel Data Fetching
         }
-        show_next.setOnClickListener(){
+        show_next.setOnClickListener() {
             //Panel Data Fetching
         }
 
@@ -81,13 +116,13 @@ class MainActivity : AppCompatActivity() {
         outerRecyclerView = findViewById<RecyclerView>(R.id.recycler_pill)
         outerRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        val calendarPanel: LinearLayout= findViewById(R.id.title_calender)
-        calendarPanel.setOnClickListener(){
+        val calendarPanel: LinearLayout = findViewById(R.id.title_calender)
+        calendarPanel.setOnClickListener() {
             startActivity(toCalendar)
         }
 
-        val pillsPanel: LinearLayout= findViewById(R.id.title_pills)
-        pillsPanel.setOnClickListener(){
+        val pillsPanel: LinearLayout = findViewById(R.id.title_pills)
+        pillsPanel.setOnClickListener() {
             startActivity(toPills)
         }
 
@@ -115,7 +150,8 @@ class MainActivity : AppCompatActivity() {
 
             //TODO checkedPill이 Empty한 상황 핸들링하기
 
-            val alignedItems: MutableList<PillCheck> = checkedPill.sortedBy { it.checked }.reversed().toMutableList()
+            val alignedItems: MutableList<PillCheck> =
+                checkedPill.sortedBy { it.checked }.reversed().toMutableList()
             println("alignedItems: $alignedItems")
             checkAdapter = CheckRecyclerAdapter(this@MainActivity, coroutineContext, alignedItems)
             checkRecyclerView.adapter = checkAdapter

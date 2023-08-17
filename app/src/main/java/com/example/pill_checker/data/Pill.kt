@@ -7,7 +7,8 @@ import androidx.room.TypeConverters
 
 @Entity(tableName = "Pill")
 data class Pill(
-    @PrimaryKey val pid: Long,
+    @PrimaryKey(autoGenerate = true)
+    val pid: Long = 0,
     var name: String,
     var times: Int,
     @TypeConverters(BitmapTypeConverter::class)

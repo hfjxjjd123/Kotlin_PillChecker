@@ -11,7 +11,7 @@ import com.example.pill_checker.data.*
 
 @Database(
     entities = [Pill::class, PillCheck::class, PillLight::class, DateTime::class, Time::class],
-    version = 1
+    version = 2
 )
 @TypeConverters(BitmapTypeConverter::class)
 abstract class MainDatabase : RoomDatabase() {
