@@ -12,6 +12,7 @@ import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.PillCheck
 import com.example.pill_checker.repo.PillCheckRepo
 import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 class CalendarActivity2 : AppCompatActivity() {
     private lateinit var calendarRecyclerView: RecyclerView
@@ -20,13 +21,14 @@ class CalendarActivity2 : AppCompatActivity() {
     private lateinit var pillCheckRepo: PillCheckRepo
 
     lateinit var job: Job
-    private val coroutineContext = Dispatchers.Default + job
+    lateinit var coroutineContext: CoroutineContext
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val date: Long = intent.getLongExtra("date", -1L)
         val time: Int = intent.getIntExtra("time", -1)
 
         job = Job()
+        coroutineContext = Dispatchers.Default + job
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar2)

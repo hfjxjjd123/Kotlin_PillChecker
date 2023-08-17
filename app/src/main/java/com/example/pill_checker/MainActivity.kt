@@ -20,6 +20,7 @@ import com.example.pill_checker.repo.PillCheckRepo
 import com.example.pill_checker.repo.PillRepo
 import com.example.pill_checker.repo.TimeRepo
 import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 var isLogin = false
 
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var dateTimeRepo: DateTimeRepo
 
     lateinit var job: Job
-    private val coroutineContext = Dispatchers.Default + job
+    lateinit var coroutineContext: CoroutineContext
 
     override fun onCreate(savedInstanceState: Bundle?) {
         db = MainDatabase.getDatabase(applicationContext)
@@ -46,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         dateTimeRepo = DateTimeRepo(db)
 
         job = Job()
+        coroutineContext = Dispatchers.Default + job
+
         CoroutineScope(coroutineContext).launch {
             //TODO Data Injection to Test
             timeRepo.initialTime()

@@ -12,6 +12,7 @@ import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.Pill
 import com.example.pill_checker.repo.PillRepo
 import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 class ReadActivity:AppCompatActivity() {
 
@@ -21,13 +22,16 @@ class ReadActivity:AppCompatActivity() {
     private lateinit var pillRepo: PillRepo
 
     lateinit var job: Job
-    private val coroutineContext = Dispatchers.Default + job
+    lateinit var coroutineContext: CoroutineContext
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val toReg = Intent(this, RegActivity::class.java)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read)
+
+        job = Job()
+        coroutineContext = Dispatchers.Default + job
 
         db = MainDatabase.getDatabase(applicationContext)
         pillRepo = PillRepo(db)

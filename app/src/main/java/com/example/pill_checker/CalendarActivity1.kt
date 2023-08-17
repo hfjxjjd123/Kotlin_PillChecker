@@ -12,9 +12,9 @@ import com.example.pill_checker.dao.DateTimeManager
 import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.DateTime
 import com.example.pill_checker.repo.DateTimeRepo
-import com.example.pill_checker.repo.PillCheckRepo
 import kotlinx.coroutines.*
 import java.time.LocalDateTime
+import kotlin.coroutines.CoroutineContext
 
 class CalendarActivity1 : AppCompatActivity() {
     private lateinit var calendarRecyclerView: RecyclerView
@@ -26,13 +26,14 @@ class CalendarActivity1 : AppCompatActivity() {
     private lateinit var dateTimeRepo: DateTimeRepo
 
     lateinit var job: Job
-    private val coroutineContext = Dispatchers.Main + job
+    lateinit var coroutineContext: CoroutineContext
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar1)
 
         job = Job()
+        coroutineContext = Dispatchers.Default + job
 
         db = MainDatabase.getDatabase(applicationContext)
         dateTimeRepo = DateTimeRepo(db)

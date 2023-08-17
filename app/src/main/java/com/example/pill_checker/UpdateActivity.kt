@@ -10,6 +10,7 @@ import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.Pill
 import com.example.pill_checker.repo.PillRepo
 import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 //TODO Update DB 로직 필요
 
@@ -19,7 +20,7 @@ class UpdateActivity : AppCompatActivity() {
     lateinit var pillRepo: PillRepo
 
     lateinit var job: Job
-    private val coroutineContext = Dispatchers.Default + job
+    lateinit var coroutineContext: CoroutineContext
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +43,8 @@ class UpdateActivity : AppCompatActivity() {
         val registerButton = findViewById<Button>(R.id.register_button)
 
         job = Job()
+        coroutineContext = Dispatchers.Default + job
+
         CoroutineScope(coroutineContext).launch {
             val pill = withContext(Dispatchers.IO) {
                 pillRepo.getPillById(pid)
@@ -152,5 +155,10 @@ class UpdateActivity : AppCompatActivity() {
                 popupMenu.show()
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
     }
 }

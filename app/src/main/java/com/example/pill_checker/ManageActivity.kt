@@ -11,6 +11,7 @@ import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.Pill
 import com.example.pill_checker.repo.PillRepo
 import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 class ManageActivity:AppCompatActivity() {
     var time: Int = 0b0000
@@ -18,7 +19,7 @@ class ManageActivity:AppCompatActivity() {
     lateinit var pillRepo: PillRepo
 
     lateinit var job: Job
-    private val coroutineContext = Dispatchers.Default + job
+    lateinit var coroutineContext: CoroutineContext
 
     var pid: Long? = null
 
@@ -43,6 +44,7 @@ class ManageActivity:AppCompatActivity() {
         setContentView(R.layout.activity_manage)
 
         job = Job()
+        coroutineContext = Dispatchers.Default + job
 
         db = MainDatabase.getDatabase(applicationContext)
         pillRepo = PillRepo(db)
