@@ -17,7 +17,7 @@ class DateTimeRepo(private val database: MainDatabase) {
         }
 
         val categoryList = categoryIs(itemList)
-        for (indexCategory in categoryList.indices) {
+        for (indexCategory in categoryList.indices.reversed()) {
             if (!categoryList[indexCategory]) {
                 for (indexDate in itemList.indices) {
                     itemList[indexDate].removeAt(indexCategory)
