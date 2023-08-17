@@ -64,7 +64,7 @@ class CalendarActivity2 : AppCompatActivity() {
             val alignedItems: MutableList<PillCheck> =
                 checkItems.sortedBy{ it.checked }.reversed().toMutableList()
 
-            calendarRecyclerAdapter = CheckRecyclerAdapter(this@CalendarActivity2, alignedItems)
+            calendarRecyclerAdapter = CheckRecyclerAdapter(this@CalendarActivity2, coroutineContext, alignedItems)
             calendarRecyclerView.adapter = calendarRecyclerAdapter
         }
 

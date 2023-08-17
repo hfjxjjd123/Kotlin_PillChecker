@@ -35,6 +35,13 @@ class CalendarActivity1 : AppCompatActivity() {
         job = Job()
         coroutineContext = Dispatchers.Main+ job
 
+        calendarRecyclerView = findViewById<RecyclerView>(R.id.check_recycler_view)
+        calendarRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        categoryRecyclerView = findViewById<RecyclerView>(R.id.category_recycler_view)
+        categoryRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
         db = MainDatabase.getDatabase(applicationContext)
         dateTimeRepo = DateTimeRepo(db)
 
@@ -47,22 +54,18 @@ class CalendarActivity1 : AppCompatActivity() {
         notificationButton.setOnClickListener() {
             startActivity(toAlarm)
         }
-
-        calendarRecyclerView = findViewById<RecyclerView>(R.id.check_recycler_view)
-        calendarRecyclerView.layoutManager = LinearLayoutManager(this)
-
-        categoryRecyclerView = findViewById<RecyclerView>(R.id.category_recycler_view)
-        categoryRecyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
 
     override fun onResume() {
         super.onResume()
 
         CoroutineScope(coroutineContext).launch{
-            val itemListByDate: Pair<List<List<DateTime?>>, List<Boolean>> = withContext(Dispatchers.IO) {
+            val ioScope = CoroutineScope(Dispatchers.IO).coroutineContext
+
+            val itemListByDate: Pair<List<List<DateTime?>>, List<Boolean>> = withContext(ioScope) {
                 dateTimeRepo.getAllDateTimes(DateTimeManager().getDateValue(LocalDateTime.now()))
             }
+            println(itemListByDate)
 
             val filteredCategory: List<String> = timeCategory.filterIndexed() { index, _ ->
                 itemListByDate.second[index]

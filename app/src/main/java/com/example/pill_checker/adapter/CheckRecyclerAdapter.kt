@@ -17,10 +17,11 @@ import com.example.pill_checker.repo.PillCheckRepo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
 
-class CheckRecyclerAdapter(context: Context, private val items: MutableList<PillCheck>) :
+class CheckRecyclerAdapter(private val context:Context, private val coroutineContext: CoroutineContext, private val items: MutableList<PillCheck>) :
     RecyclerView.Adapter<CheckRecyclerAdapter.ViewHolder>() {
     private val indexManager: MutableList<Int> = (items.indices).toMutableList()
     var checkedCounter: Int = items.count { it.checked }
@@ -54,8 +55,10 @@ class CheckRecyclerAdapter(context: Context, private val items: MutableList<Pill
         holder.pillTab.setOnClickListener {
 
             if (item.checked) {
-                CoroutineScope(Dispatchers.IO).launch{
-                    pillCheckRepo.updatePillCheck(pid = item.pid, dtid = item.dtid, checked = false)
+                CoroutineScope(coroutineContext).launch{
+                    withContext(Dispatchers.IO){
+                        pillCheckRepo.updatePillCheck(pid = item.pid, dtid = item.dtid, checked = false)
+                    }
                 }
                 item.checked = false
                 holder.checkImage.setImageResource(R.drawable.checkbox_custom)
@@ -74,8 +77,10 @@ class CheckRecyclerAdapter(context: Context, private val items: MutableList<Pill
                 checkedCounter -= 1
 
             } else {
-                CoroutineScope(Dispatchers.IO).launch{
-                    pillCheckRepo.updatePillCheck(pid = item.pid, dtid = item.dtid, checked = true)
+                CoroutineScope(coroutineContext).launch{
+                    withContext(Dispatchers.IO){
+                        pillCheckRepo.updatePillCheck(pid = item.pid, dtid = item.dtid, checked = true)
+                    }
                 }
                 item.checked = true
                 holder.checkImage.setImageResource(R.drawable.checkbox_custom_checked)

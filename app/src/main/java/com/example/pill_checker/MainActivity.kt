@@ -22,7 +22,7 @@ import com.example.pill_checker.repo.TimeRepo
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-var isLogin = true
+var isLogin = false
 
 class MainActivity : AppCompatActivity() {
     private lateinit var outerRecyclerView: RecyclerView
@@ -38,6 +38,9 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var job: Job
     lateinit var coroutineContext: CoroutineContext
+
+    var dtidInstance = DateTimeManager().getDateTimeValueNow()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         db = MainDatabase.getDatabase(applicationContext)
@@ -113,12 +116,11 @@ class MainActivity : AppCompatActivity() {
             //TODO checkedPill이 Empty한 상황 핸들링하기
 
             val alignedItems: MutableList<PillCheck> = checkedPill.sortedBy { it.checked }.reversed().toMutableList()
-            checkAdapter = CheckRecyclerAdapter(this@MainActivity, alignedItems)
+            checkAdapter = CheckRecyclerAdapter(this@MainActivity, coroutineContext, alignedItems)
             checkRecyclerView.adapter = checkAdapter
 
             val pills = withContext(ioScope) {
                 pillRepo.getAllPills()
-
             }
             adapter = PillOuterRecyclerAdapter(pills)
             outerRecyclerView.adapter = adapter
