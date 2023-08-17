@@ -9,14 +9,11 @@ import androidx.core.graphics.drawable.toBitmap
 import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.Pill
 import com.example.pill_checker.repo.PillRepo
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 //TODO Update DB 로직 필요
 
-class UpdateActivity:AppCompatActivity() {
+class UpdateActivity : AppCompatActivity() {
     var time: Int = 0b0000
     private lateinit var db: MainDatabase
     lateinit var pillRepo: PillRepo
@@ -41,15 +38,19 @@ class UpdateActivity:AppCompatActivity() {
         val pillImage = findViewById<ImageView>(R.id.pill_image)
         val backArrow = findViewById<ImageButton>(R.id.back_arrow)
 
+        val cancelButton = findViewById<Button>(R.id.cancel_button)
+        val registerButton = findViewById<Button>(R.id.register_button)
 
         job = Job()
         CoroutineScope(coroutineContext).launch {
-            val pill = pillRepo.getPillById(pid)
+            val pill = withContext(Dispatchers.IO) {
+                pillRepo.getPillById(pid)
+            }
 
-            backArrow.setOnClickListener(){
+            registerButton.setOnClickListener() {
                 val name: String? = pillText.text.toString()
                 val image: Bitmap? = pillImage.drawable.toBitmap()
-                val ea: Int? = when(pillNum.text.toString()){
+                val ea: Int? = when (pillNum.text.toString()) {
                     "0.5" -> 1
                     "1.0" -> 2
                     "1.5" -> 3
@@ -58,26 +59,28 @@ class UpdateActivity:AppCompatActivity() {
                 }
 
                 if (name == null || name.isEmpty()) {
-                    Toast.makeText(parent.applicationContext, "약 이름을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(parent.applicationContext, "약 이름을 입력해주세요.", Toast.LENGTH_SHORT)
+                        .show()
                     return@setOnClickListener
                 }
                 if (time == 0b0000) {
-                    Toast.makeText(parent.applicationContext, "시간대를 선택해주세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(parent.applicationContext, "시간대를 선택해주세요.", Toast.LENGTH_SHORT)
+                        .show()
                     return@setOnClickListener
                 }
 
                 val updatedPill: Pill = Pill(pill.pid, name, time, image, ea)
-                pillRepo.updatePill(updatedPill, pill.times)
+                CoroutineScope(Dispatchers.IO).launch {
+                    async { pillRepo.updatePill(updatedPill, pill.times) }.await()
+                }
 
                 finish()
             }
 
-
-
             pillText.text = pill.name
 
-            val onColor = ContextCompat.getColor(this, R.color.primary)
-            val offColor = ContextCompat.getColor(this, R.color.primary_light)
+            val onColor = ContextCompat.getColor(parent.applicationContext, R.color.primary)
+            val offColor = ContextCompat.getColor(parent.applicationContext, R.color.primary_light)
             time = pill.times
             if (time and 0b0001 == 0b0001) {
                 morningClock.setBackgroundColor(onColor)
@@ -92,7 +95,7 @@ class UpdateActivity:AppCompatActivity() {
                 sleepClock.setBackgroundColor(onColor)
             }
 
-            pillNum.text = when(pill.ea){
+            pillNum.text = when (pill.ea) {
                 null -> ""
                 0 -> "0.5"
                 1 -> "1.0"
@@ -136,7 +139,10 @@ class UpdateActivity:AppCompatActivity() {
                 }
             }
             pillNum.setOnClickListener { view ->
-                val popupMenu = PopupMenu(this, view) // Create a PopupMenu and pass the context and anchor view
+                val popupMenu = PopupMenu(
+                    parent.applicationContext,
+                    view
+                ) // Create a PopupMenu and pass the context and anchor view
                 popupMenu.inflate(R.menu.menu_pill_num) // Inflate the menu resource
 
                 popupMenu.setOnMenuItemClickListener { item ->
@@ -146,6 +152,5 @@ class UpdateActivity:AppCompatActivity() {
                 popupMenu.show()
             }
         }
-
     }
 }
