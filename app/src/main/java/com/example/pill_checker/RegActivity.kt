@@ -1,19 +1,19 @@
 package com.example.pill_checker
 
-import android.animation.ValueAnimator
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.Transformation
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.Pill
-import com.example.pill_checker.repo.DateTimeRepo
 import com.example.pill_checker.repo.PillRepo
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class RegActivity : AppCompatActivity() {
     var time: Int = 0b0000
@@ -21,7 +21,6 @@ class RegActivity : AppCompatActivity() {
     private var isPanelShown = false
     private lateinit var db: MainDatabase
     private lateinit var pillRepo: PillRepo
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -134,7 +133,13 @@ class RegActivity : AppCompatActivity() {
             }
 
             val pill: Pill = Pill(1L, name, time, image, ea)
-            pillRepo.createPill(pill)
+            CoroutineScope(Dispatchers.Default).launch {
+                withContext(Dispatchers.IO) {
+                    pillRepo.createPill(
+                        pill
+                    )
+                }
+            }
 
             finish()
         }
