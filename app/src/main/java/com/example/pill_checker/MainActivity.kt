@@ -148,7 +148,6 @@ class MainActivity : AppCompatActivity() {
 
             val alignedItems: MutableList<PillCheck> =
                 checkedPill.sortedBy { it.checked }.reversed().toMutableList()
-            println("alignedItems: $alignedItems")
             checkAdapter = CheckRecyclerAdapter(this@MainActivity, coroutineContext, alignedItems)
             checkRecyclerView.adapter = checkAdapter
 

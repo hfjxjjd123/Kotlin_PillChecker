@@ -40,6 +40,7 @@ class CalendarActivity2 : AppCompatActivity() {
         pillCheckRepo = PillCheckRepo(db)
 
         CoroutineScope(coroutineContext).launch {
+            val ioScope = CoroutineScope(Dispatchers.IO).coroutineContext
             val dateDiff = DateTimeManager().getDateDiff(date)
 
             var text: String = ""
@@ -51,15 +52,14 @@ class CalendarActivity2 : AppCompatActivity() {
 
             calendarTimeText.text = text
 
-            println("DEBUGING________________$text/$date/$time//////////////////////")
-
             val backArrow = findViewById<ImageButton>(R.id.back_arrow)
             backArrow.setOnClickListener() {
                 finish()
             }
 
-            val checkItems = withContext(Dispatchers.IO){
-                pillCheckRepo.getPillChecksByDtid(date + time)
+            val checkItems = withContext(ioScope) {
+                pillCheckRepo.getPillChecksByDtid(date.shl(4) + time)
+
             }
             val alignedItems: MutableList<PillCheck> =
                 checkItems.sortedBy{ it.checked }.reversed().toMutableList()

@@ -8,6 +8,7 @@ import com.example.pill_checker.data.PillCheck
 
 @Dao
 interface PillCheckDao {
+
     @Query("SELECT * FROM PillCheck WHERE dtid = :dtid")
     suspend fun getAllPillChecksByDtid(dtid: Long): List<PillCheck>
 

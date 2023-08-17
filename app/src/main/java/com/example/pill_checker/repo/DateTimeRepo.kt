@@ -29,11 +29,11 @@ class DateTimeRepo(private val database: MainDatabase) {
         return Pair(itemList, categoryList)
     }
 
-    private suspend fun getDateTimeByDate(date: Long): MutableList<DateTime?> {
+    suspend fun getDateTimeByDate(date: Long): MutableList<DateTime?> {
         val dateTimeList = mutableListOf<DateTime?>()
 
         for (time in timeIter) {
-            val dtid = date + time
+            val dtid = date.shl(4) + time
             val dateTime = dateTimeDao.getDateTimeById(dtid)
             dateTimeList.add(dateTime)
         }

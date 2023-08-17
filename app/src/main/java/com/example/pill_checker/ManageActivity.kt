@@ -108,7 +108,6 @@ class ManageActivity:AppCompatActivity() {
 
             deleteButton.setOnClickListener(){
                 CoroutineScope(Dispatchers.IO).launch {
-                    println("WHY NOT?????")
                     pillRepo.deletePill(pill)
                 }
                 finish()

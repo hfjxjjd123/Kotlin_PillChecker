@@ -62,10 +62,14 @@ class CalendarActivity1 : AppCompatActivity() {
         CoroutineScope(coroutineContext).launch{
             val ioScope = CoroutineScope(Dispatchers.IO).coroutineContext
 
+            val dateValueNow = DateTimeManager().getDateValue(LocalDateTime.now())
+            println(dateValueNow)
             val itemListByDate: Pair<List<List<DateTime?>>, List<Boolean>> = withContext(ioScope) {
-                dateTimeRepo.getAllDateTimes(DateTimeManager().getDateValue(LocalDateTime.now()))
+                //getDateTGimeByDate가 단단이 잘못됨
+
+                println("Test get DateTime[getAllDateTime]: "+ dateTimeRepo.getAllDateTime())
+                dateTimeRepo.getAllDateTimes(dateValueNow)
             }
-            println(itemListByDate)
 
             val filteredCategory: List<String> = timeCategory.filterIndexed() { index, _ ->
                 itemListByDate.second[index]
