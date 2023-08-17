@@ -14,9 +14,13 @@ import com.example.pill_checker.R
 import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.PillCheck
 import com.example.pill_checker.repo.PillCheckRepo
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 
-class CheckRecyclerAdapter(private val context: Context, private val items: MutableList<PillCheck>) :
+class CheckRecyclerAdapter(context: Context, private val items: MutableList<PillCheck>) :
     RecyclerView.Adapter<CheckRecyclerAdapter.ViewHolder>() {
     private val indexManager: MutableList<Int> = (items.indices).toMutableList()
     var checkedCounter: Int = items.count { it.checked }
@@ -50,7 +54,9 @@ class CheckRecyclerAdapter(private val context: Context, private val items: Muta
         holder.pillTab.setOnClickListener {
 
             if (item.checked) {
-                pillCheckRepo.updatePillCheck(pid = item.pid, dtid = item.dtid, checked = false)
+                CoroutineScope(Dispatchers.IO).launch{
+                    pillCheckRepo.updatePillCheck(pid = item.pid, dtid = item.dtid, checked = false)
+                }
                 item.checked = false
                 holder.checkImage.setImageResource(R.drawable.checkbox_custom)
                 holder.pillName.paintFlags =
@@ -68,7 +74,9 @@ class CheckRecyclerAdapter(private val context: Context, private val items: Muta
                 checkedCounter -= 1
 
             } else {
-                pillCheckRepo.updatePillCheck(pid = item.pid, dtid = item.dtid, checked = true)
+                CoroutineScope(Dispatchers.IO).launch{
+                    pillCheckRepo.updatePillCheck(pid = item.pid, dtid = item.dtid, checked = true)
+                }
                 item.checked = true
                 holder.checkImage.setImageResource(R.drawable.checkbox_custom_checked)
                 holder.pillName.paintFlags =
