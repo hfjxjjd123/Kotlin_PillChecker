@@ -28,7 +28,7 @@ class CalendarActivity2 : AppCompatActivity() {
         val time: Int = intent.getIntExtra("time", -1)
 
         job = Job()
-        coroutineContext = Dispatchers.Default + job
+        coroutineContext = Dispatchers.Main+ job
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar2)

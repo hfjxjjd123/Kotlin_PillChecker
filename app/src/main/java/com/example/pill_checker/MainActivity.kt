@@ -22,7 +22,7 @@ import com.example.pill_checker.repo.TimeRepo
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-var isLogin = false
+var isLogin = true
 
 class MainActivity : AppCompatActivity() {
     private lateinit var outerRecyclerView: RecyclerView
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         dateTimeRepo = DateTimeRepo(db)
 
         job = Job()
-        coroutineContext = Dispatchers.Default + job
+        coroutineContext = Dispatchers.Main + job
 
         //TODO Login 로직 구현
         if (!isLoggedIn()) {
@@ -123,7 +123,6 @@ class MainActivity : AppCompatActivity() {
             adapter = PillOuterRecyclerAdapter(pills)
             outerRecyclerView.adapter = adapter
         }
-
     }
 
 

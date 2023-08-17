@@ -32,9 +32,7 @@ class ManageActivity:AppCompatActivity() {
     private lateinit var sleepClock: Button
     private lateinit var deleteButton: ImageView
 
-    val onColor = ContextCompat.getColor(this, R.color.primary)
-
-
+    val onColor = R.color.primary
 
     override fun onCreate(savedInstanceState: Bundle?) {
         pid = intent.getLongExtra("pid", -1)
@@ -44,7 +42,7 @@ class ManageActivity:AppCompatActivity() {
         setContentView(R.layout.activity_manage)
 
         job = Job()
-        coroutineContext = Dispatchers.Default + job
+        coroutineContext = Dispatchers.Main+ job
 
         db = MainDatabase.getDatabase(applicationContext)
         pillRepo = PillRepo(db)
@@ -57,6 +55,7 @@ class ManageActivity:AppCompatActivity() {
         dinnerClock = findViewById<Button>(R.id.dinner_clock)
         sleepClock = findViewById<Button>(R.id.sleep_clock)
         pillNum = findViewById<Button>(R.id.pill_num)
+        deleteButton = findViewById<ImageView>(R.id.delete_button)
 
 
         //NAVIGATION
@@ -108,7 +107,8 @@ class ManageActivity:AppCompatActivity() {
             pillImage.setImageBitmap(pill.image)
 
             deleteButton.setOnClickListener(){
-                CoroutineScope(coroutineContext).launch {
+                CoroutineScope(Dispatchers.IO).launch {
+                    println("WHY NOT?????")
                     pillRepo.deletePill(pill)
                 }
                 finish()

@@ -31,7 +31,7 @@ class ReadActivity:AppCompatActivity() {
         setContentView(R.layout.activity_read)
 
         job = Job()
-        coroutineContext = Dispatchers.Default + job
+        coroutineContext = Dispatchers.Main+ job
 
         db = MainDatabase.getDatabase(applicationContext)
         pillRepo = PillRepo(db)

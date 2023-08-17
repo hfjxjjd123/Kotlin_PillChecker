@@ -33,7 +33,7 @@ class CalendarActivity1 : AppCompatActivity() {
         setContentView(R.layout.activity_calendar1)
 
         job = Job()
-        coroutineContext = Dispatchers.Default + job
+        coroutineContext = Dispatchers.Main+ job
 
         db = MainDatabase.getDatabase(applicationContext)
         dateTimeRepo = DateTimeRepo(db)

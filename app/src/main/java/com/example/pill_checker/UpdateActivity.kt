@@ -43,13 +43,19 @@ class UpdateActivity : AppCompatActivity() {
         val registerButton = findViewById<Button>(R.id.register_button)
 
         job = Job()
-        coroutineContext = Dispatchers.Default + job
+        coroutineContext = Dispatchers.Main+ job
 
         CoroutineScope(coroutineContext).launch {
             val pill = withContext(Dispatchers.IO) {
                 pillRepo.getPillById(pid)
             }
 
+            backArrow.setOnClickListener() {
+                finish()
+            }
+            cancelButton.setOnClickListener() {
+                finish()
+            }
             registerButton.setOnClickListener() {
                 val name: String? = pillText.text.toString()
                 val image: Bitmap? = pillImage.drawable.toBitmap()
