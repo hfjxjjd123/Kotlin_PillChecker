@@ -9,18 +9,18 @@ import com.example.pill_checker.data.DateTime
 @Dao
 interface DateTimeDao {
     @Query("SELECT * FROM DateTime")
-    fun getAllDateTimes(): List<DateTime>
+    suspend fun getAllDateTimes(): List<DateTime>
 
-    @Query("SELECT * FROM DateTime WHERE dtid = :id")
-    fun getDateTimeById(id: Long): DateTime
+    @Query("SELECT * FROM DateTime WHERE dtid = :dtid")
+    suspend fun getDateTimeById(dtid: Long): DateTime?
 
     @Insert
-    fun insertDateTime(dateTime: DateTime)
+    suspend fun insertDateTime(dateTime: DateTime)
 
     @Query("DELETE FROM DateTime WHERE dtid = :id")
-    fun deleteDateTimeById(id: Long)
+    suspend fun deleteDateTimeById(id: Long)
 
     @Update
-    fun updateDateTime(dateTime: DateTime)
+    suspend fun updateDateTime(dateTime: DateTime)
 
 }

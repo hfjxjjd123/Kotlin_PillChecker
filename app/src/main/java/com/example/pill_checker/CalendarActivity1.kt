@@ -8,85 +8,83 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.adapter.CalendarRecyclerAdapter
 import com.example.pill_checker.adapter.CategoryRecyclerAdapter
-import com.example.pill_checker.data.CalendarDoneItem
+import com.example.pill_checker.dao.DateTimeManager
+import com.example.pill_checker.dao.MainDatabase
+import com.example.pill_checker.data.DateTime
+import com.example.pill_checker.repo.DateTimeRepo
+import kotlinx.coroutines.*
+import java.time.LocalDateTime
+import kotlin.coroutines.CoroutineContext
 
-class CalendarActivity1:AppCompatActivity() {
+class CalendarActivity1 : AppCompatActivity() {
     private lateinit var calendarRecyclerView: RecyclerView
     private lateinit var adapter: CalendarRecyclerAdapter
     private lateinit var categoryRecyclerView: RecyclerView
     private lateinit var categoryAdapter: CategoryRecyclerAdapter
-    val timeCategory: List<String> = listOf<String>("아침", "점심", "저녁", "자기전")
+    private val timeCategory: List<String> = listOf<String>("아침", "점심", "저녁", "자기전")
+    private lateinit var db: MainDatabase
+    private lateinit var dateTimeRepo: DateTimeRepo
+
+    lateinit var job: Job
+    lateinit var coroutineContext: CoroutineContext
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar1)
 
+        job = Job()
+        coroutineContext = Dispatchers.Main+ job
+
+        calendarRecyclerView = findViewById<RecyclerView>(R.id.check_recycler_view)
+        calendarRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        categoryRecyclerView = findViewById<RecyclerView>(R.id.category_recycler_view)
+        categoryRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        db = MainDatabase.getDatabase(applicationContext)
+        dateTimeRepo = DateTimeRepo(db)
+
         val backArrow = findViewById<ImageButton>(R.id.back_arrow)
-        backArrow.setOnClickListener(){
+        backArrow.setOnClickListener() {
             finish()
         }
         val toAlarm = Intent(this, AlarmSettingActivity::class.java)
         val notificationButton = findViewById<ImageButton>(R.id.notification_button)
-        notificationButton.setOnClickListener(){
+        notificationButton.setOnClickListener() {
             startActivity(toAlarm)
         }
-
-        //TODO Data DB에서 얻어와야함
-        val dataOfList = listOf<List<CalendarDoneItem>>(
-            listOf<CalendarDoneItem>(
-                CalendarDoneItem("O", 0, "아침"),
-                CalendarDoneItem("O", 0, "점심"),
-                CalendarDoneItem("X", 0, "저녁"),
-                CalendarDoneItem("N", 0, "자기전"),
-            ),
-            listOf<CalendarDoneItem>(
-                CalendarDoneItem("O", 1, "아침"),
-                CalendarDoneItem("O", 1, "점심"),
-                CalendarDoneItem("X", 1, "저녁"),
-                CalendarDoneItem("O", 1, "자기전"),
-            ),
-            listOf<CalendarDoneItem>(
-                CalendarDoneItem("O", 2, "아침"),
-                CalendarDoneItem("N", 2, "점심"),
-                CalendarDoneItem("X", 2, "저녁"),
-                CalendarDoneItem("O", 2, "자기전"),
-            ),
-            listOf<CalendarDoneItem>(
-                CalendarDoneItem("O", 3, "아침"),
-                CalendarDoneItem("N", 3, "점심"),
-                CalendarDoneItem("X", 3, "저녁"),
-                CalendarDoneItem("X", 3, "자기전"),
-            ),
-
-            )
-        val dataOfStat = 0b1111
-
-        val filteredItems = mutableListOf<List<CalendarDoneItem>>()
-            for (item in dataOfList){
-                val filteredItem: List<CalendarDoneItem> = item.filterIndexed() { index, _ ->
-                    val indexStats = _indexToStats(index)
-                    (dataOfStat and indexStats) == indexStats
-                }
-                filteredItems.add(filteredItem)
-            }
-        val filteredCategory: List<String> = timeCategory.filterIndexed() { index, _ ->
-            val indexStats = _indexToStats(index)
-            (dataOfStat and indexStats) == indexStats
-        }
-
-        calendarRecyclerView = findViewById<RecyclerView>(R.id.check_recycler_view)
-        calendarRecyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = CalendarRecyclerAdapter(filteredItems)
-        calendarRecyclerView.adapter = adapter
-
-        categoryRecyclerView = findViewById<RecyclerView>(R.id.category_recycler_view)
-        categoryRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        categoryAdapter = CategoryRecyclerAdapter(filteredCategory)
-        categoryRecyclerView.adapter = categoryAdapter
-
     }
 
-    private fun _indexToStats(index: Int): Int{
-        return (0b0001 shl (3-index))
+    override fun onResume() {
+        super.onResume()
+
+        CoroutineScope(coroutineContext).launch{
+            val ioScope = CoroutineScope(Dispatchers.IO).coroutineContext
+
+            val dateValueNow = DateTimeManager().getDateValue(LocalDateTime.now())
+            println(dateValueNow)
+            val itemListByDate: Pair<List<List<DateTime?>>, List<Boolean>> = withContext(ioScope) {
+                //getDateTGimeByDate가 단단이 잘못됨
+
+                println("Test get DateTime[getAllDateTime]: "+ dateTimeRepo.getAllDateTime())
+                dateTimeRepo.getAllDateTimes(dateValueNow)
+            }
+
+            val filteredCategory: List<String> = timeCategory.filterIndexed() { index, _ ->
+                itemListByDate.second[index]
+            }
+
+            adapter = CalendarRecyclerAdapter(itemListByDate.first)
+            calendarRecyclerView.adapter = adapter
+
+            categoryAdapter = CategoryRecyclerAdapter(filteredCategory)
+            categoryRecyclerView.adapter = categoryAdapter
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
     }
 }

@@ -1,5 +1,6 @@
 package com.example.pill_checker.adapter
 
+import android.content.Context
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
@@ -8,14 +9,26 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pill_checker.MyApplication
 import com.example.pill_checker.R
-import com.example.pill_checker.data.PillDone
+import com.example.pill_checker.dao.MainDatabase
+import com.example.pill_checker.data.PillCheck
+import com.example.pill_checker.repo.PillCheckRepo
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 
-class CheckRecyclerAdapter(private val items: MutableList<PillDone>) :
+class CheckRecyclerAdapter(
+    private val context: Context,
+    private val coroutineContext: CoroutineContext,
+    private val items: MutableList<PillCheck>
+) :
     RecyclerView.Adapter<CheckRecyclerAdapter.ViewHolder>() {
-    val indexManager: MutableList<Int> = (0..items.size - 1).toMutableList()
-    var checkedCounter: Int = items.count { it.done == "O" }
+    private val indexManager: MutableList<Int> = (items.indices).toMutableList()
+    var checkedCounter: Int = items.count { it.checked }
+
+    val db = MainDatabase.getDatabase(context.applicationContext as MyApplication)
+    private val pillCheckRepo = PillCheckRepo(db)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView =
@@ -25,12 +38,10 @@ class CheckRecyclerAdapter(private val items: MutableList<PillDone>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: PillDone = items[indexManager[position]]
-
-
+        val item: PillCheck = items[indexManager[position]]
         holder.pillName.text = item.name
 
-        if (item.done == "O") {
+        if (item.checked) {
             holder.checkImage.setImageResource(R.drawable.checkbox_custom_checked)
             holder.pillName.paintFlags = holder.pillName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         } else {
@@ -39,44 +50,62 @@ class CheckRecyclerAdapter(private val items: MutableList<PillDone>) :
                 holder.pillName.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
         }
 
+        CoroutineScope(coroutineContext).launch{
+
         //TODO 데이터베이스 변화를 먼저하기, 변화 후 위치 맨 끝으로 보내기
-        holder.pillTab.setOnClickListener {
 
-            if (item.done == "O") {
-                item.done = "X"
-                holder.checkImage.setImageResource(R.drawable.checkbox_custom)
-                holder.pillName.paintFlags =
-                    holder.pillName.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+            holder.pillTab.setOnClickListener {
+                    if (item.checked) {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            async {
+                                pillCheckRepo.updatePillCheck(
+                                    pid = item.pid,
+                                    dtid = item.dtid,
+                                    checked = false
+                                )
+                            }.await()
+                        }
+                            item.checked = false
+                            holder.checkImage.setImageResource(R.drawable.checkbox_custom)
+                            holder.pillName.paintFlags =
+                                holder.pillName.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
 
-                if (items.size - checkedCounter < indexManager.indexOf(position)) {
-                    val itemToMove = items.removeAt(indexManager.indexOf(position))
-                    items.add(0, itemToMove)
-                    notifyItemMoved(indexManager.indexOf(position), 0)
+                            if (items.size - checkedCounter < indexManager.indexOf(position)) {
+                                val itemToMove = items.removeAt(indexManager.indexOf(position))
+                                items.add(0, itemToMove)
+                                notifyItemMoved(indexManager.indexOf(position), 0)
 
-                    val indexToMove = indexManager.removeAt(indexManager.indexOf(position))
-                    indexManager.add(0, indexToMove)
+                                val indexToMove = indexManager.removeAt(indexManager.indexOf(position))
+                                indexManager.add(0, indexToMove)
+                            }
+
+                            checkedCounter -= 1
+                    }else {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            async { pillCheckRepo.updatePillCheck(
+                                pid = item.pid,
+                                dtid = item.dtid,
+                                checked = true)
+                            }.await()
+                        }
+
+                    item.checked = true
+                    holder.checkImage.setImageResource(R.drawable.checkbox_custom_checked)
+                    holder.pillName.paintFlags =
+                        holder.pillName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+
+                    if (items.size - checkedCounter - 1 > indexManager.indexOf(position)) {
+                        val itemToMove = items.removeAt(indexManager.indexOf(position))
+                        items.add(itemToMove)
+                        notifyItemMoved(indexManager.indexOf(position), items.size - 1)
+
+                        val indexToMove = indexManager.removeAt(indexManager.indexOf(position))
+                        indexManager.add(indexToMove)
+                    }
+
+
+                    checkedCounter += 1
                 }
-
-                checkedCounter -= 1
-
-            } else {
-                item.done = "O"
-                holder.checkImage.setImageResource(R.drawable.checkbox_custom_checked)
-                holder.pillName.paintFlags =
-                    holder.pillName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-
-                if (items.size - checkedCounter - 1 > indexManager.indexOf(position)) {
-                    val itemToMove = items.removeAt(indexManager.indexOf(position))
-                    items.add(itemToMove)
-                    notifyItemMoved(indexManager.indexOf(position), items.size - 1)
-
-                    val indexToMove = indexManager.removeAt(indexManager.indexOf(position))
-                    indexManager.add(indexToMove)
-                }
-
-
-                checkedCounter += 1
-
             }
         }
 

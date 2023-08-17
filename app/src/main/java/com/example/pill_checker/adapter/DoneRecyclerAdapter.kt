@@ -8,11 +8,12 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.CalendarActivity2
 import com.example.pill_checker.R
-import com.example.pill_checker.data.CalendarDoneItem
+import com.example.pill_checker.dao.DateTimeManager
+import com.example.pill_checker.data.DateTime
 
 //outer list: date
 //inner list: done
-class DoneRecyclerAdapter(private val itemsDone: List<CalendarDoneItem>) :
+class DoneRecyclerAdapter(private val itemsDone: List<DateTime?>) :
     RecyclerView.Adapter<DoneRecyclerAdapter.InnerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InnerViewHolder {
@@ -23,20 +24,23 @@ class DoneRecyclerAdapter(private val itemsDone: List<CalendarDoneItem>) :
     }
 
     override fun onBindViewHolder(holder: InnerViewHolder, position: Int) {
-        val item: CalendarDoneItem = itemsDone[position]
+        val item: DateTime? = itemsDone[position]
 
-        if (item.done == "O") {
-            holder.doneImage.setImageResource(R.drawable.done)
-        } else if (item.done == "X") {
-            holder.doneImage.setImageResource(R.drawable.notdone)
+        if (item == null){
+            holder.doneImage.setImageResource(R.drawable.empty_drawable)
         } else {
-            holder.doneImage.setImageResource(R.drawable.background)
-        }
+            if (item.checked) {
+                holder.doneImage.setImageResource(R.drawable.done)
+            } else{
+                holder.doneImage.setImageResource(R.drawable.notdone)
+            }
 
-        if (item.done == "O" || item.done == "X") {
             val toCal2 = Intent(holder.itemView.context, CalendarActivity2::class.java)
-            toCal2.putExtra("date", item.date)
-            toCal2.putExtra("time", item.time)
+
+            val datetime = DateTimeManager().separateDateTimeValue(item.dtid)
+            toCal2.putExtra("date", datetime.first)
+            toCal2.putExtra("time", datetime.second)
+
             // 해당 앱인지 알림
             holder.itemView.setOnClickListener() {
                 holder.itemView.context.startActivity(toCal2)
