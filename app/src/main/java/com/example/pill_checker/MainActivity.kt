@@ -136,6 +136,7 @@ class MainActivity : AppCompatActivity() {
 
             val pills = withContext(ioScope) {
                 pillRepo.getAllPills()
+
             }
             adapter = PillOuterRecyclerAdapter(pills)
             outerRecyclerView.adapter = adapter
