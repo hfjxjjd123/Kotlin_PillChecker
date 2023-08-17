@@ -113,7 +113,9 @@ class UpdateActivity : AppCompatActivity() {
                 else -> "1.0"
             }
 
-            pillImage.setImageBitmap(pill.image)
+            if(pill != null && pill.image != null){
+                pillImage.setImageBitmap(pill.image)
+            }
 
             morningClock.setOnClickListener() {
                 time = time.xor(0b0001)

@@ -14,14 +14,15 @@ import com.example.pill_checker.R
 import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.PillCheck
 import com.example.pill_checker.repo.PillCheckRepo
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 
-class CheckRecyclerAdapter(private val context:Context, private val coroutineContext: CoroutineContext, private val items: MutableList<PillCheck>) :
+class CheckRecyclerAdapter(
+    private val context: Context,
+    private val coroutineContext: CoroutineContext,
+    private val items: MutableList<PillCheck>
+) :
     RecyclerView.Adapter<CheckRecyclerAdapter.ViewHolder>() {
     private val indexManager: MutableList<Int> = (items.indices).toMutableList()
     var checkedCounter: Int = items.count { it.checked }
@@ -38,8 +39,6 @@ class CheckRecyclerAdapter(private val context:Context, private val coroutineCon
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item: PillCheck = items[indexManager[position]]
-
-
         holder.pillName.text = item.name
 
         if (item.checked) {
@@ -51,54 +50,62 @@ class CheckRecyclerAdapter(private val context:Context, private val coroutineCon
                 holder.pillName.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
         }
 
+        CoroutineScope(coroutineContext).launch{
+
         //TODO 데이터베이스 변화를 먼저하기, 변화 후 위치 맨 끝으로 보내기
-        holder.pillTab.setOnClickListener {
 
-            if (item.checked) {
-                CoroutineScope(coroutineContext).launch{
-                    withContext(Dispatchers.IO){
-                        pillCheckRepo.updatePillCheck(pid = item.pid, dtid = item.dtid, checked = false)
+            holder.pillTab.setOnClickListener {
+                    if (item.checked) {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            async {
+                                pillCheckRepo.updatePillCheck(
+                                    pid = item.pid,
+                                    dtid = item.dtid,
+                                    checked = false
+                                )
+                            }.await()
+                        }
+                            item.checked = false
+                            holder.checkImage.setImageResource(R.drawable.checkbox_custom)
+                            holder.pillName.paintFlags =
+                                holder.pillName.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+
+                            if (items.size - checkedCounter < indexManager.indexOf(position)) {
+                                val itemToMove = items.removeAt(indexManager.indexOf(position))
+                                items.add(0, itemToMove)
+                                notifyItemMoved(indexManager.indexOf(position), 0)
+
+                                val indexToMove = indexManager.removeAt(indexManager.indexOf(position))
+                                indexManager.add(0, indexToMove)
+                            }
+
+                            checkedCounter -= 1
+                    }else {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            async { pillCheckRepo.updatePillCheck(
+                                pid = item.pid,
+                                dtid = item.dtid,
+                                checked = true)
+                            }.await()
+                        }
+
+                    item.checked = true
+                    holder.checkImage.setImageResource(R.drawable.checkbox_custom_checked)
+                    holder.pillName.paintFlags =
+                        holder.pillName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+
+                    if (items.size - checkedCounter - 1 > indexManager.indexOf(position)) {
+                        val itemToMove = items.removeAt(indexManager.indexOf(position))
+                        items.add(itemToMove)
+                        notifyItemMoved(indexManager.indexOf(position), items.size - 1)
+
+                        val indexToMove = indexManager.removeAt(indexManager.indexOf(position))
+                        indexManager.add(indexToMove)
                     }
+
+
+                    checkedCounter += 1
                 }
-                item.checked = false
-                holder.checkImage.setImageResource(R.drawable.checkbox_custom)
-                holder.pillName.paintFlags =
-                    holder.pillName.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-
-                if (items.size - checkedCounter < indexManager.indexOf(position)) {
-                    val itemToMove = items.removeAt(indexManager.indexOf(position))
-                    items.add(0, itemToMove)
-                    notifyItemMoved(indexManager.indexOf(position), 0)
-
-                    val indexToMove = indexManager.removeAt(indexManager.indexOf(position))
-                    indexManager.add(0, indexToMove)
-                }
-
-                checkedCounter -= 1
-
-            } else {
-                CoroutineScope(coroutineContext).launch{
-                    withContext(Dispatchers.IO){
-                        pillCheckRepo.updatePillCheck(pid = item.pid, dtid = item.dtid, checked = true)
-                    }
-                }
-                item.checked = true
-                holder.checkImage.setImageResource(R.drawable.checkbox_custom_checked)
-                holder.pillName.paintFlags =
-                    holder.pillName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-
-                if (items.size - checkedCounter - 1 > indexManager.indexOf(position)) {
-                    val itemToMove = items.removeAt(indexManager.indexOf(position))
-                    items.add(itemToMove)
-                    notifyItemMoved(indexManager.indexOf(position), items.size - 1)
-
-                    val indexToMove = indexManager.removeAt(indexManager.indexOf(position))
-                    indexManager.add(indexToMove)
-                }
-
-
-                checkedCounter += 1
-
             }
         }
 
