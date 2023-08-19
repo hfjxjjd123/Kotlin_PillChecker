@@ -19,10 +19,9 @@ import com.example.pill_checker.repo.DateTimeRepo
 import com.example.pill_checker.repo.PillCheckRepo
 import com.example.pill_checker.repo.PillRepo
 import com.example.pill_checker.repo.TimeRepo
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
-
-var isLogin = true
 
 class MainActivity : AppCompatActivity() {
     private lateinit var outerRecyclerView: RecyclerView
@@ -52,8 +51,7 @@ class MainActivity : AppCompatActivity() {
         job = Job()
         coroutineContext = Dispatchers.Main + job
 
-        //TODO Login 로직 구현
-        if (!isLoggedIn()) {
+        if (GoogleSignIn.getLastSignedInAccount(this) == null) {
             val signInIntent = Intent(this, LoginActivity1::class.java)
             signInIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(signInIntent)
@@ -157,11 +155,6 @@ class MainActivity : AppCompatActivity() {
             adapter = PillOuterRecyclerAdapter(pills)
             outerRecyclerView.adapter = adapter
         }
-    }
-
-
-    private fun isLoggedIn(): Boolean {
-        return isLogin
     }
 
     override fun onDestroy() {
