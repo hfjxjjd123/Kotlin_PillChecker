@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 
 class LoginActivity3:AppCompatActivity() {
 
@@ -33,7 +34,12 @@ class LoginActivity3:AppCompatActivity() {
 
         val next = findViewById<Button>(R.id.start_main)
         next.setOnClickListener {
-            isLogin = true
+            if(GoogleSignIn.getLastSignedInAccount(this) == null){
+                //TODO 리디렉션 유효한 리디렉션인지 확인
+                finishAffinity()
+                return@setOnClickListener
+            }
+            // Login1 화면으로 이동하기
             val intent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
