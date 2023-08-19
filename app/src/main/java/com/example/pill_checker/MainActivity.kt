@@ -22,7 +22,7 @@ import com.example.pill_checker.repo.TimeRepo
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-var isLogin = true
+var isLogin = false
 
 class MainActivity : AppCompatActivity() {
     private lateinit var outerRecyclerView: RecyclerView
