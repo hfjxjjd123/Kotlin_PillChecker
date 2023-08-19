@@ -12,8 +12,6 @@ import com.example.pill_checker.repo.PillRepo
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-//TODO Update DB 로직 필요
-
 class UpdateActivity : AppCompatActivity() {
     var time: Int = 0b0000
     private lateinit var db: MainDatabase
