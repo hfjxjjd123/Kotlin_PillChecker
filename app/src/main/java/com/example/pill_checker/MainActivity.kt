@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
 
     var dtidInstance = DateTimeManager().getDateTimeValueNow()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         db = MainDatabase.getDatabase(applicationContext)
         pillCheckRepo = PillCheckRepo(db)
