@@ -139,9 +139,8 @@ class RegActivity : AppCompatActivity() {
                         pill
                     )
                 }
+                finish()
             }
-
-            finish()
         }
 
 
