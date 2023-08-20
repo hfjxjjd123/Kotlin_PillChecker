@@ -21,6 +21,7 @@ import com.example.pill_checker.repo.PillRepo
 import com.example.pill_checker.repo.TimeRepo
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import kotlinx.coroutines.*
+import java.lang.Thread.sleep
 import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity() {
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity() {
 
         job = Job()
         coroutineContext = Dispatchers.Main + job
+
 
         if (GoogleSignIn.getLastSignedInAccount(this) == null) {
             val signInIntent = Intent(this, LoginActivity1::class.java)
