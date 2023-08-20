@@ -60,7 +60,6 @@ class ReadActivity:AppCompatActivity() {
                 pillRepo.getAllPills()
             }
             adapter = PillOuterRecyclerAdapter(pills)
-            println(pills)
             outerRecyclerView.adapter = adapter
         }
 
