@@ -7,11 +7,21 @@ import android.widget.Button
 import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.pill_checker.dao.MainDatabase
+import com.example.pill_checker.repo.TimeRepo
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 class LoginActivity3:AppCompatActivity() {
 
+    lateinit var job: Job
+    lateinit var coroutineContext: CoroutineContext
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        job = Job()
+        coroutineContext = Dispatchers.Default + job
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login3)
@@ -45,8 +55,16 @@ class LoginActivity3:AppCompatActivity() {
             // Login1 화면으로 이동하기
             val intent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            startActivity(intent)
-            finishAffinity()
+
+            val db = MainDatabase.getDatabase(applicationContext)
+            val timeRepo = TimeRepo(db)
+            CoroutineScope(coroutineContext).launch {
+                withContext(Dispatchers.IO) {
+                    timeRepo.initialTime()
+                }
+                startActivity(intent)
+                finishAffinity()
+            }
         }
 
     }
