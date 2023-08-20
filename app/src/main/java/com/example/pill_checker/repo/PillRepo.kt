@@ -14,8 +14,11 @@ class PillRepo(private val database: MainDatabase){
     suspend fun getPillById(id: Long) = pillDao.getPillById(id)
     suspend fun getAllPills() = pillDao.getAllPills()
     suspend fun createPill(pill: Pill) {
-        pillDao.insertPill(pill)
-        createPillLights(pill)
+        val pid = pillDao.insertPill(pill)
+        println(pid)
+        val pillNew = pillDao.getPillById(pid)
+        println(pillNew.pid)
+        createPillLights(pillNew)
     }
     suspend fun updatePill(pill: Pill, timesBefore: Int) {
         pillDao.updatePill(pill)
