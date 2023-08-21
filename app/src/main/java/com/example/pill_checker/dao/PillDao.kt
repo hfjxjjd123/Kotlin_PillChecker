@@ -15,7 +15,7 @@ interface PillDao {
     suspend fun getPillById(pid: Long): Pill
 
     @Insert
-    suspend fun insertPill(pill: Pill)
+    suspend fun insertPill(pill: Pill): Long
 
     @Update
     suspend fun updatePill(pill: Pill)
