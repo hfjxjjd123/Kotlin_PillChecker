@@ -1,27 +1,22 @@
 package com.example.pill_checker
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.drawable.toBitmap
-import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.adapter.CheckRecyclerAdapter
 import com.example.pill_checker.adapter.PillOuterRecyclerAdapter
-import com.example.pill_checker.dao.DateTimeManager
-import com.example.pill_checker.dao.MainDatabase
-import com.example.pill_checker.data.Pill
+import com.example.pill_checker.dao.*
+import com.example.pill_checker.repo.*
 import com.example.pill_checker.data.PillCheck
-import com.example.pill_checker.repo.DateTimeRepo
-import com.example.pill_checker.repo.PillCheckRepo
-import com.example.pill_checker.repo.PillRepo
-import com.example.pill_checker.repo.TimeRepo
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import kotlinx.coroutines.*
-import java.lang.Thread.sleep
 import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity() {
@@ -89,6 +84,12 @@ class MainActivity : AppCompatActivity() {
 //
 //            }
         }
+
+        val intent = Intent(this, AlarmReceiver::class.java)
+        intent.action = "com.example.ACTION_ALARM"
+        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
 
         val toCalendar = Intent(this, CalendarActivity1::class.java)
         val toPills = Intent(this, ReadActivity::class.java)
