@@ -47,6 +47,35 @@ class DateTimeManager {
             else 0b1000
         }
 
+        fun getTimeValueExtended(datetime: LocalDateTime): Int {
+            val startOfDateTime = getDate(datetime).atStartOfDay()
+            val startOfMorning = startOfDateTime.plusHours(HOUR_MORNING.toLong() + DURATION)
+                .plusMinutes(MIN_MORNING.toLong())
+            val startOfLunch = startOfDateTime.plusHours(HOUR_LUNCH.toLong() + DURATION)
+                .plusMinutes(MIN_LUNCH.toLong())
+            val startOfDinner = startOfDateTime.plusHours(HOUR_DINNER.toLong() + DURATION)
+                .plusMinutes(MIN_DINNER.toLong())
+
+            return if (datetime.isBefore(startOfMorning)) 0b1001
+            else if (datetime.isBefore(startOfMorning.plusHours(DURATION.toLong()))) 0b0001
+            else if (datetime.isBefore(startOfLunch)) 0b0011
+            else if (datetime.isBefore(startOfLunch.plusHours(DURATION.toLong()))) 0b0010
+            else if (datetime.isBefore(startOfDinner)) 0b0110
+            else if (datetime.isBefore(startOfDinner.plusHours(DURATION.toLong()))) 0b0100
+            else if (datetime.isBefore(startOfDateTime.plusHours(24).minusHours(DURATION.toLong()))) 0b1100
+            else 0b1000
+        }
+
+        fun countTimeBit(bit: Int): Int{
+            var count = 0
+            var jit = bit
+            for(i in 0..3){
+                if(jit.and(0b1) == 1) count++
+                jit = jit.shr(1)
+            }
+            return count
+        }
+
         fun getDate(datetime: LocalDateTime): LocalDate {
             val consideredDate = datetime
                 .minusHours(DURATION.toLong() + HOUR_SLEEP.toLong())
