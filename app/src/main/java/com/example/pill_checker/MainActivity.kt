@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var job: Job
     lateinit var coroutineContext: CoroutineContext
 
-    var dtidInstance = DateTimeManager().getDateTimeValueNow()
+    var dtidInstance = DateTimeManager.getDateTimeValueNow()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         db = MainDatabase.getDatabase(applicationContext)
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
             //INILTIAL
 //            CoroutineScope(Dispatchers.IO).launch {
-//                var dtidNow = DateTimeManager().getDateTimeValueNow()
+//                var dtidNow = DateTimeManager.getDateTimeValueNow()
 //
 //                pillCheckRepo.createNextPillChecks(
 //                    dtidNow.shr(4).shl(4).or(0b0100)
@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        val dtidNow = DateTimeManager().getDateTimeValueNow()
+        val dtidNow = DateTimeManager.getDateTimeValueNow()
         CoroutineScope(coroutineContext).launch {
             val ioScope = CoroutineScope(Dispatchers.IO).coroutineContext
 

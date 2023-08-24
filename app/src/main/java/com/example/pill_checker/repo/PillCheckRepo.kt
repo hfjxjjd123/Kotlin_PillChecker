@@ -39,7 +39,7 @@ class PillCheckRepo(private val database: MainDatabase) {
     }
     suspend fun delete7AgoPillChecks(){
         val datetime = LocalDateTime.now()
-        val dateValueNow = DateTimeManager().getDateValue(datetime)
+        val dateValueNow = DateTimeManager.getDateValue(datetime)
         val dateValue = dateValueNow - 7
 
         for (i in timeIter){
