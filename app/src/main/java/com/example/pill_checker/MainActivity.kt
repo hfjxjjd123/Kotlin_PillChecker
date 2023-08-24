@@ -89,6 +89,7 @@ class MainActivity : AppCompatActivity() {
         intent.action = "com.example.ACTION_ALARM"
         val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 1000, pendingIntent)
 
 
         val toCalendar = Intent(this, CalendarActivity1::class.java)
