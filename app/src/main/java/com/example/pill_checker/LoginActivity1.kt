@@ -37,10 +37,9 @@ class LoginActivity1 : AppCompatActivity() {
         //FOR DEBUG
         val appleLogin: Button = findViewById(R.id.apple_login)
         appleLogin.setOnClickListener {
-            val notification = createNotification(this, "아침")
             val notificationManager = this?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val notification = createNotification(this, "아침")
             notificationManager.notify(0, notification)
-            //여기까지 실행은 되는데...
         }
         //
     }

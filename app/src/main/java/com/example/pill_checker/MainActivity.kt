@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         coroutineContext = Dispatchers.Main + job
 
 
-        if (GoogleSignIn.getLastSignedInAccount(this) != null) {
+        if (GoogleSignIn.getLastSignedInAccount(this) == null) {
             val signInIntent = Intent(this, LoginActivity1::class.java)
             signInIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(signInIntent)
