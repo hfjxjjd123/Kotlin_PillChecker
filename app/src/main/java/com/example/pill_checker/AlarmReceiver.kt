@@ -30,6 +30,7 @@ class AlarmReceiver : BroadcastReceiver() {
             //패널 업데이트가 검증됨
             when(time) {
                 //TODO TO CALL NEXT ALARM
+                //현재 패널 체킹은 불필요
                 0b0001 -> {
                     //다음 알람 적용
                     timeText = "아침"
