@@ -1,10 +1,13 @@
 package com.example.pill_checker
 
 import android.app.AlarmManager
+import android.app.Notification
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import androidx.core.app.NotificationCompat
 import com.example.pill_checker.dao.*
 import java.time.LocalDateTime
 import java.util.*
@@ -22,6 +25,8 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val calendar = Calendar.getInstance()
         if(isStart){
+            //다음 알람 시간이 검증됨
+            //패널 업데이트가 검증됨
             when(time) {
                 //TODO TO CALL NEXT ALARM
                 0b0001 -> {
@@ -46,7 +51,14 @@ class AlarmReceiver : BroadcastReceiver() {
                     calendar.set(Calendar.MINUTE, MIN_SLEEP)
                 }
             }
+            val notification = createNotification(context)
+            val notificationManager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.notify(0, notification)
+
         }else if(!isStart) {
+            //TODO NEXT TIME에 대한 검증이 필요하다.
+            //function NEXT를 선언하면, 그 시간에 맞게 다음 알람을 설정할 수 있을듯?
+            //그에 맞게 패널을 업데이트 해주면 되고... 다만 SLEEP 이후다라고 한다면? -> 이론상 SLeep 이후는 0b1001이므로 상관노
             when (time) {
                 //새벽
                 0b1001 -> {
@@ -70,4 +82,21 @@ class AlarmReceiver : BroadcastReceiver() {
         // Set the new alarm
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
     }
+
+    private fun createNotification(context: Context): Notification {
+
+        val notificationIntent = Intent(context, MainActivity::class.java)
+        val notificationPendingIntent = PendingIntent.getActivity(
+            context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        return NotificationCompat.Builder(context, "PillNotice")
+            .setContentTitle("Your Notification Title")
+            .setContentText("Your Notification Content")
+            .setSmallIcon(R.drawable.pill_image)
+            .setContentIntent(notificationPendingIntent) // Set the PendingIntent
+            .setAutoCancel(true) // Auto-dismiss the notification when tapped
+            .build()
+    }
+
 }
