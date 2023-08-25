@@ -17,11 +17,12 @@ class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val alarmIntent = Intent(context, AlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
 
         // Calculate the time for the new alarm
         val time = DateTimeManager.getTimeValueExtended(LocalDateTime.now())
         val isStart = DateTimeManager.countTimeBit(time) == 1
+        var timeText = ""
 
         val calendar = Calendar.getInstance()
         if(isStart){
@@ -31,18 +32,22 @@ class AlarmReceiver : BroadcastReceiver() {
                 //TODO TO CALL NEXT ALARM
                 0b0001 -> {
                     //다음 알람 적용
+                    timeText = "아침"
                     calendar.set(Calendar.HOUR_OF_DAY, HOUR_MORNING + DURATION)
                     calendar.set(Calendar.MINUTE, MIN_MORNING)
                 }
                 0b0010 -> {
+                    timeText = "점심"
                     calendar.set(Calendar.HOUR_OF_DAY, HOUR_LUNCH + DURATION)
                     calendar.set(Calendar.MINUTE, MIN_LUNCH)
                 }
                 0b0100 -> {
+                    timeText = "저녁"
                     calendar.set(Calendar.HOUR_OF_DAY, HOUR_DINNER + DURATION)
                     calendar.set(Calendar.MINUTE, MIN_DINNER)
                 }
                 0b1000 -> {
+                    timeText = "자기전"
                     //TODO DAY OVER CONTROLL
                     //정리
                     //NextDay면 Panel은 일단 기존 패널을 사용할 것임
@@ -51,7 +56,7 @@ class AlarmReceiver : BroadcastReceiver() {
                     calendar.set(Calendar.MINUTE, MIN_SLEEP)
                 }
             }
-            val notification = createNotification(context)
+            val notification = createNotification(context, timeText)
             val notificationManager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.notify(0, notification)
 
@@ -83,20 +88,21 @@ class AlarmReceiver : BroadcastReceiver() {
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
     }
 
-    private fun createNotification(context: Context): Notification {
+}
 
-        val notificationIntent = Intent(context, MainActivity::class.java)
-        val notificationPendingIntent = PendingIntent.getActivity(
-            context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT
-        )
+fun createNotification(context: Context, timeText: String): Notification {
 
-        return NotificationCompat.Builder(context, "PillNotice")
-            .setContentTitle("Your Notification Title")
-            .setContentText("Your Notification Content")
-            .setSmallIcon(R.drawable.pill_image)
-            .setContentIntent(notificationPendingIntent) // Set the PendingIntent
-            .setAutoCancel(true) // Auto-dismiss the notification when tapped
-            .build()
-    }
+    val notificationIntent = Intent(context, MainActivity::class.java)
+    notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    val notificationPendingIntent = PendingIntent.getActivity(
+        context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+    )
 
+    return NotificationCompat.Builder(context, "PillNotice")
+        .setContentTitle("$timeText 약")
+        .setContentText("약 먹을 시간이에요")
+        .setSmallIcon(R.drawable.pill_image)
+        .setContentIntent(notificationPendingIntent) // Set the PendingIntent
+        .setAutoCancel(true) // Auto-dismiss the notification when tapped
+        .build()
 }
