@@ -72,22 +72,32 @@ class PillCheckRepo(private val database: MainDatabase) {
 
     /////////////////
 
-    suspend fun getPillLightsByDtid(dtid: Long): List<PillLight> = pillLightDao.getPillLightsByDtid(dtid)
+    suspend fun getPillLightsByTid(tid: Int): List<PillLight> = pillLightDao.getPillLightsByTid(tid)
 
-    suspend fun updatePillLight(pid: Long, tid: Int, name: String){
-        val pillLight = pillLightDao.getPillLightByPid(pid)
-        pillLight.tid = tid
-        pillLight.name = name
-        pillLightDao.updatePillLight(pillLight)
+    suspend fun updatePillLight(pid: Long, tid: Int, checked: Boolean){
+        val pillLight = pillLightDao.getPillLightByPid(pid, tid)
+        pillLightDao.updatePillLight(pillLight.copy(checked = checked))
     }
 
-    //TODO 패널에 띄우기 전에 즉, time end시 다음 타임에 대해서 이렇게 적용해보는게 좋을듯
-    suspend fun rollbackPillLight(tid: Int){
-        val pillLights: List<PillLight> = pillLightDao.getPillLightsByTid(tid)
+    //TODO 패널에 띄우기 전에 즉, time-end시 다음 타임에 대해서 이렇게 적용해보는게 좋을듯
+    suspend fun pillLightToPillChecked(pillLights: List<PillLight>){
+        val dtid = DateTimeManager.getDateTimeValueWhenEnd()
+
+        //비어있다면 PillLight 생성하지 않을 것.
+        if(pillLights.isEmpty()) return
+
+        val dateTime = DateTime(dtid = dtid, checked = true)
+        dateTimeDao.insertDateTime(dateTime)
+
         for (pillLight in pillLights){
-            pillLight.checked = false
-            pillLightDao.updatePillLight(pillLight)
+            val pillCheck = PillCheck(pid = pillLight.pid, name = pillLight.name, dtid = dtid, checked = pillLight.checked)
+            pillCheckDao.insertPillCheck(pillCheck)
+            if(!pillCheck.checked){
+                dateTime.checked = false
+            }
+            pillLightDao.updatePillLight(pillLight.copy(checked = false))
         }
+        dateTimeDao.updateDateTime(dateTime)
     }
 
 }

@@ -11,10 +11,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pill_checker.adapter.CheckRecyclerAdapter
+import com.example.pill_checker.adapter.MainRecyclerAdapter
 import com.example.pill_checker.adapter.PillOuterRecyclerAdapter
 import com.example.pill_checker.dao.*
 import com.example.pill_checker.repo.*
 import com.example.pill_checker.data.PillCheck
+import com.example.pill_checker.data.PillLight
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -22,8 +24,8 @@ import kotlin.coroutines.CoroutineContext
 class MainActivity : AppCompatActivity() {
     private lateinit var outerRecyclerView: RecyclerView
     private lateinit var adapter: PillOuterRecyclerAdapter
-    private lateinit var checkRecyclerView: RecyclerView
-    private lateinit var checkAdapter: CheckRecyclerAdapter
+    private lateinit var mainRecyclerView: RecyclerView
+    private lateinit var mainAdapter: MainRecyclerAdapter
 
     private lateinit var db: MainDatabase
     private lateinit var pillCheckRepo: PillCheckRepo
@@ -46,13 +48,11 @@ class MainActivity : AppCompatActivity() {
         job = Job()
         coroutineContext = Dispatchers.Main + job
 
-
         if (GoogleSignIn.getLastSignedInAccount(this) == null) {
             val signInIntent = Intent(this, LoginActivity1::class.java)
             signInIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(signInIntent)
             finish()
-
             //INILTIAL
 //            CoroutineScope(Dispatchers.IO).launch {
 //                var dtidNow = DateTimeManager.getDateTimeValueNow()
@@ -87,7 +87,12 @@ class MainActivity : AppCompatActivity() {
 
         val intent = Intent(this, AlarmReceiver::class.java)
         intent.action = "com.example.ACTION_ALARM"
-        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
+        val pendingIntent = PendingIntent.getBroadcast(
+            this,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+        )
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 100, pendingIntent)
 
@@ -98,8 +103,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        checkRecyclerView = findViewById<RecyclerView>(R.id.calendar_done_list)
-        checkRecyclerView.layoutManager = LinearLayoutManager(this)
+        mainRecyclerView = findViewById<RecyclerView>(R.id.calendar_done_list)
+        mainRecyclerView.layoutManager = LinearLayoutManager(this)
 
         outerRecyclerView = findViewById<RecyclerView>(R.id.recycler_pill)
         outerRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -128,20 +133,28 @@ class MainActivity : AppCompatActivity() {
                     timeRepo.veryNextDtid(dtidNow)
                 }
 
-            val checkedPill: List<PillCheck> = if (consideredDtid != null) {
+            val checkedPill: List<PillLight> = if (consideredDtid != null) {
+                val consideredTid: Int = consideredDtid.and(0b1111).toInt()
                 withContext(ioScope) {
-                    pillCheckRepo.getPillChecksByDtid(consideredDtid)
+                    pillCheckRepo.getPillLightsByTid(consideredTid)
                 }
             } else {
-                listOf<PillCheck>()
+                listOf<PillLight>(
+                    PillLight(
+                        pid = -1,
+                        name = "새로운 약을 등록해주세요",
+                        checked = false,
+                        tid = 0
+                    )
+                )
             }
 
             //TODO checkedPill이 Empty한 상황 핸들링하기
 
-            val alignedItems: MutableList<PillCheck> =
-                checkedPill.sortedBy { it.checked }.reversed().toMutableList()
-            checkAdapter = CheckRecyclerAdapter(this@MainActivity, coroutineContext, alignedItems)
-            checkRecyclerView.adapter = checkAdapter
+            val alignedItems: MutableList<PillLight> =
+                checkedPill.sortedBy { it.checked }.toMutableList()
+            mainAdapter = MainRecyclerAdapter(this@MainActivity, coroutineContext, alignedItems)
+            mainRecyclerView.adapter = mainAdapter
 
             val pills = withContext(ioScope) {
                 pillRepo.getAllPills()
