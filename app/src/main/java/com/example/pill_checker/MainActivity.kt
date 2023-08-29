@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         intent.action = "com.example.ACTION_ALARM"
         val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 1000, pendingIntent)
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 100, pendingIntent)
 
 
         val toCalendar = Intent(this, CalendarActivity1::class.java)
@@ -97,15 +97,6 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val show_last: ImageView = findViewById(R.id.to_last_time)
-        val show_next: ImageView = findViewById(R.id.to_next_time)
-        show_last.setOnClickListener() {
-            //Panel Data Fetching
-        }
-        show_next.setOnClickListener() {
-            //Panel Data Fetching
-        }
 
         checkRecyclerView = findViewById<RecyclerView>(R.id.calendar_done_list)
         checkRecyclerView.layoutManager = LinearLayoutManager(this)
