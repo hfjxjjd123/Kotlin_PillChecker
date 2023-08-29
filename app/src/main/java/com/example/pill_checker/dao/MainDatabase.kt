@@ -11,7 +11,7 @@ import com.example.pill_checker.data.*
 
 @Database(
     entities = [Pill::class, PillCheck::class, PillLight::class, DateTime::class, Time::class],
-    version = 3
+    version = 4
 )
 @TypeConverters(BitmapTypeConverter::class)
 abstract class MainDatabase : RoomDatabase() {
@@ -36,7 +36,7 @@ abstract class MainDatabase : RoomDatabase() {
                     context.applicationContext,
                     MainDatabase::class.java,
                     "main_database"
-                ).build()
+                ).fallbackToDestructiveMigration().build()
 
                 INSTANCE = instance
                 return instance

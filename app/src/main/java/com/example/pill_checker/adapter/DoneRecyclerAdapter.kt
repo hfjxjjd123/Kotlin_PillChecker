@@ -37,7 +37,7 @@ class DoneRecyclerAdapter(private val itemsDone: List<DateTime?>) :
 
             val toCal2 = Intent(holder.itemView.context, CalendarActivity2::class.java)
 
-            val datetime = DateTimeManager().separateDateTimeValue(item.dtid)
+            val datetime = DateTimeManager.separateDateTimeValue(item.dtid)
             toCal2.putExtra("date", datetime.first)
             toCal2.putExtra("time", datetime.second)
 

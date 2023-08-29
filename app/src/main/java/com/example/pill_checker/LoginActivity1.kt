@@ -1,5 +1,7 @@
 package com.example.pill_checker
 
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -31,6 +33,15 @@ class LoginActivity1 : AppCompatActivity() {
             val signInIntent = mGoogleSignInClient.getSignInIntent()
             startActivityForResult(signInIntent, 1)
         }
+
+        //FOR DEBUG
+        val appleLogin: Button = findViewById(R.id.apple_login)
+        appleLogin.setOnClickListener {
+            val notificationManager = this?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val notification = createNotification(this, "아침")
+            notificationManager.notify(0, notification)
+        }
+        //
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

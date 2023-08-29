@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.SET_ALARM" />
+
     <application
         package = "com.example.pill_checker"
         android:name=".MyApplication"
@@ -14,6 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="33">
+        <receiver android:name=".AlarmReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.pillchecker.ACTION_ALARM" />
+            </intent-filter>
+        </receiver>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"
