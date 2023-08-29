@@ -72,7 +72,7 @@ class PillCheckRepo(private val database: MainDatabase) {
 
     /////////////////
 
-    suspend fun getPillLightsByDtid(dtid: Long): List<PillLight> = pillLightDao.getPillLightsByDtid(dtid)
+    suspend fun getPillLightsByTid(tid: Int): List<PillLight> = pillLightDao.getPillLightsByTid(tid)
 
     suspend fun updatePillLight(pid: Long, tid: Int, checked: Boolean){
         val pillLight = pillLightDao.getPillLightByPid(pid, tid)
