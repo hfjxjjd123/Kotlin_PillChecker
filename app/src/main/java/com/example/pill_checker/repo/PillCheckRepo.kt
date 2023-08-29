@@ -81,7 +81,7 @@ class PillCheckRepo(private val database: MainDatabase) {
         pillLightDao.updatePillLight(pillLight)
     }
 
-    //TODO 패널에 띄우기 전에 즉, time end시 다음 타임에 대해서 이렇게 적용해보는게 좋을듯
+    //TODO 패널에 띄우기 전에 즉, time-end시 다음 타임에 대해서 이렇게 적용해보는게 좋을듯
     suspend fun rollbackPillLight(tid: Int){
         val pillLights: List<PillLight> = pillLightDao.getPillLightsByTid(tid)
         for (pillLight in pillLights){
