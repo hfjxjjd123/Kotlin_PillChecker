@@ -92,6 +92,15 @@ class DateTimeManager {
             return getDateTimeValue(date, time)
         }
 
+        fun getDateTimeValueWhenEnd(): Long{
+            val startOfTime = LocalDateTime.now().minusHours(2)
+
+            val date = getDateValue(startOfTime)
+            val time = getTimeValue(startOfTime)
+
+            return getDateTimeValue(date, time)
+        }
+
         fun getDateTimeValue(date: Long, time: Int): Long {
             return date.shl(4) + time
         }
