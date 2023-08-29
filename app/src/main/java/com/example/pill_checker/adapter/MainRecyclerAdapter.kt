@@ -53,8 +53,6 @@ class MainRecyclerAdapter(
 
         CoroutineScope(coroutineContext).launch{
 
-        //TODO 데이터베이스 변화를 먼저하기, 변화 후 위치 맨 끝으로 보내기
-
             holder.pillTab.setOnClickListener {
                     if (item.checked) {
                         CoroutineScope(Dispatchers.IO).launch {

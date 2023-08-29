@@ -152,7 +152,7 @@ class MainActivity : AppCompatActivity() {
             //TODO checkedPill이 Empty한 상황 핸들링하기
 
             val alignedItems: MutableList<PillLight> =
-                checkedPill.sortedBy { it.checked }.reversed().toMutableList()
+                checkedPill.sortedBy { it.checked }.toMutableList()
             mainAdapter = MainRecyclerAdapter(this@MainActivity, coroutineContext, alignedItems)
             mainRecyclerView.adapter = mainAdapter
 
