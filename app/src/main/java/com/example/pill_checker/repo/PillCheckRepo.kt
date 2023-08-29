@@ -74,10 +74,9 @@ class PillCheckRepo(private val database: MainDatabase) {
 
     suspend fun getPillLightsByDtid(dtid: Long): List<PillLight> = pillLightDao.getPillLightsByDtid(dtid)
 
-    suspend fun updatePillLight(pid: Long, tid: Int, name: String){
-        val pillLight = pillLightDao.getPillLightByPid(pid)
-        pillLight.tid = tid
-        pillLight.name = name
+    suspend fun updatePillLight(pid: Long, tid: Int, checked: Boolean){
+        val pillLight = pillLightDao.getPillLightByPid(pid, tid)
+        pillLight.checked = checked
         pillLightDao.updatePillLight(pillLight)
     }
 
