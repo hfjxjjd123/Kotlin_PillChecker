@@ -5,6 +5,7 @@ import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.dao.timeIter
 import com.example.pill_checker.data.DateTime
 import com.example.pill_checker.data.PillCheck
+import com.example.pill_checker.data.PillLight
 import java.time.LocalDateTime
 
 class PillCheckRepo(private val database: MainDatabase) {
@@ -65,6 +66,27 @@ class PillCheckRepo(private val database: MainDatabase) {
                 }
             }
             dateTimeDao.updateDateTime(dateTime)
+        }
+    }
+
+
+    /////////////////
+
+    suspend fun getPillLightsByDtid(dtid: Long): List<PillLight> = pillLightDao.getPillLightsByDtid(dtid)
+
+    suspend fun updatePillLight(pid: Long, tid: Int, name: String){
+        val pillLight = pillLightDao.getPillLightByPid(pid)
+        pillLight.tid = tid
+        pillLight.name = name
+        pillLightDao.updatePillLight(pillLight)
+    }
+
+    //TODO 패널에 띄우기 전에 즉, time end시 다음 타임에 대해서 이렇게 적용해보는게 좋을듯
+    suspend fun rollbackPillLight(tid: Int){
+        val pillLights: List<PillLight> = pillLightDao.getPillLightsByTid(tid)
+        for (pillLight in pillLights){
+            pillLight.checked = false
+            pillLightDao.updatePillLight(pillLight)
         }
     }
 

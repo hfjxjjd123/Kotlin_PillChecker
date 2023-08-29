@@ -21,6 +21,9 @@ interface PillLightDao {
     @Insert
     suspend fun insertPillLight(pillLight: PillLight)
 
+    @Update
+    suspend fun updatePillLight(pillLight: PillLight)
+
     @Query("Delete FROM PillLight WHERE pid = :pid")
     suspend fun deletePillLights(pid: Long)
 }
