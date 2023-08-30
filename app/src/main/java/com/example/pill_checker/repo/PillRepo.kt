@@ -24,13 +24,12 @@ class PillRepo(private val database: MainDatabase){
         val tidNow = DateTimeManager.getTimeValue(LocalDateTime.now())
         val countAfter: Int = timeDao.getTimeById(tidNow).count
         if(countAfter == 0 && tidNow.and(pillNew.times) == tidNow){
-            val consideredTid = timeRepo.veryBeforeTid(tidNow)
+            val consideredTid = timeRepo.pastLastTid(tidNow)
             if(consideredTid != null){
                 val pillLights = pillLightDao.getPillLightsByTid(consideredTid)
                 pillCheckRepo.pillLightToPillChecked(pillLights)
             }
         }
-
         createPillLights(pillNew)
     }
 

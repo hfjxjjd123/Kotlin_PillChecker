@@ -84,7 +84,6 @@ class PillCheckRepo(private val database: MainDatabase) {
         pillLightDao.updatePillLight(pillLight.copy(checked = checked))
     }
 
-    //TODO with 가장최근PillLights 함수
     suspend fun pillLightToPillChecked(pillLights: List<PillLight>){
         val dtid = DateTimeManager.getDateTimeValueWhenEnd()
 

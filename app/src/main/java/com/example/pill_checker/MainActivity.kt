@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity() {
 
             val consideredTid: Int? =
                 withContext(ioScope) {
-                    timeRepo.veryBeforeTid(dtidNow.and(0b1111).toInt())
+                    timeRepo.lastTid(dtidNow.and(0b1111).toInt())
                 }
 
             val lightPills: List<PillLight> = if (consideredTid != null) {

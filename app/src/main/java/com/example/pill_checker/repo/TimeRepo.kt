@@ -46,7 +46,7 @@ class TimeRepo(private val database: MainDatabase) {
 //        return panelDateValue.shl(4).or(timeValue.toLong())
 //    }
 
-    suspend fun veryBeforeTid(tid: Int): Int? {
+    suspend fun lastTid(tid: Int): Int? {
         var timeValue = tid
 
         var existPill = false
@@ -65,6 +65,12 @@ class TimeRepo(private val database: MainDatabase) {
         }
 
         return timeValue
+    }
+
+    suspend fun pastLastTid(tid: Int): Int?{
+        var past = tid.shr(1)
+        if(past == 0) past = 0b1000
+        return lastTid(past)
     }
 
     private fun getLastTimeValue(existPill: List<Boolean>): Int? {

@@ -6,7 +6,7 @@ import android.content.Intent
 import androidx.core.content.edit
 
 
-class MorningAlarmReceiver : BroadcastReceiver() {
+class MorningAlarmReceiver : BroadcastReceiver(){
     override fun onReceive(context: Context?, intent: Intent?) {
         val sharedPreferences = context?.getSharedPreferences("EventLock", Context.MODE_PRIVATE)
         val morningLock = sharedPreferences?.getBoolean("morning", false)
