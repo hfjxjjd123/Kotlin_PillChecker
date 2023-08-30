@@ -123,6 +123,7 @@ class MainActivity : AppCompatActivity() {
                     pillCheckRepo.getPillLightsByTid(consideredTid)
                 }
             } else {
+                //TODO lightPills이 Empty한 상황 핸들링 구체화하기
                 listOf<PillLight>(
                     PillLight(
                         pid = -1,
@@ -132,8 +133,6 @@ class MainActivity : AppCompatActivity() {
                     )
                 )
             }
-
-            //TODO lightPills이 Empty한 상황 핸들링하기
 
             val alignedItems: MutableList<PillLight> =
                 lightPills.sortedBy { it.checked }.toMutableList()
