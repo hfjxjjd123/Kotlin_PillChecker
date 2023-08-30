@@ -1,15 +1,18 @@
 package com.example.pill_checker.repo
 
+import com.example.pill_checker.dao.DateTimeManager
 import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.dao.timeIter
 import com.example.pill_checker.data.Pill
 import com.example.pill_checker.data.PillLight
+import java.time.LocalDateTime
 
 
 class PillRepo(private val database: MainDatabase){
     private val pillDao = database.pillDao()
     private val pillLightDao = database.pillLightDao()
     private val timeDao = database.timeDao()
+    private val pillCheckRepo = PillCheckRepo(database)
 
     suspend fun getPillById(id: Long) = pillDao.getPillById(id)
     suspend fun getAllPills() = pillDao.getAllPills()
@@ -17,6 +20,14 @@ class PillRepo(private val database: MainDatabase){
         val pid = pillDao.insertPill(pill)
         val pillNew = pillDao.getPillById(pid)
         createPillLights(pillNew)
+
+        val tidNow = DateTimeManager.getTimeValue(LocalDateTime.now())
+        val countAfter: Int = timeDao.getTimeById(tidNow).count
+        if(countAfter == 1 && tidNow.and(pillNew.times) == tidNow){
+            //TODO 바로이전 Lights 가져오는 함수로 대체
+            val pillLights = pillLightDao.getPillLightsByTid(tidNow)
+            pillCheckRepo.pillLightToPillChecked(pillLights)
+        }
     }
     suspend fun updatePill(pill: Pill, timesBefore: Int) {
         pillDao.updatePill(pill)
