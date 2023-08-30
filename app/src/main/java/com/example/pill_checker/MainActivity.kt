@@ -85,17 +85,7 @@ class MainActivity : AppCompatActivity() {
 //            }
         }
 
-        val intent = Intent(this, AlarmReceiver::class.java)
-        intent.action = "com.example.ACTION_ALARM"
-        val pendingIntent = PendingIntent.getBroadcast(
-            this,
-            0,
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
-        )
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 100, pendingIntent)
-
+        setAlarm()
 
         val toCalendar = Intent(this, CalendarActivity1::class.java)
         val toPills = Intent(this, ReadActivity::class.java)
@@ -167,6 +157,28 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         job.cancel()
+    }
+
+    private fun setAlarm(){
+        val morningIntent = Intent(this, AlarmReceiver::class.java)
+        morningIntent.action = "ALARM_MORNING"
+        val lunchIntent = Intent(this, AlarmReceiver::class.java)
+        lunchIntent.action = "ALARM_LUNCH"
+        val dinnerIntent = Intent(this, AlarmReceiver::class.java)
+        dinnerIntent.action = "ALARM_DINNER"
+        val sleepIntent = Intent(this, AlarmReceiver::class.java)
+        sleepIntent.action = "ALARM_SLEEP"
+
+        val morningPendingIntent = PendingIntent.getBroadcast(this, 0, morningIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
+        val lunchPendingIntent = PendingIntent.getBroadcast(this, 1, lunchIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
+        val dinnerPendingIntent = PendingIntent.getBroadcast(this, 2, dinnerIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
+        val sleepPendingIntent = PendingIntent.getBroadcast(this, 3, sleepIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
+
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, CalendarManager.getMorningCalendar().timeInMillis, AlarmManager.INTERVAL_DAY, morningPendingIntent)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, CalendarManager.getLunchCalendar().timeInMillis, AlarmManager.INTERVAL_DAY, lunchPendingIntent)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, CalendarManager.getDinnerCalendar().timeInMillis, AlarmManager.INTERVAL_DAY, dinnerPendingIntent)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, CalendarManager.getSleepCalendar().timeInMillis, AlarmManager.INTERVAL_DAY, sleepPendingIntent)
     }
 
 

@@ -19,10 +19,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="33">
-        <receiver android:name=".AlarmReceiver"
+        <receiver android:name=".MorningAlarmReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.pillchecker.ACTION_ALARM" />
+                <action android:name="ALARM_MORNING" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".LunchAlarmReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="ALARM_LUNCH" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".DinnerAlarmReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="ALARM_DINNER" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".SleepAlarmReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="ALARM_SLEEP" />
             </intent-filter>
         </receiver>
         <activity

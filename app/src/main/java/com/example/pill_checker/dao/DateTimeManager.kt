@@ -7,6 +7,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
+import java.util.Calendar
 
 const val DATE_BEGINNING = "2021-01-01"
 const val DURATION = 2
@@ -134,6 +135,36 @@ class DateTimeManager {
                 0b1000 -> "취침전"
                 else -> "오류"
             }
+        }
+    }
+}
+
+class CalendarManager(){
+    companion object{
+        fun getMorningCalendar(): Calendar{
+            val morningCalendar: Calendar = Calendar.getInstance()
+            morningCalendar.set(Calendar.HOUR_OF_DAY, HOUR_MORNING)
+            morningCalendar.set(Calendar.MINUTE, MIN_MORNING)
+            return morningCalendar
+        }
+        fun getLunchCalendar(): Calendar{
+            val lunchCalendar: Calendar = Calendar.getInstance()
+            lunchCalendar.set(Calendar.HOUR_OF_DAY, HOUR_LUNCH)
+            lunchCalendar.set(Calendar.MINUTE, MIN_LUNCH)
+            return lunchCalendar
+        }
+        fun getDinnerCalendar(): Calendar{
+            val dinnerCalendar: Calendar = Calendar.getInstance()
+            dinnerCalendar.set(Calendar.HOUR_OF_DAY, HOUR_DINNER)
+            dinnerCalendar.set(Calendar.MINUTE, MIN_DINNER)
+            return dinnerCalendar
+        }
+        //TODO Change sleep time
+        fun getSleepCalendar(): Calendar{
+            val sleepCalendar: Calendar = Calendar.getInstance()
+            sleepCalendar.set(Calendar.HOUR_OF_DAY, HOUR_SLEEP)
+            sleepCalendar.set(Calendar.MINUTE, MIN_SLEEP)
+            return sleepCalendar
         }
     }
 }
