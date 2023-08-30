@@ -5,17 +5,14 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pill_checker.adapter.CheckRecyclerAdapter
 import com.example.pill_checker.adapter.MainRecyclerAdapter
 import com.example.pill_checker.adapter.PillOuterRecyclerAdapter
 import com.example.pill_checker.dao.*
 import com.example.pill_checker.repo.*
-import com.example.pill_checker.data.PillCheck
 import com.example.pill_checker.data.PillLight
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import kotlinx.coroutines.*
@@ -35,8 +32,6 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var job: Job
     lateinit var coroutineContext: CoroutineContext
-
-    var dtidInstance = DateTimeManager.getDateTimeValueNow()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         db = MainDatabase.getDatabase(applicationContext)
@@ -160,13 +155,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setAlarm(){
-        val morningIntent = Intent(this, AlarmReceiver::class.java)
+        val morningIntent = Intent(this, MorningAlarmReceiver::class.java)
         morningIntent.action = "ALARM_MORNING"
-        val lunchIntent = Intent(this, AlarmReceiver::class.java)
+        val lunchIntent = Intent(this, LunchAlarmReceiver::class.java)
         lunchIntent.action = "ALARM_LUNCH"
-        val dinnerIntent = Intent(this, AlarmReceiver::class.java)
+        val dinnerIntent = Intent(this, DinnerAlarmReceiver::class.java)
         dinnerIntent.action = "ALARM_DINNER"
-        val sleepIntent = Intent(this, AlarmReceiver::class.java)
+        val sleepIntent = Intent(this, SleepAlarmReceiver::class.java)
         sleepIntent.action = "ALARM_SLEEP"
 
         val morningPendingIntent = PendingIntent.getBroadcast(this, 0, morningIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
