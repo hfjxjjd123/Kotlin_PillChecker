@@ -9,6 +9,11 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.example.pill_checker.dao.*
+import com.example.pill_checker.data.PillLight
+import com.example.pill_checker.repo.PillCheckRepo
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.util.*
 
@@ -65,24 +70,15 @@ class AlarmReceiver : BroadcastReceiver() {
             //TODO NEXT TIME에 대한 검증이 필요하다.
             //function NEXT를 선언하면, 그 시간에 맞게 다음 알람을 설정할 수 있을듯?
             //그에 맞게 패널을 업데이트 해주면 되고... 다만 SLEEP 이후다라고 한다면? -> 이론상 SLeep 이후는 0b1001이므로 상관노
-            when (time) {
-                //새벽
-                0b1001 -> {
-
-                }
-                0b0011 -> {
-
-                }
-                0b0110 -> {
-
-                }
-                0b1100 -> {
-
-                }
-                else -> {
-
-                }
+            val db = MainDatabase.getDatabase(context.applicationContext as MyApplication)
+            val pillCheckRepo = PillCheckRepo(db)
+            CoroutineScope(Dispatchers.IO).launch {
+                val pillLights: List<PillLight> = pillCheckRepo.getPillLightsByTid(time)
+                pillCheckRepo.pillLightToPillChecked(pillLights)
             }
+
+            //NextTime이 하루를 넘어간다면... 여기서 패널 삭제 로직 예약 필요
+
         }
 
         // Set the new alarm
