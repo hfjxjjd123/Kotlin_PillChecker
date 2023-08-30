@@ -113,13 +113,12 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(coroutineContext).launch {
             val ioScope = CoroutineScope(Dispatchers.IO).coroutineContext
 
-            val consideredDtid: Long? =
+            val consideredTid: Int? =
                 withContext(ioScope) {
-                    timeRepo.veryNextDtid(dtidNow)
+                    timeRepo.veryBeforeTid(dtidNow.and(0b1111).toInt())
                 }
 
-            val checkedPill: List<PillLight> = if (consideredDtid != null) {
-                val consideredTid: Int = consideredDtid.and(0b1111).toInt()
+            val lightPills: List<PillLight> = if (consideredTid != null) {
                 withContext(ioScope) {
                     pillCheckRepo.getPillLightsByTid(consideredTid)
                 }
@@ -134,10 +133,10 @@ class MainActivity : AppCompatActivity() {
                 )
             }
 
-            //TODO checkedPill이 Empty한 상황 핸들링하기
+            //TODO lightPills이 Empty한 상황 핸들링하기
 
             val alignedItems: MutableList<PillLight> =
-                checkedPill.sortedBy { it.checked }.toMutableList()
+                lightPills.sortedBy { it.checked }.toMutableList()
             mainAdapter = MainRecyclerAdapter(this@MainActivity, coroutineContext, alignedItems)
             mainRecyclerView.adapter = mainAdapter
 

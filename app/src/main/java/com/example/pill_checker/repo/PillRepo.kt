@@ -13,22 +13,27 @@ class PillRepo(private val database: MainDatabase){
     private val pillLightDao = database.pillLightDao()
     private val timeDao = database.timeDao()
     private val pillCheckRepo = PillCheckRepo(database)
+    private val timeRepo = TimeRepo(database)
 
     suspend fun getPillById(id: Long) = pillDao.getPillById(id)
     suspend fun getAllPills() = pillDao.getAllPills()
     suspend fun createPill(pill: Pill) {
         val pid = pillDao.insertPill(pill)
         val pillNew = pillDao.getPillById(pid)
-        createPillLights(pillNew)
 
         val tidNow = DateTimeManager.getTimeValue(LocalDateTime.now())
         val countAfter: Int = timeDao.getTimeById(tidNow).count
-        if(countAfter == 1 && tidNow.and(pillNew.times) == tidNow){
-            //TODO 바로이전 Lights 가져오는 함수로 대체
-            val pillLights = pillLightDao.getPillLightsByTid(tidNow)
-            pillCheckRepo.pillLightToPillChecked(pillLights)
+        if(countAfter == 0 && tidNow.and(pillNew.times) == tidNow){
+            val consideredTid = timeRepo.veryBeforeTid(tidNow)
+            if(consideredTid != null){
+                val pillLights = pillLightDao.getPillLightsByTid(consideredTid)
+                pillCheckRepo.pillLightToPillChecked(pillLights)
+            }
         }
+
+        createPillLights(pillNew)
     }
+
     suspend fun updatePill(pill: Pill, timesBefore: Int) {
         pillDao.updatePill(pill)
         deletePillLights(pill.pid, timesBefore)
