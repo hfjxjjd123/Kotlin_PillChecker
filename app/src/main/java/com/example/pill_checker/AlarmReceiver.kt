@@ -90,4 +90,5 @@ private fun removeLastPillCheck(context: Context){
     CoroutineScope(Dispatchers.IO).launch {
         pillCheckRepo.delete7AgoPillChecks()
     }
+
 }
