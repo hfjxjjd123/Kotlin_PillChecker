@@ -36,17 +36,10 @@ class PillCheckRepo(private val database: MainDatabase) {
         }
     }
 
-    suspend fun deletePrevPillChecks(dateValue: Long){
-        for (i in timeIter){
-            val dtid = i+dateValue.shl(4)
-            pillCheckDao.deleteAllPillChecksByDtid(dtid)
-            dateTimeDao.deleteDateTimeById(dtid)
-        }
-    }
     suspend fun delete7AgoPillChecks(){
         val datetime = LocalDateTime.now()
         val dateValueNow = DateTimeManager.getDateValue(datetime)
-        val dateValue = dateValueNow - 7
+        val dateValue = dateValueNow - 6
 
         for (i in timeIter){
             val dtid = i+dateValue.shl(4)

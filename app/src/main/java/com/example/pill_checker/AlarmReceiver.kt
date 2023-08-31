@@ -42,28 +42,22 @@ class SleepAlarmReceiver : BroadcastReceiver() {
 
 private fun onReceiveHandler(context: Context?, tid: Int){
     val timeString = when(tid){
-        0b0001 -> "morning"
-        0b0010 -> "lunch"
-        0b0100 -> "dinner"
-        0b1000 -> "sleep"
-        else -> "error"
-    }
-    val timeBeforeString = when(tid){
-        0b0001 -> "sleep"
-        0b0010 -> "morning"
-        0b0100 -> "lunch"
-        0b1000 -> "dinner"
-        else -> "error"
+        0b0001 -> Pair("morning", "sleep")
+        0b0010 -> Pair("lunch", "morning")
+        0b0100 -> Pair("dinner", "lunch")
+        0b1000 -> Pair("sleep", "dinner")
+        else -> Pair("error", "error")
     }
 
     val sharedPreferences = context?.getSharedPreferences("EventLock", Context.MODE_PRIVATE)
-    val timeLock = sharedPreferences?.getBoolean(timeString, false)
+    val timeLock = sharedPreferences?.getBoolean(timeString.first, false)
     if (timeLock == true) return
     //Event 중복방지
     sharedPreferences?.edit {
-        putBoolean(timeBeforeString, false)
-        putBoolean(timeString, true)
+        putBoolean(timeString.second, false)
+        putBoolean(timeString.first, true)
     }
+    //PillCheck 생성
     handlePillLight(context, tid)
 }
 
@@ -73,7 +67,7 @@ private fun handlePillLight(context: Context?, tid: Int){
         val pillCheckRepo = PillCheckRepo(db)
         val timeRepo = TimeRepo(db)
         CoroutineScope(Dispatchers.IO).launch {
-            val tidNow = DateTimeManager.getDateTimeValueNow().and(0b0100).toInt()
+            val tidNow = DateTimeManager.getDateTimeValueNow().and(0b1111).toInt()
             val pillLightsNext = pillCheckRepo.getPillLightsByTid(tidNow)
             if(pillLightsNext.isNotEmpty()){
                 val consideredTid = timeRepo.pastLastTid(tidNow)
@@ -81,8 +75,19 @@ private fun handlePillLight(context: Context?, tid: Int){
                     val pillLights = pillCheckRepo.getPillLightsByTid(consideredTid)
                     pillCheckRepo.pillLightToPillChecked(pillLights)
                 }
+                if(tidNow == 0b0001){
+                    removeLastPillCheck(context)
+                }
                 //TODO push notification
             }
         }
+    }
+}
+
+private fun removeLastPillCheck(context: Context){
+    val db = MainDatabase.getDatabase(context.applicationContext)
+    val pillCheckRepo = PillCheckRepo(db)
+    CoroutineScope(Dispatchers.IO).launch {
+        pillCheckRepo.delete7AgoPillChecks()
     }
 }
