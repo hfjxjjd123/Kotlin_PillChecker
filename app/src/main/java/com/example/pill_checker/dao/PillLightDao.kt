@@ -12,14 +12,17 @@ interface PillLightDao {
     @Query("SELECT * FROM PillLight")
     suspend fun getAllPillLights(): List<PillLight>
 
-    @Query("SELECT * FROM PillLight WHERE pid = :pid")
-    suspend fun getPillLightByPid(pid: Long): PillLight
+    @Query("SELECT * FROM PillLight WHERE pid = :pid AND tid = :tid")
+    suspend fun getPillLightByPid(pid: Long, tid: Int): PillLight
 
     @Query("SELECT * FROM PillLight WHERE tid = :tid")
     suspend fun getPillLightsByTid(tid: Int): List<PillLight>
 
     @Insert
     suspend fun insertPillLight(pillLight: PillLight)
+
+    @Update
+    suspend fun updatePillLight(pillLight: PillLight)
 
     @Query("Delete FROM PillLight WHERE pid = :pid")
     suspend fun deletePillLights(pid: Long)

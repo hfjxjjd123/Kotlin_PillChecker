@@ -24,27 +24,6 @@
             app:layout_constraintTop_toTopOf="@id/top_of_intro"
             app:layout_constraintVertical_bias="0"/>
 
-        <ImageView
-            android:id="@+id/to_last_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/triangle_arrow_left_24"
-            app:layout_constraintBottom_toBottomOf="@id/calendar_text_intro"
-            app:layout_constraintEnd_toStartOf="@id/calendar_text_intro"
-            app:layout_constraintStart_toStartOf="@id/start_of_content"
-            app:layout_constraintTop_toTopOf="@id/calendar_text_intro"
-            app:layout_constraintHorizontal_bias="0"/>
-        <ImageView
-            android:id="@+id/to_next_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/triangle_arrow_right_24"
-            app:layout_constraintBottom_toBottomOf="@id/calendar_text_intro"
-            app:layout_constraintEnd_toStartOf="@id/end_of_content"
-            app:layout_constraintStart_toEndOf="@id/calendar_text_intro"
-            app:layout_constraintTop_toTopOf="@id/calendar_text_intro"
-            app:layout_constraintHorizontal_bias="1"/>
-
         <TextView
             android:id="@+id/calendar_text_time"
             android:layout_width="wrap_content"

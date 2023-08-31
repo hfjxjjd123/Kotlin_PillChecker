@@ -13,5 +13,6 @@ import androidx.room.PrimaryKey
 data class PillLight(
     val pid: Long,
     val name: String,
-    val tid: Int
+    val tid: Int,
+    var checked: Boolean = false
     )

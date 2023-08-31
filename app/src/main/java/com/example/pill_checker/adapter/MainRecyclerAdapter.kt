@@ -13,17 +13,18 @@ import com.example.pill_checker.MyApplication
 import com.example.pill_checker.R
 import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.data.PillCheck
+import com.example.pill_checker.data.PillLight
 import com.example.pill_checker.repo.PillCheckRepo
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 
-class CheckRecyclerAdapter(
+class MainRecyclerAdapter(
     private val context: Context,
     private val coroutineContext: CoroutineContext,
-    private val items: MutableList<PillCheck>
+    private val items: MutableList<PillLight>
 ) :
-    RecyclerView.Adapter<CheckRecyclerAdapter.ViewHolder>() {
+    RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder>() {
     private val indexManager: MutableList<Int> = (items.indices).toMutableList()
     var checkedCounter: Int = items.count { it.checked }
 
@@ -38,7 +39,7 @@ class CheckRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: PillCheck = items[indexManager[position]]
+        val item: PillLight = items[indexManager[position]]
         holder.pillName.text = item.name
 
         if (item.checked) {
@@ -51,13 +52,14 @@ class CheckRecyclerAdapter(
         }
 
         CoroutineScope(coroutineContext).launch{
+
             holder.pillTab.setOnClickListener {
                     if (item.checked) {
                         CoroutineScope(Dispatchers.IO).launch {
                             async {
-                                pillCheckRepo.updatePillCheck(
+                                pillCheckRepo.updatePillLight(
                                     pid = item.pid,
-                                    dtid = item.dtid,
+                                    tid = item.tid,
                                     checked = false
                                 )
                             }.await()
@@ -79,9 +81,9 @@ class CheckRecyclerAdapter(
                             checkedCounter -= 1
                     }else {
                         CoroutineScope(Dispatchers.IO).launch {
-                            async { pillCheckRepo.updatePillCheck(
+                            async { pillCheckRepo.updatePillLight(
                                 pid = item.pid,
-                                dtid = item.dtid,
+                                tid = item.tid,
                                 checked = true)
                             }.await()
                         }

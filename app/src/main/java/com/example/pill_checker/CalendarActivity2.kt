@@ -41,14 +41,14 @@ class CalendarActivity2 : AppCompatActivity() {
 
         CoroutineScope(coroutineContext).launch {
             val ioScope = CoroutineScope(Dispatchers.IO).coroutineContext
-            val dateDiff = DateTimeManager().getDateDiff(date)
+            val dateDiff = DateTimeManager.getDateDiff(date)
 
             var text: String = ""
             val calendarTimeText = findViewById<TextView>(R.id.calendar_text_time)
 
-            text += DateTimeManager().getDateBeforeString(dateDiff)
+            text += DateTimeManager.getDateBeforeString(dateDiff)
             text += " "
-            text += DateTimeManager().getTimeString(time)
+            text += DateTimeManager.getTimeString(time)
 
             calendarTimeText.text = text
 
