@@ -46,7 +46,6 @@ class LoginActivity3:AppCompatActivity() {
         val next = findViewById<Button>(R.id.start_main)
         next.setOnClickListener {
             if(GoogleSignIn.getLastSignedInAccount(this) == null){
-                //TODO 리디렉션 유효한 리디렉션인지 확인
                 finishAffinity()
                 startActivity(Intent(this, LoginActivity1::class.java))
                 Toast.makeText(this, "로그인 아이디가 저장되지 않았습니다", Toast.LENGTH_SHORT).show()

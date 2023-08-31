@@ -1,105 +1,94 @@
 package com.example.pill_checker
 
-import android.app.AlarmManager
-import android.app.Notification
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import androidx.core.app.NotificationCompat
-import com.example.pill_checker.dao.*
-import com.example.pill_checker.data.PillLight
+import androidx.core.content.edit
+import com.example.pill_checker.dao.DateTimeManager
+import com.example.pill_checker.dao.MainDatabase
+import com.example.pill_checker.dao.timeIter
 import com.example.pill_checker.repo.PillCheckRepo
+import com.example.pill_checker.repo.TimeRepo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
-import java.util.*
 
-class AlarmReceiver : BroadcastReceiver() {
-    //CALLED AFTER THE TIME IS
+
+class MorningAlarmReceiver : BroadcastReceiver(){
+
     override fun onReceive(context: Context?, intent: Intent?) {
-        val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val alarmIntent = Intent(context, AlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
-
-        // Calculate the time for the new alarm
-        val time = DateTimeManager.getTimeValueExtended(LocalDateTime.now())
-        val isStart = DateTimeManager.countTimeBit(time) == 1
-        var timeText = ""
-
-        val calendar = Calendar.getInstance()
-        if(isStart){
-            //다음 알람 시간이 검증됨
-            //패널 업데이트가 검증됨
-            when(time) {
-                //TODO TO CALL NEXT ALARM
-                //현재 패널 체킹은 불필요
-                0b0001 -> {
-                    //다음 알람 적용
-                    timeText = "아침"
-                    calendar.set(Calendar.HOUR_OF_DAY, HOUR_MORNING + DURATION)
-                    calendar.set(Calendar.MINUTE, MIN_MORNING)
-                }
-                0b0010 -> {
-                    timeText = "점심"
-                    calendar.set(Calendar.HOUR_OF_DAY, HOUR_LUNCH + DURATION)
-                    calendar.set(Calendar.MINUTE, MIN_LUNCH)
-                }
-                0b0100 -> {
-                    timeText = "저녁"
-                    calendar.set(Calendar.HOUR_OF_DAY, HOUR_DINNER + DURATION)
-                    calendar.set(Calendar.MINUTE, MIN_DINNER)
-                }
-                0b1000 -> {
-                    timeText = "자기전"
-                    //TODO DAY OVER CONTROLL
-                    //정리
-                    //NextDay면 Panel은 일단 기존 패널을 사용할 것임
-                    //NO PANEL UPDATE! Day가 바뀔 때 다시 업데이트 될 것이라는 점 감안, 무시하기
-                    calendar.set(Calendar.HOUR_OF_DAY, HOUR_SLEEP + DURATION)
-                    calendar.set(Calendar.MINUTE, MIN_SLEEP)
-                }
-            }
-            val notification = createNotification(context, timeText)
-            val notificationManager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.notify(0, notification)
-
-        }else if(!isStart) {
-            //TODO NEXT TIME에 대한 검증이 필요하다.
-            //function NEXT를 선언하면, 그 시간에 맞게 다음 알람을 설정할 수 있을듯?
-            //그에 맞게 패널을 업데이트 해주면 되고... 다만 SLEEP 이후다라고 한다면? -> 이론상 SLeep 이후는 0b1001이므로 상관노
-            val db = MainDatabase.getDatabase(context.applicationContext as MyApplication)
-            val pillCheckRepo = PillCheckRepo(db)
-            CoroutineScope(Dispatchers.IO).launch {
-                val pillLights: List<PillLight> = pillCheckRepo.getPillLightsByTid(time)
-                pillCheckRepo.pillLightToPillChecked(pillLights)
-            }
-
-            //NextTime이 하루를 넘어간다면... 여기서 패널 삭제 로직 예약 필요
-
-        }
-
-        // Set the new alarm
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+        onReceiveHandler(context, 0b0001)
     }
-
 }
 
-fun createNotification(context: Context, timeText: String): Notification {
+class LunchAlarmReceiver : BroadcastReceiver() {
+    override fun onReceive(context: Context?, intent: Intent?) {
+        onReceiveHandler(context, 0b0010)
+    }
+}
 
-    val notificationIntent = Intent(context, MainActivity::class.java)
-    notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-    val notificationPendingIntent = PendingIntent.getActivity(
-        context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
-    )
+class DinnerAlarmReceiver : BroadcastReceiver() {
+    override fun onReceive(context: Context?, intent: Intent?) {
+        onReceiveHandler(context, 0b0100)
+    }
+}
 
-    return NotificationCompat.Builder(context, "PillNotice")
-        .setContentTitle("$timeText 약")
-        .setContentText("약 먹을 시간이에요")
-        .setSmallIcon(R.drawable.pill_image)
-        .setContentIntent(notificationPendingIntent) // Set the PendingIntent
-        .setAutoCancel(true) // Auto-dismiss the notification when tapped
-        .build()
+class SleepAlarmReceiver : BroadcastReceiver() {
+    override fun onReceive(context: Context?, intent: Intent?) {
+        onReceiveHandler(context, 0b1000)
+        //TODO 마지막 날 PillCheck 밀어버리는 로직 추가
+    }
+}
+
+private fun onReceiveHandler(context: Context?, tid: Int){
+    val timeString = when(tid){
+        0b0001 -> Pair("morning", "sleep")
+        0b0010 -> Pair("lunch", "morning")
+        0b0100 -> Pair("dinner", "lunch")
+        0b1000 -> Pair("sleep", "dinner")
+        else -> Pair("error", "error")
+    }
+
+    val sharedPreferences = context?.getSharedPreferences("EventLock", Context.MODE_PRIVATE)
+    val timeLock = sharedPreferences?.getBoolean(timeString.first, false)
+    if (timeLock == true) return
+    //Event 중복방지
+    sharedPreferences?.edit {
+        putBoolean(timeString.second, false)
+        putBoolean(timeString.first, true)
+    }
+    //PillCheck 생성
+    handlePillLight(context, tid)
+}
+
+private fun handlePillLight(context: Context?, tid: Int){
+    if(context != null){
+        val db = MainDatabase.getDatabase(context.applicationContext)
+        val pillCheckRepo = PillCheckRepo(db)
+        val timeRepo = TimeRepo(db)
+        CoroutineScope(Dispatchers.IO).launch {
+            val tidNow = DateTimeManager.getDateTimeValueNow().and(0b1111).toInt()
+            val pillLightsNext = pillCheckRepo.getPillLightsByTid(tidNow)
+            if(pillLightsNext.isNotEmpty()){
+                val consideredTid = timeRepo.pastLastTid(tidNow)
+                if(consideredTid != null){
+                    val pillLights = pillCheckRepo.getPillLightsByTid(consideredTid)
+                    pillCheckRepo.pillLightToPillChecked(pillLights)
+                }
+                if(tidNow == 0b0001){
+                    removeLastPillCheck(context)
+                }
+                //TODO push notification
+            }
+        }
+    }
+}
+
+private fun removeLastPillCheck(context: Context){
+    val db = MainDatabase.getDatabase(context.applicationContext)
+    val pillCheckRepo = PillCheckRepo(db)
+    CoroutineScope(Dispatchers.IO).launch {
+        pillCheckRepo.delete7AgoPillChecks()
+    }
+
 }
