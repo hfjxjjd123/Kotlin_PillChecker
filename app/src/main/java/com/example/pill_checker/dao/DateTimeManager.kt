@@ -1,11 +1,7 @@
 package com.example.pill_checker.dao
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import com.example.pill_checker.data.DateTime
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.LocalTime
 import java.time.temporal.ChronoUnit
 import java.util.Calendar
 
@@ -18,8 +14,8 @@ class DateTimeManager {
     companion object {
         fun getDateValue(datetime: LocalDateTime): Long {
             val consideredDate = datetime
-                .minusHours(DURATION.toLong() + CalendarManager.getSleepHour().toLong())
-                .minusMinutes(CalendarManager.getSleepMin().toLong())
+                .minusHours(DURATION.toLong() + CalendarManager.getSleepHourRel().toLong())
+                .minusMinutes(CalendarManager.getSleepMinRel().toLong())
 
             return ChronoUnit.DAYS.between(LocalDate.parse(DATE_BEGINNING), consideredDate)
         }
@@ -70,8 +66,8 @@ class DateTimeManager {
 
         fun getDate(datetime: LocalDateTime): LocalDate {
             val consideredDate = datetime
-                .minusHours(DURATION.toLong() + CalendarManager.getSleepHour().toLong())
-                .minusMinutes(CalendarManager.getSleepMin().toLong())
+                .minusHours(DURATION.toLong() + CalendarManager.getSleepHourRel().toLong())
+                .minusMinutes(CalendarManager.getSleepMinRel().toLong())
             return consideredDate.toLocalDate()
         }
 
@@ -159,11 +155,10 @@ class CalendarManager{
             dinnerCalendar.set(Calendar.MINUTE, MIN_DINNER)
             return dinnerCalendar
         }
-        //TODO Change sleep time
         fun getSleepCalendar(): Calendar{
             val sleepCalendar: Calendar = Calendar.getInstance()
-            sleepCalendar.set(Calendar.HOUR_OF_DAY, HOUR_SLEEP)
-            sleepCalendar.set(Calendar.MINUTE, MIN_SLEEP)
+            sleepCalendar.set(Calendar.HOUR_OF_DAY, getSleepHourAbs())
+            sleepCalendar.set(Calendar.MINUTE, getSleepMinAbs())
             return sleepCalendar
         }
 
@@ -173,8 +168,18 @@ class CalendarManager{
         fun getLunchMin(): Int = MIN_LUNCH
         fun getDinnerHour(): Int = HOUR_DINNER
         fun getDinnerMin(): Int = MIN_DINNER
-        fun getSleepHour(): Int = HOUR_SLEEP
-        fun getSleepMin(): Int = MIN_SLEEP
+        fun getSleepHourRel(): Int = HOUR_SLEEP
+        fun getSleepMinRel(): Int = MIN_SLEEP
+        private fun getSleepHourAbs(): Int{
+            val sleepHourRel = HOUR_SLEEP
+            return if(sleepHourRel < 0) 24 + sleepHourRel
+            else sleepHourRel
+        }
+        private fun getSleepMinAbs(): Int{
+            val sleepMinRel = MIN_SLEEP
+            return if(sleepMinRel < 0) 60 + sleepMinRel
+            else sleepMinRel
+        }
 
         fun setMorningHour(hour: Int){ HOUR_MORNING = hour }
         fun setMorningMin(min: Int){ MIN_MORNING = min }
