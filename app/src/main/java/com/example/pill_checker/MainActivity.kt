@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +33,9 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var job: Job
     lateinit var coroutineContext: CoroutineContext
+
+    private lateinit var datePanel: TextView
+    private lateinit var timePanel: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         db = MainDatabase.getDatabase(applicationContext)
@@ -88,6 +92,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        datePanel = findViewById<TextView>(R.id.calendar_text_intro)
+        timePanel = findViewById<TextView>(R.id.calendar_text_time)
+
         mainRecyclerView = findViewById<RecyclerView>(R.id.calendar_done_list)
         mainRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -117,6 +124,7 @@ class MainActivity : AppCompatActivity() {
                 withContext(ioScope) {
                     timeRepo.lastDtid(dtidNow)
                 }
+            initPanelDateTime(consideredDtid)
 
             val lightPills: List<PillLight> = if (consideredDtid != null) {
                 withContext(ioScope) {
@@ -172,6 +180,14 @@ class MainActivity : AppCompatActivity() {
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, CalendarManager.getLunchCalendar().timeInMillis, AlarmManager.INTERVAL_DAY, lunchPendingIntent)
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, CalendarManager.getDinnerCalendar().timeInMillis, AlarmManager.INTERVAL_DAY, dinnerPendingIntent)
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, CalendarManager.getSleepCalendar().timeInMillis, AlarmManager.INTERVAL_DAY, sleepPendingIntent)
+    }
+
+    private fun initPanelDateTime(consideredDtid: Long?) {
+        val dtid = consideredDtid ?: DateTimeManager.getDateTimeValueNow()
+            val date = DateTimeManager.getDateString(dtid.shr(4))
+            val time = DateTimeManager.getTimeString(dtid.and(0b1111).toInt())
+            datePanel.text = date
+            timePanel.text = time
     }
 
 

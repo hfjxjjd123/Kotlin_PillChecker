@@ -96,6 +96,15 @@ class DateTimeManager {
             }
         }
 
+        fun getDateString(date: Long): String {
+            return when (date) {
+                -1L -> "오류"
+                0L -> "오늘"
+                1L -> "어제"
+                else -> date.toString() + "일전"
+            }
+        }
+
         fun getTimeString(time: Int): String {
             return when (time) {
                 0b0001 -> "아침"
