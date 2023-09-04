@@ -1,6 +1,5 @@
 package com.example.pill_checker.repo
 
-import com.example.pill_checker.dao.DateTimeDao
 import com.example.pill_checker.dao.DateTimeManager
 import com.example.pill_checker.dao.MainDatabase
 import com.example.pill_checker.dao.timeIter
@@ -36,9 +35,10 @@ class PillCheckRepo(private val database: MainDatabase) {
         }
     }
 
+    //아침에 실행
     suspend fun delete7AgoPillChecks(){
         val datetime = LocalDateTime.now()
-        val dateValueNow = DateTimeManager.getDateValue(datetime)
+        val dateValueNow = DateTimeManager.getDateValueConsidered(datetime)
         val dateValue = dateValueNow - 6
 
         for (i in timeIter){

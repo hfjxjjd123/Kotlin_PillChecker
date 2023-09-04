@@ -46,9 +46,11 @@ class TimeRepo(private val database: MainDatabase) {
 //        return panelDateValue.shl(4).or(timeValue.toLong())
 //    }
 
-    suspend fun lastTid(tid: Int): Int? {
-        var timeValue = tid
+    //현재 시간보다 가장 가까운 약 시간을 반환 <- 지금 어제의 자기전을 반환중이다.
+    suspend fun lastDtid(dtid: Long): Long? {
+        var consideredDtid = dtid.shr(4).shl(4)
 
+        var timeValue = dtid.and(0b1111).toInt()
         var existPill = false
         for (i in 0..3) {
             if (isTimeAnyPill(timeValue)) {
@@ -58,20 +60,26 @@ class TimeRepo(private val database: MainDatabase) {
             timeValue = timeValue.shr(1)
             if(timeValue == 0){
                 timeValue = 0b1000
+                consideredDtid -= 0b10000
             }
         }
         if (!existPill) {
             return null
         }
 
-        return timeValue
+        return consideredDtid.or(timeValue.toLong())
     }
 
-    suspend fun pastLastTid(tid: Int): Int?{
-        var past = tid.shr(1)
-        if(past == 0) past = 0b1000
-        return lastTid(past)
+    suspend fun pastLastDtid(dtid: Long): Long?{
+        var consideredDtid = dtid.shr(4).shl(4)
+        var pastTime = dtid.and(0b1111).shr(1)
+        if(pastTime == 0L){
+            pastTime = 0b1000
+            consideredDtid -= 0b10000
+        }
+        return lastDtid(consideredDtid.or(pastTime.toLong()))
     }
+
 
     private fun getLastTimeValue(existPill: List<Boolean>): Int? {
         for (time in timeIter.reversed()) {

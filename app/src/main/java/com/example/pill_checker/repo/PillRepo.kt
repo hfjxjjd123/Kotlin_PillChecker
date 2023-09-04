@@ -6,6 +6,7 @@ import com.example.pill_checker.dao.timeIter
 import com.example.pill_checker.data.Pill
 import com.example.pill_checker.data.PillLight
 import java.time.LocalDateTime
+import java.util.Date
 
 
 class PillRepo(private val database: MainDatabase){
@@ -21,12 +22,13 @@ class PillRepo(private val database: MainDatabase){
         val pid = pillDao.insertPill(pill)
         val pillNew = pillDao.getPillById(pid)
 
+        val dtidNow = DateTimeManager.getDateTimeValueNow()
         val tidNow = DateTimeManager.getTimeValue(LocalDateTime.now())
         val countAfter: Int = timeDao.getTimeById(tidNow).count
         if(countAfter == 0 && tidNow.and(pillNew.times) == tidNow){
-            val consideredTid = timeRepo.pastLastTid(tidNow)
+            val consideredTid = timeRepo.pastLastDtid(dtidNow)
             if(consideredTid != null){
-                val pillLights = pillLightDao.getPillLightsByTid(consideredTid)
+                val pillLights = pillLightDao.getPillLightsByTid(consideredTid.and(0b1111).toInt())
                 pillCheckRepo.pillLightToPillChecked(pillLights)
             }
         }

@@ -6,7 +6,6 @@ import android.content.Intent
 import androidx.core.content.edit
 import com.example.pill_checker.dao.DateTimeManager
 import com.example.pill_checker.dao.MainDatabase
-import com.example.pill_checker.dao.timeIter
 import com.example.pill_checker.repo.PillCheckRepo
 import com.example.pill_checker.repo.TimeRepo
 import kotlinx.coroutines.CoroutineScope
@@ -67,15 +66,15 @@ private fun handlePillLight(context: Context?, tid: Int){
         val pillCheckRepo = PillCheckRepo(db)
         val timeRepo = TimeRepo(db)
         CoroutineScope(Dispatchers.IO).launch {
-            val tidNow = DateTimeManager.getDateTimeValueNow().and(0b1111).toInt()
-            val pillLightsNext = pillCheckRepo.getPillLightsByTid(tidNow)
+            val dtidNow = DateTimeManager.getDateTimeValueNow()
+            val pillLightsNext = pillCheckRepo.getPillLightsByTid(dtidNow.and(0b1111).toInt())
             if(pillLightsNext.isNotEmpty()){
-                val consideredTid = timeRepo.pastLastTid(tidNow)
-                if(consideredTid != null){
-                    val pillLights = pillCheckRepo.getPillLightsByTid(consideredTid)
+                val consideredDtid = timeRepo.pastLastDtid(dtidNow)
+                if(consideredDtid != null){
+                    val pillLights = pillCheckRepo.getPillLightsByTid(consideredDtid.and(0b1111).toInt())
                     pillCheckRepo.pillLightToPillChecked(pillLights)
                 }
-                if(tidNow == 0b0001){
+                if(dtidNow.and(0b1111).toInt() == 0b0001){
                     removeLastPillCheck(context)
                 }
                 //TODO push notification

@@ -25,6 +25,7 @@ class DoneRecyclerAdapter(private val itemsDone: List<DateTime?>) :
 
     override fun onBindViewHolder(holder: InnerViewHolder, position: Int) {
         val item: DateTime? = itemsDone[position]
+        println(item)
 
         if (item == null){
             holder.doneImage.setImageResource(R.drawable.empty_drawable)

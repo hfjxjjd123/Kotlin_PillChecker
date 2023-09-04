@@ -113,14 +113,14 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(coroutineContext).launch {
             val ioScope = CoroutineScope(Dispatchers.IO).coroutineContext
 
-            val consideredTid: Int? =
+            val consideredDtid: Long? =
                 withContext(ioScope) {
-                    timeRepo.lastTid(dtidNow.and(0b1111).toInt())
+                    timeRepo.lastDtid(dtidNow)
                 }
 
-            val lightPills: List<PillLight> = if (consideredTid != null) {
+            val lightPills: List<PillLight> = if (consideredDtid != null) {
                 withContext(ioScope) {
-                    pillCheckRepo.getPillLightsByTid(consideredTid)
+                    pillCheckRepo.getPillLightsByTid(consideredDtid.and(0b1111).toInt())
                 }
             } else {
                 //TODO lightPills이 Empty한 상황 핸들링 구체화하기

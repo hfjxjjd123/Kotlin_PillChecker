@@ -6,53 +6,31 @@ import java.time.temporal.ChronoUnit
 import java.util.Calendar
 
 const val DATE_BEGINNING = "2021-01-01"
-const val DURATION = 2
 
 val timeIter: List<Int> = listOf(0b0001, 0b0010, 0b0100, 0b1000)
 
 class DateTimeManager {
     companion object {
-        fun getDateValue(datetime: LocalDateTime): Long {
-            val consideredDate = datetime
-                .minusHours(DURATION.toLong() + CalendarManager.getSleepHourRel().toLong())
-                .minusMinutes(CalendarManager.getSleepMinRel().toLong())
-
-            return ChronoUnit.DAYS.between(LocalDate.parse(DATE_BEGINNING), consideredDate)
-        }
 
         fun getTimeValue(datetime: LocalDateTime): Int {
             val startOfDateTime = getDate(datetime).atStartOfDay()
-            val endOfMorning = startOfDateTime.plusHours(CalendarManager.getMorningHour().toLong() + DURATION)
-                .plusMinutes(CalendarManager.getMorningMin().toLong())
-            val endOfLunch = startOfDateTime.plusHours(CalendarManager.getLunchHour().toLong() + DURATION)
-                .plusMinutes(CalendarManager.getLunchMin().toLong())
-            val endOfDinner = startOfDateTime.plusHours(CalendarManager.getDinnerHour().toLong() + DURATION)
-                .plusMinutes(CalendarManager.getDinnerMin().toLong())
 
-            return if (datetime.isBefore(endOfMorning)) 0b0001
-            else if (datetime.isBefore(endOfLunch)) 0b0010
-            else if (datetime.isBefore(endOfDinner)) 0b0100
+            val startOfMorning = startOfDateTime.plusHours(CalendarManager.getMorningHour().toLong())
+                .plusMinutes(CalendarManager.getMorningMin().toLong())
+            val startOfLunch = startOfDateTime.plusHours(CalendarManager.getLunchHour().toLong())
+                .plusMinutes(CalendarManager.getLunchMin().toLong())
+            val startOfDinner = startOfDateTime.plusHours(CalendarManager.getDinnerHour().toLong())
+                .plusMinutes(CalendarManager.getDinnerMin().toLong())
+            val startOfSleep = startOfDateTime.plusDays(1).plusHours(CalendarManager.getSleepHourRel().toLong())
+                .plusMinutes(CalendarManager.getSleepMinAbs().toLong())
+
+            return if (datetime.isBefore(startOfMorning)) 0b1000
+            else if (datetime.isBefore(startOfLunch)) 0b0001
+            else if (datetime.isBefore(startOfDinner)) 0b0010
+            else if (datetime.isBefore(startOfSleep)) 0b0100
             else 0b1000
         }
 
-        fun getTimeValueExtended(datetime: LocalDateTime): Int {
-            val startOfDateTime = getDate(datetime).atStartOfDay()
-            val startOfMorning = startOfDateTime.plusHours(CalendarManager.getMorningHour().toLong() + DURATION)
-                .plusMinutes(CalendarManager.getMorningMin().toLong())
-            val startOfLunch = startOfDateTime.plusHours(CalendarManager.getLunchHour().toLong() + DURATION)
-                .plusMinutes(CalendarManager.getLunchMin().toLong())
-            val startOfDinner = startOfDateTime.plusHours(CalendarManager.getDinnerHour().toLong() + DURATION)
-                .plusMinutes(CalendarManager.getDinnerMin().toLong())
-
-            return if (datetime.isBefore(startOfMorning)) 0b1001
-            else if (datetime.isBefore(startOfMorning.plusHours(DURATION.toLong()))) 0b0001
-            else if (datetime.isBefore(startOfLunch)) 0b0011
-            else if (datetime.isBefore(startOfLunch.plusHours(DURATION.toLong()))) 0b0010
-            else if (datetime.isBefore(startOfDinner)) 0b0110
-            else if (datetime.isBefore(startOfDinner.plusHours(DURATION.toLong()))) 0b0100
-            else if (datetime.isBefore(startOfDateTime.plusHours(24).minusHours(DURATION.toLong()))) 0b1100
-            else 0b1000
-        }
 
         fun countTimeBit(bit: Int): Int{
             var count = 0
@@ -65,25 +43,29 @@ class DateTimeManager {
         }
 
         fun getDate(datetime: LocalDateTime): LocalDate {
+            return datetime.toLocalDate()
+        }
+        //morning 시간이 되지 않는 이상 전날로 처리됨
+        fun getDateValueConsidered(datetime: LocalDateTime): Long {
             val consideredDate = datetime
-                .minusHours(DURATION.toLong() + CalendarManager.getSleepHourRel().toLong())
-                .minusMinutes(CalendarManager.getSleepMinRel().toLong())
-            return consideredDate.toLocalDate()
+                .minusHours(CalendarManager.getMorningHour().toLong())
+                .minusMinutes(CalendarManager.getMorningMin().toLong())
+
+            return ChronoUnit.DAYS.between(LocalDate.parse(DATE_BEGINNING), consideredDate)
         }
 
         fun getDateTimeValueNow(): Long {
             val now = LocalDateTime.now()
 
-            val date = getDateValue(now)
+            val date = getDateValueConsidered(now)
             val time = getTimeValue(now)
-
             return getDateTimeValue(date, time)
         }
 
         fun getDateTimeValueWhenEnd(): Long{
             val startOfTime = LocalDateTime.now().minusHours(2)
 
-            val date = getDateValue(startOfTime)
+            val date = getDateValueConsidered(startOfTime)
             val time = getTimeValue(startOfTime)
 
             return getDateTimeValue(date, time)
@@ -170,12 +152,12 @@ class CalendarManager{
         fun getDinnerMin(): Int = MIN_DINNER
         fun getSleepHourRel(): Int = HOUR_SLEEP
         fun getSleepMinRel(): Int = MIN_SLEEP
-        private fun getSleepHourAbs(): Int{
+        fun getSleepHourAbs(): Int{
             val sleepHourRel = HOUR_SLEEP
             return if(sleepHourRel < 0) 24 + sleepHourRel
             else sleepHourRel
         }
-        private fun getSleepMinAbs(): Int{
+        fun getSleepMinAbs(): Int{
             val sleepMinRel = MIN_SLEEP
             return if(sleepMinRel < 0) 60 + sleepMinRel
             else sleepMinRel
