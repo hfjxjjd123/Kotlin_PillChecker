@@ -40,7 +40,18 @@ class MainRecyclerAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item: PillLight = items[indexManager[position]]
-        holder.pillName.text = item.name
+        var itemEaString = " "
+        if(item.ea != null){
+            if(item.ea!! % 2 == 0){
+                itemEaString += (item.ea!!/2).toString()
+            }else{
+                val itemEa: Double = item.ea!! / 2.0
+                itemEaString += itemEa.toString()
+            }
+            itemEaString += "정"
+        }
+
+        holder.pillName.text = item.name + itemEaString
 
         if (item.checked) {
             holder.checkImage.setImageResource(R.drawable.checkbox_custom_checked)

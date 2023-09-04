@@ -51,7 +51,7 @@ class PillRepo(private val database: MainDatabase){
         // 0001 -> 아침, 0010 -> 점심, 0100 -> 저녁, 1000 -> 취침
         for (bit in timeIter){
             if(times and bit == bit){
-                val pillLight = PillLight(pid = pill.pid, tid = bit, name = pill.name)
+                val pillLight = PillLight(pid = pill.pid, tid = bit, name = pill.name, ea = pill.ea)
                 pillLightDao.insertPillLight(pillLight)
                 countTime(bit)
             }
