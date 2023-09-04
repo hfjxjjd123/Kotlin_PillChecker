@@ -1,7 +1,9 @@
 package com.example.pill_checker.dao
 
+import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.Calendar
 
@@ -97,12 +99,19 @@ class DateTimeManager {
         }
 
         fun getDateString(date: Long): String {
-            return when (date) {
-                -1L -> "오류"
-                0L -> "오늘"
-                1L -> "어제"
-                else -> date.toString() + "일전"
+            val dateToday =  LocalDate.parse(DATE_BEGINNING).plusDays(date)
+            val dayOfWeekString = when(dateToday.dayOfWeek){
+                DayOfWeek.MONDAY -> '월'
+                DayOfWeek.TUESDAY -> '화'
+                DayOfWeek.WEDNESDAY -> '수'
+                DayOfWeek.THURSDAY -> '목'
+                DayOfWeek.FRIDAY -> '금'
+                DayOfWeek.SATURDAY -> '토'
+                DayOfWeek.SUNDAY -> '일'
             }
+            return dateToday.format(
+                DateTimeFormatter.ofPattern("MM.dd($dayOfWeekString)")
+            )
         }
 
         fun getTimeString(time: Int): String {
