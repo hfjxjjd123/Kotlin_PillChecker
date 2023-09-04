@@ -14,5 +14,6 @@ data class PillLight(
     val pid: Long,
     val name: String,
     val tid: Int,
+    var ea: Int? = null,
     var checked: Boolean = false
     )
