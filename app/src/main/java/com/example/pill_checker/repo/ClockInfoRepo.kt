@@ -2,13 +2,15 @@ package com.example.pill_checker.repo
 
 import com.example.pill_checker.dao.CalendarManager
 import com.example.pill_checker.dao.MainDatabase
+import com.example.pill_checker.data.ClockInfo
 import java.util.*
 
 class ClockInfoRepo(private val database: MainDatabase) {
     private val clockInfoDao = database.clockInfoDao()
 
     //cid는 항상 0, 유일
-    suspend fun getCalendarInfo() = clockInfoDao.getClockInfoById(0)
+    suspend fun getClockInfo() = clockInfoDao.getClockInfoById(0)
+    suspend fun updateClockInfo(clockInfo: ClockInfo) = clockInfoDao.updateTime(clockInfo)
 
     suspend fun getMorningInfo(): Pair<Int, Int>{
         val clockInfo = clockInfoDao.getClockInfoById(0)
