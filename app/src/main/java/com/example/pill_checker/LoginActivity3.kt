@@ -54,16 +54,8 @@ class LoginActivity3:AppCompatActivity() {
             // Login1 화면으로 이동하기
             val intent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-
-            val db = MainDatabase.getDatabase(applicationContext)
-            val timeRepo = TimeRepo(db)
-            CoroutineScope(coroutineContext).launch {
-                withContext(Dispatchers.IO) {
-                    timeRepo.initialTime()
-                }
                 startActivity(intent)
                 finishAffinity()
-            }
         }
 
     }

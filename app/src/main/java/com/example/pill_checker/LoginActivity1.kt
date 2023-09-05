@@ -8,10 +8,17 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.pill_checker.dao.MainDatabase
+import com.example.pill_checker.repo.TimeRepo
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope.coroutineContext
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class LoginActivity1 : AppCompatActivity() {
@@ -47,10 +54,20 @@ class LoginActivity1 : AppCompatActivity() {
         if (requestCode == 1) {
             val account =
                 GoogleSignIn.getSignedInAccountFromIntent(data).getResult(ApiException::class.java)
-            startActivity(intent)
+            initTime()
         }
 
     }
 
+    private fun initTime(){
+        val db = MainDatabase.getDatabase(applicationContext)
+        val timeRepo = TimeRepo(db)
+        CoroutineScope(coroutineContext).launch {
+            withContext(Dispatchers.IO) {
+                timeRepo.initialTime()
+            }
+            startActivity(intent)
+        }
+    }
 
 }
