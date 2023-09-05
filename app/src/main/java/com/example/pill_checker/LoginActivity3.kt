@@ -57,9 +57,5 @@ class LoginActivity3:AppCompatActivity() {
                 startActivity(intent)
                 finishAffinity()
         }
-
     }
-
-
-
 }

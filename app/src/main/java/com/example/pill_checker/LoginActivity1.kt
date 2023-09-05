@@ -54,12 +54,12 @@ class LoginActivity1 : AppCompatActivity() {
         if (requestCode == 1) {
             val account =
                 GoogleSignIn.getSignedInAccountFromIntent(data).getResult(ApiException::class.java)
-            initTime()
+            initTimeAndUserInfo()
         }
 
     }
 
-    private fun initTime(){
+    private fun initTimeAndUserInfo(){
         val db = MainDatabase.getDatabase(applicationContext)
         val timeRepo = TimeRepo(db)
         CoroutineScope(coroutineContext).launch {
