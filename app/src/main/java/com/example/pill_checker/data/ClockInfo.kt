@@ -12,6 +12,6 @@ data class ClockInfo(
     var lunchMin: Int,
     var dinnerHour: Int,
     var dinnerMin: Int,
-    var nightHour: Int,
-    var nightMin: Int
+    var sleepHour: Int,
+    var sleepMin: Int
 )

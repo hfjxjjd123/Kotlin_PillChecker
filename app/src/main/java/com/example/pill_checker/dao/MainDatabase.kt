@@ -10,8 +10,8 @@ import com.example.pill_checker.adapter.CheckRecyclerAdapter
 import com.example.pill_checker.data.*
 
 @Database(
-    entities = [Pill::class, PillCheck::class, PillLight::class, DateTime::class, Time::class],
-    version = 4
+    entities = [Pill::class, PillCheck::class, PillLight::class, DateTime::class, Time::class, ClockInfo::class],
+    version = 5
 )
 @TypeConverters(BitmapTypeConverter::class)
 abstract class MainDatabase : RoomDatabase() {
@@ -20,6 +20,7 @@ abstract class MainDatabase : RoomDatabase() {
     abstract fun pillLightDao(): PillLightDao
     abstract fun dateTimeDao(): DateTimeDao
     abstract fun timeDao(): TimeDao
+    abstract fun clockInfoDao(): ClockInfoDao
 
     companion object {
         @Volatile

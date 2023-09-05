@@ -4,14 +4,15 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import com.example.pill_checker.data.ClockInfo
 import com.example.pill_checker.data.Time
 
 @Dao
 interface ClockInfoDao {
     @Query("SELECT * FROM ClockInfo WHERE cid = :cid")
-    suspend fun getTimeById(cid: Int): Time
+    suspend fun getClockInfoById(cid: Int): ClockInfo
     @Update
-    suspend fun updateTime(time: Time)
+    suspend fun updateTime(clockInfo: ClockInfo)
     @Insert
-    suspend fun insertTime(time: Time)
+    suspend fun insertTime(clockInfo: ClockInfo)
 }
